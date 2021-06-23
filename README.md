@@ -1,24 +1,23 @@
-# README
+## Table of contents
+* [General info](#general-info)
+* [Gems and libraries](#gems-and-libraries)
+* [Setup](#setup)
+* [Thanks to](#thanks-to)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## General info
+This is a simple template for my projects using Ruby on Rails.
+	
+## Gems and libraries
+Project is created with:
+* Ruby 2.7.2
+* Rails 6.0.4
+* Rspec-rails 5.0.1
+	
+## Setup
+Just clone it and code on it!
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Thanks to
+* My parents, who raised me and who I love unconditionally
+* My friends. They are my rock and my safe heaven 
+* [GTi Engenharia Jr.](https://gtijr.com/) who helped me on my first steps on web development
+* [Bulldogjob](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project) for this amazing tutorial about writing a good readme
