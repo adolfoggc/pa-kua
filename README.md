@@ -14,7 +14,7 @@ Project is created with:
 * Rspec-rails 5.0.1
 	
 ## Setup
-You will need to include an yml file for your environmental variables. This is the default file
+You will need to include an yml file for your environmental variables. Create a file on `/config/application.yml`, copy this sample and change the variable default values as you desire 
 
 ```ruby
 default: &default
