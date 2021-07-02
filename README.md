@@ -1,18 +1,22 @@
 ## Table of contents
 * [General info](#general-info)
-* [Gems and libraries](#gems-and-libraries)
+* [Default gems and libraries](#default-gems-and-libraries)
+* [Branches and gems](#branches-and-gems)
 * [Setup](#setup)
 * [Thanks to](#thanks-to)
 
 ## General info
 This is a simple template for my projects using Ruby on Rails.
 	
-## Gems and libraries
+## Default gems and libraries
 Project is created with:
 * Ruby 2.7.2
 * Rails 6.0.4
 * Rspec-rails 5.0.1
-	
+
+## Branches and gems
+### Devise
+Devise branch contains the devise gem for authentication and uses de model attribute `profile` for different kinds of `member` 
 ## Setup
 You will need to include an yml file for your environmental variables. Create a file on `/config/application.yml`, copy this sample and change the variable default values as you desire 
 
