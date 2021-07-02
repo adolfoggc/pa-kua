@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+#devise gem
+gem 'devise'
+
 # Figaro was written to make it easy to securely configure Rails applications.
 gem 'figaro'
 
