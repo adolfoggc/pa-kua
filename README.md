@@ -15,7 +15,8 @@ Project is created with:
 * Rspec-rails 5.0.1
 
 ## Branches and gems
-### Devise
+* Devise
+
 Devise branch contains the devise gem for authentication and uses de model attribute `profile` for different kinds of `member` 
 ## Setup
 You will need to include an yml file for your environmental variables. Create a file on `/config/application.yml`, copy this sample and change the variable default values as you desire 
