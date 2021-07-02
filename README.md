@@ -14,7 +14,21 @@ Project is created with:
 * Rspec-rails 5.0.1
 	
 ## Setup
-Just clone it and code on it!
+You will need to include an yml file for your environmental variables. This is the default file
+
+```ruby
+default: &default
+  app_name: "Your App Name"
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+```
 
 ## Thanks to
 * My parents, who raised me and who I love unconditionally
