@@ -15,7 +15,7 @@ Project is created with:
 * Rspec-rails 5.0.1
 
 ## Branches and gems
-* Devise
+* Devise 4.7.3
 
 Devise branch contains the devise gem for authentication and uses de model attribute `profile` for different kinds of `member` 
 ## Setup
