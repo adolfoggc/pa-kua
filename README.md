@@ -13,6 +13,7 @@ Project is created with:
 * Ruby 2.7.2
 * Rails 6.0.4
 * Rspec-rails 5.0.1
+* FactoryBot Rails 6.2.0
 
 ## Branches and gems
 * Devise 4.7.3
