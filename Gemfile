@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
+#devise gem
+gem 'devise'
+
 # Figaro was written to make it easy to securely configure Rails applications.
 gem 'figaro'
 
@@ -35,7 +38,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 5.0.0'
-  gem 'factory_bot_rails'
+  gem 'factory_bot'
 end
 
 group :development do
