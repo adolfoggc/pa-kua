@@ -60,13 +60,14 @@ class PaymentsController < ApplicationController
     @student = Person.find(params[:id])
     today = Date.today
     payment = Payment.new(student_plan: @student.student_plan, paid: false, due_date: Date.new(today.year, today.month, @student.student_plan.due_day))
+    payment.payment_fee = payment.student_plan.final_tuition_fee
     payment.save
     redirect_to @student
   end
 
   def recive_payment
     payment = Payment.find(params[:id])
-    payment.payment_fee = payment.student_plan.final_tuition_fee
+    payment.paid_fee = payment.payment_fee
     payment.paid = true
     payment.save
     redirect_to payment.student_plan.person
