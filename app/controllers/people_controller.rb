@@ -84,10 +84,53 @@ class PeopleController < ApplicationController
   end
 
   def payment_data
-    if @person.pakua_student?
-      @today = Date.today
-      #REFACTOR
-      @student_payment = Payment.where(student_plan: @person.student_plan).first
+    return unless @person.pakua_student?
+
+    @today = Date.today
+    #REFACTOR
+    @payments = @person.payments.where(':start_date <= due_date and due_date <= :end_date', {start_date: Date.new(@today.year, 1, 1), end_date: Date.new(@today.year, 12, 31)})
+    @months_and_status = {  jan: { style: '' }, fev: { style: '' }, mar: { style: '' }, abr: { style: '' }, mai: { style: '' }, jun: { style: '' },
+                            jul: { style: '' }, ago: { style: '' }, set: { style: '' }, out: { style: '' }, nov: { style: '' }, dez: { style: '' } }
+    @payments.each do |p|
+      @student_payment = p if @today.month == p.due_date.month
+      case p.due_date.month
+      when 1
+        @months_and_status[:jan] = { id: p.id, style: get_month_style(p) }
+      when 2
+        @months_and_status[:fev] = { id: p.id, style: get_month_style(p) }
+      when 3
+        @months_and_status[:mar] = { id: p.id, style: get_month_style(p) }
+      when 4
+        @months_and_status[:abr] = { id: p.id, style: get_month_style(p) }
+      when 5
+        @months_and_status[:mai] = { id: p.id, style: get_month_style(p) }
+      when 6
+        @months_and_status[:jun] = { id: p.id, style: get_month_style(p) }
+      when 7
+        @months_and_status[:jul] = { id: p.id, style: get_month_style(p) }
+      when 8
+        @months_and_status[:ago] = { id: p.id, style: get_month_style(p) }
+      when 9
+        @months_and_status[:set] = { id: p.id, style: get_month_style(p) }
+      when 10
+        @months_and_status[:out] = { id: p.id, style: get_month_style(p) }
+      when 11
+        @months_and_status[:nov] = { id: p.id, style: get_month_style(p) }
+      else
+        @months_and_status[:dez] = { id: p.id, style: get_month_style(p) }
+      end
+    end
+    @student_payment = @payments.select { |p| (Date.new(@today.year, @today.month, 1) <= p.due_date && p.due_date <= (Date.new(@today.year, @today.month + 1, 1) - 1.day))  }.first
+    @month = 1
+  end
+
+  def get_month_style(payment)
+    if payment.due_date.month == @today.month
+      'bg-primary'
+    elsif payment.paid_fee == payment.payment_fee
+      'bg-success'
+    else
+      'bg-danger'
     end
   end
 end
