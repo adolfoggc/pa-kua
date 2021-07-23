@@ -85,7 +85,10 @@
     </div>
   </div>
   <% if @person.pakua_student? && !@person.student_plan.nil?%>
-    <%= render 'payments' %>
+    <div class="row">
+      <%= render 'payments' %>
+      <%= render 'months_payment' %>
+    </div>
   <% end%>
 </section>
 
