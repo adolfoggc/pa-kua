@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_21_022438) do
+ActiveRecord::Schema.define(version: 2021_08_21_022439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2021_08_21_022438) do
     t.string "payment_link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "paid_fee"
     t.index ["student_plan_id"], name: "index_payments_on_student_plan_id"
   end
 
