@@ -4,6 +4,9 @@ class Member < ApplicationRecord
   devise  :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
 
+  encrypts :email
+  blind_index :email
+
   enum profile: {
     admin: 0,
     default: 1
