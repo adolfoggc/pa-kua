@@ -17,7 +17,7 @@ Project is created with:
 * Figaro 1.2.0
 
 ## Branches and gems
-* Devise 4.7.3
+* Devise 4.7.3 (Includes Lockbox lockbox 0.6.5 and Blind Index blind_index 2.2.0)
 
 Devise branch contains the devise gem for authentication and uses de model attribute `profile` for different kinds of `member` 
 ## Setup
