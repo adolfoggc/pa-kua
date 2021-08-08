@@ -59,4 +59,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  #dev lockbox key
+  ENV['LOCKBOX_MASTER_KEY'] = "ee6a0819f3195e836ad4a3aca8646cee12fa2d94d4448522d8cfb5952eb0bf09"
 end
