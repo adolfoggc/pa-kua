@@ -8,6 +8,7 @@ class PeopleController < ApplicationController
 
   # GET /people or /people.json
   def index
+    @people = []
     @students = []
     @instructors = []
     @inactive = []
@@ -17,6 +18,7 @@ class PeopleController < ApplicationController
       @instructors << p if p.pakua_instructor?
       @inactive << p if p.inactive?
       @traveling_instructor << p if p.traveling_instructor?
+      @people << p
     end
   end
 
