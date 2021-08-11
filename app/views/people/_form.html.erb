@@ -12,38 +12,38 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
+    <%= form.label :name, 'Nome' %>
     <%= form.text_field :name %>
   </div>
 
   <div class="field">
-    <%= form.label :address %>
+    <%= form.label :address, 'Endereço' %>
     <%= form.text_field :address %>
   </div>
 
   <div class="field">
-    <%= form.label :birthdate %>
+    <%= form.label :birthdate, 'Nascimento' %>
     <%= form.date_select :birthdate %>
   </div>
 
   <div class="field">
-    <%= form.label :phone %>
+    <%= form.label :phone, 'Celular' %>
     <%= form.text_field :phone %>
   </div>
 
   <div class="field">
-    <%= form.label :cpf %>
+    <%= form.label :cpf, 'CPF' %>
     <%= form.text_field :cpf %>
   </div>
 
   <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
+    <%= form.label :role, 'Atuação' %>
+    <%= form.select(:role, options_for_select(@roles.map { |k, v| [k.to_s.humanize, Person.roles.key(v)]}) ) %>
   </div>
 
   <div class="field">
-    <%= form.label :stard_date %>
-    <%= form.date_select :stard_date %>
+    <%= form.label :start_date, 'Entrada na Escola' %>
+    <%= form.date_select :start_date %>
   </div>
 
   <div class="actions">

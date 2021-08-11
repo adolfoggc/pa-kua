@@ -1,9 +1,25 @@
+# frozen_string_literal: true
+
+# Manipulation of people data
 class PeopleController < ApplicationController
-  before_action :set_person, only: %i[ show edit update destroy ]
+  before_action :set_person, only: %i[show edit update destroy]
+  before_action :roles_data, only: %i[new edit update]
+  layout 'adminlte3'
 
   # GET /people or /people.json
   def index
-    @people = Person.all
+    @people = []
+    @students = []
+    @instructors = []
+    @inactive = []
+    @traveling_instructor = []
+    Person.all.each do |p|
+      p.pakua_student? ? @students << p : nil
+      p.pakua_instructor? ? @instructors << p : nil
+      p.inactive? ? @inactive << p : nil
+      p.traveling_instructor? ? @traveling_instructor << p : nil
+      @people << p
+    end
   end
 
   # GET /people/1 or /people/1.json
@@ -28,6 +44,7 @@ class PeopleController < ApplicationController
         format.html { redirect_to @person, notice: "Person was successfully created." }
         format.json { render :show, status: :created, location: @person }
       else
+        roles_data
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
@@ -41,6 +58,7 @@ class PeopleController < ApplicationController
         format.html { redirect_to @person, notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
+        roles_data
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
@@ -57,13 +75,21 @@ class PeopleController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_person
-      @person = Person.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def person_params
-      params.require(:person).permit(:name, :address, :birthdate, :phone, :cpf, :status, :stard_date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_person
+    @person = Person.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def person_params
+    params.require(:person).permit(:name, :address, :birthdate, :phone, :cpf, :role, :start_date)
+  end
+
+  def roles_data
+    @roles = {
+      aluno: 1, aula_inaugural: 2, aluno_e_instrutor: 3, instrutor: 4,
+      instrutor_intinerante: 5, inativo: 0
+    }
+  end
 end

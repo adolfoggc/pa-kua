@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3><%= @people.count %></h3>
+
+        <p>Membros Cadastrados</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-users" aria-hidden="true"></i>
+      </div>
+      <%= link_to people_path, class: "small-box-footer" do %>
+        Mais Informações <i class="fas fa-arrow-circle-right"></i>
+      <% end %>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-success">
+      <div class="inner">
+        <h3><%= @students.count %></h3>
+
+        <p>Alunos</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </div>
+      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-warning">
+      <div class="inner">
+        <h3><%= @instructors.count %></h3>
+
+        <p>Instrutores</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </div>
+      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+  <div class="col-lg-3 col-6">
+    <!-- small box -->
+    <div class="small-box bg-danger">
+      <div class="inner">
+        <h3><%= @inactive.count %></h3>
+
+        <p>Inativos</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-user-times" aria-hidden="true"></i>
+      </div>
+      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+  </div>
+  <!-- ./col -->
+</div>
