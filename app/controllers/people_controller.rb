@@ -8,17 +8,15 @@ class PeopleController < ApplicationController
 
   # GET /people or /people.json
   def index
-    @people = []
     @students = []
     @instructors = []
     @inactive = []
     @traveling_instructor = []
     Person.all.each do |p|
-      p.pakua_student? ? @students << p : nil
-      p.pakua_instructor? ? @instructors << p : nil
-      p.inactive? ? @inactive << p : nil
-      p.traveling_instructor? ? @traveling_instructor << p : nil
-      @people << p
+      @students << p if p.pakua_student?
+      @instructors << p if p.pakua_instructor?
+      @inactive << p if p.inactive?
+      @traveling_instructor << p if p.traveling_instructor?
     end
   end
 
@@ -87,9 +85,6 @@ class PeopleController < ApplicationController
   end
 
   def roles_data
-    @roles = {
-      aluno: 1, aula_inaugural: 2, aluno_e_instrutor: 3, instrutor: 4,
-      instrutor_intinerante: 5, inativo: 0
-    }
+    @roles = { aluno: 1, aula_inaugural: 2, aluno_e_instrutor: 3, instrutor: 4, instrutor_intinerante: 5 }
   end
 end
