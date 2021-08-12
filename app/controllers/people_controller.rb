@@ -4,7 +4,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
   before_action :roles_data, only: %i[new edit update]
-  layout 'adminlte3'
 
   # GET /people or /people.json
   def index
