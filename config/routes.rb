@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'alunos/:id', to: 'students#update'
   get 'alunos/:id', to: 'students#destroy'
   resources :people
-  devise_for :members
+  devise_for :members, controllers: {
+    sessions: 'member/sessions'
+  }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
