@@ -20,6 +20,6 @@ class Person < ApplicationRecord
   end
 
   def pakua_instructor?
-    instructor? || student_and_instructor?
+    instructor? || student_and_instructor? || traveling_instructor?
   end
 end
