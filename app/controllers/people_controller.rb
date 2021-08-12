@@ -7,18 +7,7 @@ class PeopleController < ApplicationController
 
   # GET /people or /people.json
   def index
-    @people = []
-    @students = []
-    @instructors = []
-    @inactive = []
-    @traveling_instructor = []
-    Person.all.each do |p|
-      @students << p if p.pakua_student?
-      @instructors << p if p.pakua_instructor?
-      @inactive << p if p.inactive?
-      @traveling_instructor << p if p.traveling_instructor?
-      @people << p
-    end
+    get_people_data
   end
 
   # GET /people/1 or /people/1.json
