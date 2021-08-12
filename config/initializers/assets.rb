@@ -35,4 +35,12 @@ Rails.application.config.assets.precompile += %w[
   tempusdominus-bootstrap-4.min.js
   summernote-bs4.min.js
   jquery.overlayScrollbars.min.js
+  select2.full.js
+  jquery.bootstrap-duallistbox.min.js
+  jquery.inputmask.min.js
+  daterangepicker.js
+  bootstrap-colorpicker.min.js
+  bootstrap-switch.min.js
+  bs-stepper.min.js
+  dropzone.min.js
 ]
