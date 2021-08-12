@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'dashboard#index'
   get 'instrutores', to: 'instructors#index'
   get 'instrutores/novo', to: 'instructors#new'
   get 'instrutores/:id', to: 'instructors#show'
