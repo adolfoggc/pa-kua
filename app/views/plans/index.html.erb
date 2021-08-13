@@ -15,4 +15,9 @@
   <div class="col-6">
     <%= link_to 'Novo Plano', new_tuition_fee_path, class: 'btn btn-primary' %>
   </div>
+  <br>
+  <%= render '/shared/current_rent_fee' %>
+  <div class="col-6">
+    <%= link_to 'Novo Aluguel', new_rent_path, class: 'btn btn-primary' %>
+  </div>
 </section>

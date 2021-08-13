@@ -5,25 +5,17 @@
         <!-- /.card -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Planos Atuais (Desde <%= date_format(@starting_date_for_current_table)  %>)</h3>
+            <h3 class="card-title">Aluguel Atual (Desde <%= date_format(@starting_date_for_current_table)  %>)</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body p-0">
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th>Aulas Semanais</th>
-                  <th>Valor</th>
+                  <th>Valor:</th>
+                  <th><%= @current_fee.blank? ? 'Não definido' : to_money(@current_fee.rental_amount)  %></th>
                 </tr>
               </thead>
-              <tbody>
-                <% @current_tuition_fee.each do |tuition_fee| %>
-                  <tr>
-                    <td><%= weekly_classes(tuition_fee.weekly_classes) %></td>
-                    <td><%= to_money(tuition_fee.fee) %></td>
-                  </tr>
-                <% end %>
-              </tbody>
             </table>
           </div>
           <!-- /.card-body -->
