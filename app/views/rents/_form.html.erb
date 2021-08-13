@@ -1,0 +1,27 @@
+<%= form_with(model: rent, local: true) do |form| %>
+  <% if rent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
+
+      <ul>
+        <% rent.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :rental_amount %>
+    <%= form.text_field :rental_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starts_at %>
+    <%= form.date_select :starts_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

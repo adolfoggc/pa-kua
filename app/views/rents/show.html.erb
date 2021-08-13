@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rental amount:</strong>
+  <%= @rent.rental_amount %>
+</p>
+
+<p>
+  <strong>Starts at:</strong>
+  <%= @rent.starts_at %>
+</p>
+
+<%= link_to 'Edit', edit_rent_path(@rent) %> |
+<%= link_to 'Back', rents_path %>

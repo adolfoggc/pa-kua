@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'plans/index'
+  resources :rents
   root 'dashboard#index'
 
   #resources
