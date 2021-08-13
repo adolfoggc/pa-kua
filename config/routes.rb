@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'dashboard#index'
 
   #resources
-  resources :tuition_fees, path: 'mensalidades'
+  resources :tuition_fees, path: 'planos'
   scope(path_names: { new: 'novo', edit: 'editar' }) do
     resources :people, path: 'membros'
   end
