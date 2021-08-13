@@ -25,7 +25,7 @@ class RentsController < ApplicationController
 
     respond_to do |format|
       if @rent.save
-        format.html { redirect_to @rent, notice: "Rent was successfully created." }
+        format.html { redirect_to rents_path, notice: "Rent was successfully created." }
         format.json { render :show, status: :created, location: @rent }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class RentsController < ApplicationController
   def update
     respond_to do |format|
       if @rent.update(rent_params)
-        format.html { redirect_to @rent, notice: "Rent was successfully updated." }
+        format.html { redirect_to  rents_path, notice: "Rent was successfully updated." }
         format.json { render :show, status: :ok, location: @rent }
       else
         format.html { render :edit, status: :unprocessable_entity }
