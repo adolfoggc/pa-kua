@@ -4,8 +4,10 @@ Rails.application.routes.draw do
 
   scope 'planos' do
     get '/', to: 'plans#index', as: :plans_index
-    resources :tuition_fees, path: 'mensalidades'
-    resources :rents
+    scope(path_names: { new: 'novo', edit: 'editar' }) do
+      resources :tuition_fees, path: 'mensalidades'
+      resources :rents
+    end
   end
   scope(path_names: { new: 'novo', edit: 'editar' }) do
     resources :people, path: 'membros'
