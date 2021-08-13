@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get '/', to: 'plans#index', as: :plans_index
     scope(path_names: { new: 'novo', edit: 'editar' }) do
       resources :tuition_fees, path: 'mensalidades'
-      resources :rents
+      resources :rents, path: 'alugueis'
     end
   end
   scope(path_names: { new: 'novo', edit: 'editar' }) do
