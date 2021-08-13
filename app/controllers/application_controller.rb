@@ -17,4 +17,20 @@ class ApplicationController < ActionController::Base
       @people << p
     end
   end
+
+  def current_tuition_fee_table
+    valid_tuition_fees = TuitionFee.where('validity <= :today', today: Date.today).order(:weekly_classes)
+    weekly_classes = valid_tuition_fees.select(:weekly_classes).distinct.map(&:weekly_classes)
+    tuition_fees_by_classes = {}
+    weekly_classes.each do |weekly_class|
+      tuition_fees_by_classes[weekly_class] = nil
+    end
+
+    valid_tuition_fees.order(validity: 'DESC', id: 'DESC').each do |tf|
+      tuition_fees_by_classes[tf.weekly_classes] = tf if tuition_fees_by_classes[tf.weekly_classes].nil?
+      break unless tuition_fees_by_classes.value?(nil)
+    end
+
+    @current_tuition_fee = tuition_fees_by_classes.map {|k,v| v}
+  end
 end

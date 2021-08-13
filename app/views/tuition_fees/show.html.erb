@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Weekly classes:</strong>
+  <%= @tuition_fee.weekly_classes %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @tuition_fee.fee %>
+</p>
+
+<p>
+  <strong>Validity:</strong>
+  <%= @tuition_fee.validity %>
+</p>
+
+<%= link_to 'Edit', edit_tuition_fee_path(@tuition_fee) %> |
+<%= link_to 'Back', tuition_fees_path %>

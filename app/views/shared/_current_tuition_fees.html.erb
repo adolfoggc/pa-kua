@@ -1,0 +1,36 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- /.card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Planos</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Aulas Semanais</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @current_tuition_fee.each do |tuition_fee| %>
+                  <tr>
+                    <td><%= weekly_classes(tuition_fee.weekly_classes) %></td>
+                    <td><%= to_money(tuition_fee.fee) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+<br>

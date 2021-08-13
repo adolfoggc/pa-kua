@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
+
   root 'dashboard#index'
+
+  #resources
+  resources :tuition_fees, path: 'mensalidades'
+  scope(path_names: { new: 'novo', edit: 'editar' }) do
+    resources :people, path: 'membros'
+  end
+
   get 'instrutores', to: 'instructors#index'
   get 'instrutores/novo', to: 'instructors#new'
   get 'instrutores/:id', to: 'instructors#show'
@@ -14,7 +22,6 @@ Rails.application.routes.draw do
   get 'alunos', to: 'students#create'
   get 'alunos/:id', to: 'students#update'
   get 'alunos/:id', to: 'students#destroy'
-  resources :people
   devise_for :members, controllers: {
     sessions: 'member/sessions'
   }

@@ -1,0 +1,32 @@
+<%= form_with(model: tuition_fee, local: true) do |form| %>
+  <% if tuition_fee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tuition_fee.errors.count, "error") %> prohibited this tuition_fee from being saved:</h2>
+
+      <ul>
+        <% tuition_fee.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :weekly_classes %>
+    <%= form.number_field :weekly_classes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fee %>
+    <%= form.text_field :fee %>
+  </div>
+
+  <div class="field">
+    <%= form.label :validity %>
+    <%= form.date_select :validity %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
