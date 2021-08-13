@@ -26,11 +26,12 @@ class ApplicationController < ActionController::Base
       tuition_fees_by_classes[weekly_class] = nil
     end
 
+    @starting_date_for_current_table = nil 
     valid_tuition_fees.order(validity: 'DESC', id: 'DESC').each do |tf|
+      @starting_date_for_current_table = tf.validity if @starting_date_for_current_table.nil?
       tuition_fees_by_classes[tf.weekly_classes] = tf if tuition_fees_by_classes[tf.weekly_classes].nil?
       break unless tuition_fees_by_classes.value?(nil)
     end
-
-    @current_tuition_fee = tuition_fees_by_classes.map {|k,v| v}
+    @current_tuition_fee = tuition_fees_by_classes.map { |_, v| v } #k is not used
   end
 end

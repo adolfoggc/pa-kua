@@ -12,7 +12,12 @@ module ApplicationHelper
 
   def to_money(cash)
     str_cash = cash.to_s
-    str_cash += '0' if cash%100 < 10
+    puts ((cash % 1) * 10) % 1
+    str_cash += '0' if (((cash % 1) * 10) % 1).zero?
     "R$ #{str_cash.gsub!('.', ',')}"
+  end
+
+  def date_format(date)
+    date.strftime('%d/%m/%Y')
   end
 end
