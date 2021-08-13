@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :discounts
   root 'dashboard#index'
 
   scope 'planos' do
