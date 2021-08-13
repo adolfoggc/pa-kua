@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_004500) do
+ActiveRecord::Schema.define(version: 2021_08_13_104937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 2021_08_13_004500) do
     t.text "start_date_ciphertext"
     t.index ["birthdate_bidx"], name: "index_people_on_birthdate_bidx", unique: true
     t.index ["start_date_bidx"], name: "index_people_on_start_date_bidx", unique: true
+  end
+
+  create_table "rents", force: :cascade do |t|
+    t.decimal "rental_amount"
+    t.date "starts_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tuition_fees", force: :cascade do |t|
