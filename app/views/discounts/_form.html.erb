@@ -10,23 +10,41 @@
       </ul>
     </div>
   <% end %>
+  <div class="col-md-6">
+    <!-- general form elements -->
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title"><%= @view_action %></h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="form-group">
+          <h4><%= form.label :kind_of_plan, 'Tipo de Desconto' %></h4>
+          <%= form.select(:kind_of_plan, options_for_select(Discount.kind_of_plans.map {|k,v| [k.humanize.capitalize, Discount.kind_of_plans.key(v)] }), {}, class: "form-control rounded-0" )  %>
+        </div>
 
-  <div class="field">
-    <%= form.label :discount_percentage %>
-    <%= form.text_field :discount_percentage %>
-  </div>
+        <div class="form-group">
+          <h4 class="mb-0"><%= form.label :discount_percentage, 'Porcentagem de Desconto', class: "mb-0" %></h4>
+          <%= form.text_field :discount_percentage, class: "form-control form-control-border" %>
+        </div>
 
-  <div class="field">
-    <%= form.label :starts_at %>
-    <%= form.date_select :starts_at %>
-  </div>
+        <div class="form-group">
+          <h4><%= form.label :starts_at, 'Início de vigência' %></h4>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+            </div>
+            <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="discount_starts_at" name="discount[starts_at]" value="<%= @discount.starts_at.nil? ? date_to_string(Date.today) : date_to_string(@discount.starts_at) %>">
+          </div>
+          <!-- /.input group -->
+        </div>
 
-  <div class="field">
-    <%= form.label :kind_of_plan %>
-    <%= form.number_field :kind_of_plan %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+        <div class="actions">
+          <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
   </div>
 <% end %>
