@@ -10,11 +10,15 @@ module ApplicationHelper
     quantity.zero? ? 'Plano Livre' : quantity
   end
 
+  def to_br(value)
+    str_value = value.to_s
+    puts ((value % 1) * 10) % 1
+    str_value += '0' if (((value % 1) * 10) % 1).zero?
+    str_value.gsub!('.', ',')
+  end
+
   def to_money(cash)
-    str_cash = cash.to_s
-    puts ((cash % 1) * 10) % 1
-    str_cash += '0' if (((cash % 1) * 10) % 1).zero?
-    "R$ #{str_cash.gsub!('.', ',')}"
+    "R$ #{to_br(cash)}"
   end
 
   def date_format(date)
