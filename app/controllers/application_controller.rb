@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_discounts
-    valid_discounts = Discount.where('start_date <= :today', today: Date.today).order(:kind_of_plan)
+    valid_discounts = Discount.where('starts_at <= :today', today: Date.today).order(:kind_of_plan)
     kinds_of_plan = valid_discounts.select(:kind_of_plan).distinct.map(&:kind_of_plan)
     kinds_of_discounts = {}
     kinds_of_plan.each do |kind_of_plan|
@@ -48,8 +48,8 @@ class ApplicationController < ActionController::Base
     end
 
     @starting_date_for_current_discount = nil
-    valid_discounts.order(start_date: 'DESC', id: 'DESC').each do |vd|
-      @starting_date_for_current_discount = vd.start_date if @starting_date_for_current_discount.nil?
+    valid_discounts.order(starts_at: 'DESC', id: 'DESC').each do |vd|
+      @starting_date_for_current_discount = vd.starts_at if @starting_date_for_current_discount.nil?
       kinds_of_discounts[vd.kind_of_plan] = vd if kinds_of_discounts[vd.kind_of_plan].nil?
       break unless kinds_of_discounts.value?(nil)
     end
