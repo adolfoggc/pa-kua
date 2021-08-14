@@ -7,7 +7,6 @@ class Person < ApplicationRecord
   validates :start_date, presence: true, if: :pakua_student?
 
   enum role: {
-    inactive: 0,
     student: 1,
     open_class_student: 2,
     student_and_instructor: 3,
@@ -21,5 +20,19 @@ class Person < ApplicationRecord
 
   def pakua_instructor?
     instructor? || student_and_instructor? || traveling_instructor?
+  end
+
+  def role_br
+    if student?
+      'Aluno(a)'
+    elsif open_class_student?
+      'Aluno(a) de aula Inaugural'
+    elsif student_and_instructor?
+      'Aluno(a) e Instrutor(a)'
+    elsif instructor?
+      'Instrutor(a)'
+    else
+      'Instrutor(a) Itineirante'
+    end
   end
 end
