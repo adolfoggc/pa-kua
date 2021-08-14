@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_180706) do
+ActiveRecord::Schema.define(version: 2021_08_14_194922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,19 @@ ActiveRecord::Schema.define(version: 2021_08_13_180706) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "student_plans", force: :cascade do |t|
+    t.bigint "people_id", null: false
+    t.bigint "tuition_fee_id", null: false
+    t.bigint "discount_id", null: false
+    t.string "rent_inclusion"
+    t.integer "due_day"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["discount_id"], name: "index_student_plans_on_discount_id"
+    t.index ["people_id"], name: "index_student_plans_on_people_id"
+    t.index ["tuition_fee_id"], name: "index_student_plans_on_tuition_fee_id"
+  end
+
   create_table "tuition_fees", force: :cascade do |t|
     t.integer "weekly_classes"
     t.decimal "fee"
@@ -68,4 +81,7 @@ ActiveRecord::Schema.define(version: 2021_08_13_180706) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "student_plans", "discounts"
+  add_foreign_key "student_plans", "people", column: "people_id"
+  add_foreign_key "student_plans", "tuition_fees"
 end
