@@ -3,7 +3,7 @@ class Person < ApplicationRecord
   encrypts :birthdate, :start_date, type: :date
   blind_index :birthdate, :start_date
 
-  validates :name_ciphertext, :phone_ciphertext, :cpf_ciphertext, presence: true
+  validates :name_ciphertext, :address_ciphertext, :phone_ciphertext, :cpf_ciphertext, presence: true
   validates :start_date, presence: true, if: :pakua_student?
 
   enum role: {
