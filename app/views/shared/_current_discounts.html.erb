@@ -23,7 +23,7 @@
                   <% @current_discounts.each do |discount| %>
                     <tr>
                       <td><%= discount.kind_of_plan %></td>
-                      <td><%= discount.discount_percentage %></td>
+                      <td><%= "#{to_br(discount.discount_percentage)}%" %></td>
                     </tr>
                   <% end %>
                 <% end %>
