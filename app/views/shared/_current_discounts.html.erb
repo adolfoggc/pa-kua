@@ -1,0 +1,39 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- /.card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Descontos Atuais <%= "(Desde #{date_format(@starting_date_for_current_discount)})" if !@starting_date_for_current_discount.nil?  %></h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Plano</th>
+                  <th>Desconto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @current_discounts.blank? %>
+                  <td colspan="2">Nenhum desconto registrado</td>
+                <% else %>
+                  <% @current_discounts.each do |discount| %>
+                    <tr>
+                      <td><%= discount.kind_of_plan %></td>
+                      <td><%= discount.discount_percentage %></td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
