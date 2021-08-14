@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :student_plans
   root 'dashboard#index'
 
   scope 'planos' do

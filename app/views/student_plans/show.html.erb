@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>People:</strong>
+  <%= @student_plan.people_id %>
+</p>
+
+<p>
+  <strong>Tuition fee:</strong>
+  <%= @student_plan.tuition_fee_id %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @student_plan.discount_id %>
+</p>
+
+<p>
+  <strong>Rent inclusion:</strong>
+  <%= @student_plan.rent_inclusion %>
+</p>
+
+<p>
+  <strong>Due day:</strong>
+  <%= @student_plan.due_day %>
+</p>
+
+<%= link_to 'Edit', edit_student_plan_path(@student_plan) %> |
+<%= link_to 'Back', student_plans_path %>
