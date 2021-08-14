@@ -5,7 +5,7 @@
         <!-- /.card -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Planos Atuais (Desde <%= date_format(@starting_date_for_current_table)  %>)</h3>
+            <h3 class="card-title">Planos Atuais <%= "(Desde #{date_format(@starting_date_for_current_fees)})" if !@starting_date_for_current_fees.nil?  %></h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body p-0">
@@ -17,12 +17,20 @@
                 </tr>
               </thead>
               <tbody>
-                <% @current_tuition_fee.each do |tuition_fee| %>
+                <% if @current_tuition_fee.blank? %>
                   <tr>
-                    <td><%= weekly_classes(tuition_fee.weekly_classes) %></td>
-                    <td><%= to_money(tuition_fee.fee) %></td>
+                    <td colspan="2">
+                      Nenhum plano registrado
+                    <td>
                   </tr>
-                <% end %>
+                <% else %>
+                  <% @current_tuition_fee.each do |tuition_fee| %>
+                    <tr>
+                      <td><%= weekly_classes(tuition_fee.weekly_classes) %></td>
+                      <td><%= to_money(tuition_fee.fee) %></td>
+                    </tr>
+                  <% end %>
+                <% end%>
               </tbody>
             </table>
           </div>

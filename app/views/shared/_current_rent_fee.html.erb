@@ -5,7 +5,7 @@
         <!-- /.card -->
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Aluguel Atual (Desde <%= date_format(@starting_date_for_current_table)  %>)</h3>
+            <h3 class="card-title">Aluguel Atual <%= "(Desde #{date_format(@current_rental_fee.starts_at)})" if !@current_rental_fee.blank?  %></h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body p-0">
@@ -13,7 +13,7 @@
               <thead>
                 <tr>
                   <th>Valor:</th>
-                  <th><%= @current_fee.blank? ? 'Não definido' : to_money(@current_fee.rental_amount)  %></th>
+                  <th><%= @current_rental_fee.blank? ? 'Não definido' : to_money(@current_rental_fee.rental_amount)  %></th>
                 </tr>
               </thead>
             </table>

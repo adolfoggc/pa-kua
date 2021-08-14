@@ -20,4 +20,9 @@
   <div class="col-6">
     <%= link_to 'Novo Aluguel', new_rent_path, class: 'btn btn-primary' %>
   </div>
+  <br>
+  <%= render '/shared/current_discounts' %>
+  <div class="col-6">
+    <%= link_to 'Novo Desconto', new_discount_path, class: 'btn btn-primary' %>
+  </div>
 </section>

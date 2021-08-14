@@ -26,9 +26,9 @@ class ApplicationController < ActionController::Base
       tuition_fees_by_classes[weekly_class] = nil
     end
 
-    @starting_date_for_current_table = nil
+    @starting_date_for_current_fees = nil
     valid_tuition_fees.order(validity: 'DESC', id: 'DESC').each do |tf|
-      @starting_date_for_current_table = tf.validity if @starting_date_for_current_table.nil?
+      @starting_date_for_current_fees = tf.validity if @starting_date_for_current_fees.nil?
       tuition_fees_by_classes[tf.weekly_classes] = tf if tuition_fees_by_classes[tf.weekly_classes].nil?
       break unless tuition_fees_by_classes.value?(nil)
     end
@@ -36,6 +36,23 @@ class ApplicationController < ActionController::Base
   end
 
   def current_rent_fee
-    @current_fee = Rent.all.order(start_date: 'DESC').first
+    @current_rental_fee = Rent.all.order(start_date: 'DESC').first
+  end
+
+  def current_discounts
+    valid_discounts = Discount.where('start_date <= :today', today: Date.today).order(:kind_of_plan)
+    kinds_of_plan = valid_discounts.select(:kind_of_plan).distinct.map(&:kind_of_plan)
+    kinds_of_discounts = {}
+    kinds_of_plan.each do |kind_of_plan|
+      kinds_of_discounts[kind_of_plan] = nil
+    end
+
+    @starting_date_for_current_discount = nil
+    valid_discounts.order(start_date: 'DESC', id: 'DESC').each do |vd|
+      @starting_date_for_current_discount = vd.start_date if @starting_date_for_current_discount.nil?
+      kinds_of_discounts[vd.kind_of_plan] = vd if kinds_of_discounts[vd.kind_of_plan].nil?
+      break unless kinds_of_discounts.value?(nil)
+    end
+    @current_discounts = kinds_of_discounts.map { |_, v| v } #k is not used
   end
 end
