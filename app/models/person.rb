@@ -6,6 +6,8 @@ class Person < ApplicationRecord
   validates :name_ciphertext, :address_ciphertext, :phone_ciphertext, :cpf_ciphertext, :role, presence: true
   validates :start_date, presence: true, if: :pakua_student?
 
+  has_one :student_plan
+
   enum role: {
     student: 1,
     open_class_student: 2,
