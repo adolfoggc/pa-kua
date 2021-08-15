@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_08_14_194922) do
   end
 
   create_table "student_plans", force: :cascade do |t|
-    t.bigint "people_id", null: false
+    t.bigint "person_id", null: false
     t.bigint "tuition_fee_id", null: false
     t.bigint "discount_id", null: false
     t.string "rent_inclusion"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2021_08_14_194922) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["discount_id"], name: "index_student_plans_on_discount_id"
-    t.index ["people_id"], name: "index_student_plans_on_people_id"
+    t.index ["person_id"], name: "index_student_plans_on_person_id"
     t.index ["tuition_fee_id"], name: "index_student_plans_on_tuition_fee_id"
   end
 
@@ -82,6 +82,6 @@ ActiveRecord::Schema.define(version: 2021_08_14_194922) do
   end
 
   add_foreign_key "student_plans", "discounts"
-  add_foreign_key "student_plans", "people", column: "people_id"
+  add_foreign_key "student_plans", "people"
   add_foreign_key "student_plans", "tuition_fees"
 end
