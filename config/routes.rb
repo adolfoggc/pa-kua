@@ -1,18 +1,25 @@
 Rails.application.routes.draw do
   root 'dashboard#index'
 
+  resources :student_plans, path: 'planos_dos_alunos', only: :index
+
   scope 'planos' do
     get '/', to: 'plans#index', as: :plans_index
-    resources :student_plans, path: 'planos_dos_alunos', only: :index
-    scope(path_names: { new: 'novo', edit: 'editar' }) do
-      resources :student_plans, path: 'plano_do_aluno/:people_id', except: :index
+    scope(path_names: { new: 'novo', edit: 'editar' }) do 
       resources :tuition_fees, path: 'mensalidades'
       resources :rents, path: 'alugueis'
       resources :discounts, path: 'descontos'
     end
   end
+
   scope(path_names: { new: 'novo', edit: 'editar' }) do
     resources :people, path: 'membros'
+  end
+
+  scope 'aluno/:person_id/' do
+    scope(path_names: { new: 'novo', edit: 'editar' }) do
+      resources :student_plans, path: 'plano_do_aluno', except: :index
+    end
   end
 
   get 'instrutores', to: 'instructors#index'
