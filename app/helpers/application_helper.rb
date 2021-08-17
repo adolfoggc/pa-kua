@@ -24,4 +24,10 @@ module ApplicationHelper
   def date_format(date)
     date.strftime('%d/%m/%Y')
   end
+
+  def text_or_none(text)
+    return '-' if text.nil?
+
+    text
+  end
 end
