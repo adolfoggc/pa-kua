@@ -7,8 +7,6 @@ class Person < ApplicationRecord
   validates :start_date, presence: true, if: :pakua_student?
 
   has_one :student_plan
-  has_one :tuition_fee, through: :student_plan, source: :student_plan_table_foreign_key_to_tuition_fee_table
-  has_one :discount, through: :student_plan, source: :student_plan_table_foreign_key_to_discount_table
 
   enum role: {
     student: 1,
