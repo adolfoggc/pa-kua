@@ -62,15 +62,13 @@ ActiveRecord::Schema.define(version: 2021_08_14_194922) do
 
   create_table "student_plans", force: :cascade do |t|
     t.bigint "person_id", null: false
-    t.bigint "tuition_fee_id", null: false
-    t.bigint "discount_id", null: false
+    t.integer "weekly_classes"
+    t.integer "kind_of_plan"
     t.string "rent_inclusion"
     t.integer "due_day"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["discount_id"], name: "index_student_plans_on_discount_id"
     t.index ["person_id"], name: "index_student_plans_on_person_id"
-    t.index ["tuition_fee_id"], name: "index_student_plans_on_tuition_fee_id"
   end
 
   create_table "tuition_fees", force: :cascade do |t|
@@ -81,7 +79,5 @@ ActiveRecord::Schema.define(version: 2021_08_14_194922) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "student_plans", "discounts"
   add_foreign_key "student_plans", "people"
-  add_foreign_key "student_plans", "tuition_fees"
 end
