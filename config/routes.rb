@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  resources :student_plans
   root 'dashboard#index'
 
   scope 'planos' do
     get '/', to: 'plans#index', as: :plans_index
+    resources :student_plans, path: 'planos_dos_alunos', only: :index
     scope(path_names: { new: 'novo', edit: 'editar' }) do
+      resources :student_plans, path: 'plano_do_aluno/:people_id', except: :index
       resources :tuition_fees, path: 'mensalidades'
       resources :rents, path: 'alugueis'
       resources :discounts, path: 'descontos'
