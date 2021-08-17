@@ -25,7 +25,7 @@ class StudentPlansController < ApplicationController
 
     respond_to do |format|
       if @student_plan.save
-        format.html { redirect_to @student_plan, notice: "Student plan was successfully created." }
+        format.html { redirect_to people_path(@student_plans.people_id), notice: "Student plan was successfully created." }
         format.json { render :show, status: :created, location: @student_plan }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class StudentPlansController < ApplicationController
   def update
     respond_to do |format|
       if @student_plan.update(student_plan_params)
-        format.html { redirect_to @student_plan, notice: "Student plan was successfully updated." }
+        format.html { redirect_to people_path(@student_plans.people_id), notice: "Student plan was successfully updated." }
         format.json { render :show, status: :ok, location: @student_plan }
       else
         format.html { render :edit, status: :unprocessable_entity }
