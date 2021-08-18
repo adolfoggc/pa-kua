@@ -1,6 +1,8 @@
 class StudentPlan < ApplicationRecord
   belongs_to :person
 
+  validates :due_day, :weekly_classes, :rent_inclusion, :kind_of_plan, presence: true
+
   def monthly_fee
     current_tuition_fee.fee
   end
