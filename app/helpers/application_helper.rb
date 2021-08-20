@@ -21,6 +21,10 @@ module ApplicationHelper
     "R$ #{to_br(cash)}"
   end
 
+  def to_percent(value)
+    "#{to_br(value)}%"
+  end
+
   def date_format(date)
     date.strftime('%d/%m/%Y')
   end
