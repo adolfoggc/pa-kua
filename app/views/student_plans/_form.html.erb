@@ -1,42 +1,111 @@
-<%= form_with(model: student_plan, local: true) do |form| %>
-  <% if student_plan.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(student_plan.errors.count, "error") %> prohibited this student_plan from being saved:</h2>
+<% if %w[new create].include? action_name %>
+  <%= form_with(model: student_plan, local: true) do |form| %>
+    <% if student_plan.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(student_plan.errors.count, "error") %> prohibited this student_plan from being saved:</h2>
 
-      <ul>
-        <% student_plan.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% student_plan.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="col-md-6">
+      <!-- general form elements -->
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title"><%= @view_action %></h3>
+        </div>
+        <!-- /.card-header -->
+        <%= form.hidden_field :person_id, value: @person_id %>
+        <%= @person_id %>
+
+        <div class="card-body">
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :due_day, 'Dia de Vencimento', class: "mb-0" %></h4>
+            <%= form.number_field(:due_day, class: "form-control rounded-0", min: 1, max: 28 )  %>
+          </div>
+          
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :rent_inclusion, 'Aluga Material?', class: "mb-0" %></h4>
+            <%= form.select(:rent_inclusion, options_for_select([['Sim', true], ['Não', false]], @student_plan.rent_inclusion ? "true" : "false"), {}, class: "form-control rounded-0" )  %>
+          </div>
+
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :weekly_classes, 'Aulas Semanais' %></h4>
+            <%= form.select(:weekly_classes, options_for_select(@weekly_classes.map { |k, v| [k.to_s.humanize, v]}), {}, class: "form-control rounded-0" )  %>
+          </div>
+
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :kind_of_plan, 'Tipo de Plano' %></h4>
+            <%= form.select(:kind_of_plan, options_for_select(@discounts.map { |k, v| [k.to_s.humanize, v]}), {}, class: "form-control rounded-0" )  %>
+          </div>
+
+          <div class="actions">
+            <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :people_id %>
-    <%= form.text_field :people_id %>
-  </div>
+<% else %>
+  <%= form_for :student_plan, url: url_for(controller: 'student_plans', action: 'update'), method: :put do |form| %>
+    <% if student_plan.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(student_plan.errors.count, "error") %> prohibited this student_plan from being saved:</h2>
 
-  <div class="field">
-    <%= form.label :tuition_fee_id %>
-    <%= form.text_field :tuition_fee_id %>
-  </div>
+        <ul>
+          <% student_plan.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="field">
-    <%= form.label :discount_id %>
-    <%= form.text_field :discount_id %>
-  </div>
+    <div class="col-md-6">
+      <!-- general form elements -->
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title"><%= @view_action %></h3>
+        </div>
+        <!-- /.card-header -->
+        <%= form.hidden_field :person_id, value: @person_id %>
+        <%= @person_id %>
 
-  <div class="field">
-    <%= form.label :rent_inclusion %>
-    <%= form.text_field :rent_inclusion %>
-  </div>
+        <div class="card-body">
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :due_day, 'Dia de Vencimento', class: "mb-0" %></h4>
+            <%= form.number_field(:due_day, class: "form-control rounded-0", min: 1, max: 28 )  %>
+          </div>
+          
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :rent_inclusion, 'Aluga Material?', class: "mb-0" %></h4>
+            <%= form.select(:rent_inclusion, options_for_select([['Sim', 'true'], ['Não', 'false']], selected: @student_plan.rent_inclusion), {}, class: "form-control rounded-0" )  %>
+          </div>
 
-  <div class="field">
-    <%= form.label :due_day %>
-    <%= form.number_field :due_day %>
-  </div>
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :weekly_classes, 'Aulas Semanais' %></h4>
+            <%= form.select(:weekly_classes, options_for_select(@weekly_classes.map { |k, v| [k.to_s.humanize, v]}, selected: @student_plan.weekly_classes), {}, class: "form-control rounded-0" )  %>
+          </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+          <div class="form-group">
+            <h4 class="mb-0"><%= form.label :kind_of_plan, 'Tipo de Plano' %></h4>
+            <%= form.select(:kind_of_plan, options_for_select(@discounts.map { |k, v| [k.to_s.humanize, v]}, selected: @student_plan.kind_of_plan), {}, class: "form-control rounded-0" )  %>
+          </div>
+
+          <div class="actions">
+            <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+  <% end %>
+<%end%>
+  
