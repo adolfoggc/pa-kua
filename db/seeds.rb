@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+[1, 2, 6, 12].each do |i|
+  Discount.create(discount_percentage: 0, starts_at: Date.today, kind_of_plan: i)
+end
