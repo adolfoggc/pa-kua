@@ -43,43 +43,44 @@
       </div>
 
       <!-- Second part of informations -->
-      <div class="col-md-8">
-        <!-- plan -->
-        <div class="row">
-          <div class="card card-primary card-outline">
-          <div class="card-body box-profile">
+      <% if @person.pakua_student? %>
+        <div class="col-md-8">
+          <!-- plan -->
+          <div class="row">
+            <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
 
-            <h3 class="profile-username text-center">Plano</h3>
+              <h3 class="profile-username text-center">Plano</h3>
 
-            <p class="text-muted text-center"><b><%= @person.student_plan.blank? ? "Nenhum plano definido" : @person.student_plan.current_tuition_fee.weekly_class_text %>
-              <br>
-              <%= @person.student_plan.blank? ? "" : @person.student_plan.current_discount.kind_of_plan.humanize.capitalize %></b></p>
-            </p>
+              <p class="text-muted text-center"><b><%= @person.student_plan.blank? ? "Nenhum plano definido" : @person.student_plan.current_tuition_fee.weekly_class_text %>
+                <br>
+                <%= @person.student_plan.blank? ? "" : @person.student_plan.current_discount.kind_of_plan.humanize.capitalize %></b></p>
+              </p>
 
-            <ul class="list-group list-group-unbordered mb-3">
-              <li class="list-group-item">
-                <b>Dia de Vencimento</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : @person.student_plan.due_day %></a>
-              </li>
-              <li class="list-group-item">
-                <b>Aluga material?</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : logic_to_br(@person.student_plan.rent_inclusion) %></a>
-              </li>
-              <li class="list-group-item">
-                <b>Desconto</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : to_percent(@person.student_plan.current_discount.discount_percentage) %></a>
-              </li>
-              <li class="list-group-item">
-                <b>Valor da Mensalidade</b><a class="float-right"><%= @person.student_plan.nil? ? '-' : to_money(@person.student_plan.monthly_fee) %></a>
-              </li>
-            </ul>
-            <% if @person.student_plan.blank? %>
-              <%= link_to 'Criar Plano do Aluno', new_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
-            <% else %>
-              <%= link_to 'Editar Plano do Aluno', edit_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
-            <% end %>
+              <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                  <b>Dia de Vencimento</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : @person.student_plan.due_day %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Aluga material?</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : logic_to_br(@person.student_plan.rent_inclusion) %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Desconto</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : to_percent(@person.student_plan.current_discount.discount_percentage) %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Valor da Mensalidade</b><a class="float-right"><%= @person.student_plan.nil? ? '-' : to_money(@person.student_plan.monthly_fee) %></a>
+                </li>
+              </ul>
+              <% if @person.student_plan.blank? %>
+                <%= link_to 'Criar Plano do Aluno', new_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
+              <% else %>
+                <%= link_to 'Editar Plano do Aluno', edit_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
+              <% end %>
 
-            <%# link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>
+              <%# link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>
+            </div>
           </div>
-        </div>
-
+        <% end %>
         <!-- infos de faixa -->
         <div class="row">
         </div>
