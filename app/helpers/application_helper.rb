@@ -30,4 +30,8 @@ module ApplicationHelper
 
     text
   end
+
+  def logic_to_br(value)
+    value == 'true' ? 'Sim' : 'Não'
+  end
 end
