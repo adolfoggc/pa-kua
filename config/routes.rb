@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
   root 'dashboard#index'
 
-  resources :student_plans, path: 'planos_dos_alunos', only: :index
+  get '/planos_dos_alunos', to: 'student_plans#index', as: :student_plans
+  post '/planos_dos_alunos', to: 'student_plans#create'
+  scope 'aluno/:person_id/plano' do
+    get '/novo', to: 'student_plans#new', as: :new_student_plan
+    get '/editar', to: 'student_plans#edit', as: :edit_student_plan
+    get '/', to: 'student_plans#show', as: :student_plan
+    patch '/', to: 'student_plans#update'
+    put '/', to: 'student_plans#update'
+    delete '/', to: 'student_plans#destroy'
+  end
 
   scope 'planos' do
     get '/', to: 'plans#index', as: :plans_index
@@ -14,12 +23,6 @@ Rails.application.routes.draw do
 
   scope(path_names: { new: 'novo', edit: 'editar' }) do
     resources :people, path: 'membros'
-  end
-
-  scope 'aluno/:person_id/' do
-    scope(path_names: { new: 'novo', edit: 'editar' }) do
-      resources :student_plans, path: 'plano_do_aluno', except: :index
-    end
   end
 
   get 'instrutores', to: 'instructors#index'
