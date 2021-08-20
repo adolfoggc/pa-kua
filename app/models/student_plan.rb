@@ -11,8 +11,6 @@ class StudentPlan < ApplicationRecord
     current_discount.discount_percentage
   end
 
-  private
-
   def current_tuition_fee
     TuitionFee.where(weekly_classes: weekly_classes).order(validity: 'DESC').first
   end
