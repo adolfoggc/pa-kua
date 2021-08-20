@@ -51,21 +51,23 @@
 
             <h3 class="profile-username text-center">Plano</h3>
 
-            <p class="text-muted text-center"><b><%= @person.student_plan.blank? ? "Nenhum plano definido" : @person.student_plan.current_tuition_fee.weekly_class_text %></b></p>
+            <p class="text-muted text-center"><b><%= @person.student_plan.blank? ? "Nenhum plano definido" : @person.student_plan.current_tuition_fee.weekly_class_text %>
+              <br>
+              <%= @person.student_plan.blank? ? "" : @person.student_plan.current_discount.kind_of_plan.humanize.capitalize %></b></p>
+            </p>
 
-            
             <ul class="list-group list-group-unbordered mb-3">
               <li class="list-group-item">
                 <b>Dia de Vencimento</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : @person.student_plan.due_day %></a>
               </li>
               <li class="list-group-item">
-                <b>Aluga material?</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : @person.student_plan.rent_inclusion %></a>
+                <b>Aluga material?</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : logic_to_br(@person.student_plan.rent_inclusion) %></a>
               </li>
               <li class="list-group-item">
-                <b>Desconto</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : @person.student_plan.current_discount.discount_percentage %></a>
+                <b>Desconto</b> <a class="float-right"><%= @person.student_plan.nil? ? '-' : to_percent(@person.student_plan.current_discount.discount_percentage) %></a>
               </li>
               <li class="list-group-item">
-                <b>Valor da Mensalidade</b><a class="float-right"><%= @person.student_plan.nil? ? '-' : @person.student_plan.monthly_fee %></a>
+                <b>Valor da Mensalidade</b><a class="float-right"><%= @person.student_plan.nil? ? '-' : to_money(@person.student_plan.monthly_fee) %></a>
               </li>
             </ul>
             <% if @person.student_plan.blank? %>
