@@ -4,6 +4,7 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
   before_action :roles_data, only: %i[new edit update]
+  before_action :payment_data, only: %i[show]
 
   # GET /people or /people.json
   def index
@@ -80,5 +81,13 @@ class PeopleController < ApplicationController
 
   def roles_data
     @roles = { aluno: 1, aluno_de_aula_inaugural: 2, aluno_e_instrutor: 3, instrutor: 4, instrutor_intinerante: 5 }
+  end
+
+  def payment_data
+    if @person.pakua_student?
+      @today = Date.today
+      #REFACTOR
+      @student_payment = Payment.where(student_plan: @person.student_plan).first
+    end
   end
 end
