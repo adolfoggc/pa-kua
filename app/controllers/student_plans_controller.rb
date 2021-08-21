@@ -1,7 +1,7 @@
 class StudentPlansController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
   before_action :set_student_plan, only: %i[show edit update destroy]
-  before_action :block_if_plan_is_nil, except: %i[new create]
+  before_action :block_if_plan_is_nil, except: %i[index new create]
   before_action :form_data, only: %i[new edit]
 
   # GET /student_plans or /student_plans.json
