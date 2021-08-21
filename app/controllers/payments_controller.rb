@@ -57,20 +57,30 @@ class PaymentsController < ApplicationController
   end
 
   def new_student_payment
-    student = Person.find(params[:student_id])
+    @student = Person.find(params[:id])
     today = Date.today
-    @payment = Payment.new(student_plan: student.student_plan, paid: false, due_date: Date.new(today.year, today.month, today.student_plan.due_day))
-    @payment.save
+    payment = Payment.new(student_plan: @student.student_plan, paid: false, due_date: Date.new(today.year, today.month, @student.student_plan.due_day))
+    payment.save
+    redirect_to @student
+  end
+
+  def recive_payment
+    payment = Payment.find(params[:id])
+    payment.payment_fee = payment.student_plan.final_tuition_fee
+    payment.paid = true
+    payment.save
+    redirect_to payment.student_plan.person
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment
-      @payment = Payment.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def payment_params
-      params.require(:payment).permit(:student_plan_id, :paid, :payment_fee, :due_date, :payment_link)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_payment
+    @payment = Payment.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def payment_params
+    params.require(:payment).permit(:student_plan_id, :paid, :payment_fee, :due_date, :payment_link)
+  end
 end

@@ -26,6 +26,10 @@ Rails.application.routes.draw do
     resources :people, path: 'membros'
   end
 
+  #payments
+  post '/novo_pagamento/:id/', to: 'payments#new_student_payment', as: 'new_student_payment'
+  post '/receber_pagamento/:id/', to: 'payments#recive_payment', as: 'recive_payment'
+
   get 'instrutores', to: 'instructors#index'
   get 'instrutores/novo', to: 'instructors#new'
   get 'instrutores/:id', to: 'instructors#show'
