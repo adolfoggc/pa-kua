@@ -81,11 +81,11 @@
             </div>
           </div>
         <% end %>
-        <!-- infos de faixa -->
-        <div class="row">
-        </div>
       </div>
     </div>
   </div>
+  <% if @person.pakua_student? && !@person.student_plan.nil?%>
+    <%= render 'payments' %>
+  <% end%>
 </section>
 

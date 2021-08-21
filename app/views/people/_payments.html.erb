@@ -6,28 +6,36 @@
         <div class="card-body box-profile">
           <h3 class="profile-username text-center">Pagamentos</h3>
 
-            <p class="text-muted text-center"><b><%= @person.role_br %></b></p>
+            <p class="text-muted text-center"><b><%= br_month(@today.month) %></b></p>
 
-            <ul class="list-group list-group-unbordered mb-3">
-              <li class="list-group-item">
-                <b>Endereço</b> <a class="float-right"><%= @person.address %></a>
-              </li>
-              <li class="list-group-item">
-                <b>Nascimento</b><a class="float-right"><%= @person.birthdate.nil? ? 'Não informado' : date_format(@person.birthdate)%></a>
-              </li>
-              <li class="list-group-item">
-                <b>Celular</b> <a class="float-right"><%= @person.phone %></a>
-              </li>
-              <li class="list-group-item">
-                <b>CPF</b> <a class="float-right"><%= @person.cpf %></a>
-              </li>
-              <li class="list-group-item">
-                <b>Início na Escola</b> <a class="float-right"><%= date_format(@person.start_date) %></a>
-              </li>
-            </ul>
+            <% if @student_payment.blank? %>
+              <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                  <b>Nenhum pagamento para o mês atual foi gerado</b>
+                  <br>
+                </li>
+              </ul>
+              <%= button_to 'Gerar Novo Pagamento', new_student_payment_path(@person), class: 'btn btn-primary btn-block'%>
+              <br>
+            <% else %>
+              <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                  <b>Status</b><a class="float-right"><%= @student_payment.paid? ? 'Pago' : 'Em Aberto' %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Vencimento</b> <a class="float-right"><%= date_format(@student_payment.due_date) %></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Valor</b> <a class="float-right"><%= to_money(@student_payment.student_plan.final_tuition_fee) %></a>
+                </li>
+              </ul>
+              <% if @student_payment.payment_fee.nil? %>
+                <%= button_to 'Receber Pagamento', recive_payment_path(@student_payment), class: 'btn btn-primary btn-block' %>
+              <% elsif @student_payment.payment_fee < @student_payment.student_plan.final_tuition_fee %>
+                <%= button_to 'Ajustar Pagamento', recive_payment_path(@student_payment), class: 'btn btn-primary btn-block' %>
+              <% end %>
+            <% end %>
 
-            <%= link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>
-            <%= link_to 'Voltar', people_path, class: 'btn btn-secondary btn-block' %>
         </div>
       </div>
     </div>
