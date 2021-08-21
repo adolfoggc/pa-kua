@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_14_194922) do
+ActiveRecord::Schema.define(version: 2021_08_21_022438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,17 @@ ActiveRecord::Schema.define(version: 2021_08_14_194922) do
     t.string "email_bidx"
     t.index ["email_bidx"], name: "index_members_on_email_bidx", unique: true
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "student_plan_id", null: false
+    t.boolean "paid"
+    t.decimal "payment_fee"
+    t.date "due_date"
+    t.string "payment_link"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["student_plan_id"], name: "index_payments_on_student_plan_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -79,5 +90,6 @@ ActiveRecord::Schema.define(version: 2021_08_14_194922) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "payments", "student_plans"
   add_foreign_key "student_plans", "people"
 end

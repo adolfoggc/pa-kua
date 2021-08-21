@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student plan:</strong>
+  <%= @payment.student_plan_id %>
+</p>
+
+<p>
+  <strong>Paid:</strong>
+  <%= @payment.paid %>
+</p>
+
+<p>
+  <strong>Payment fee:</strong>
+  <%= @payment.payment_fee %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @payment.due_date %>
+</p>
+
+<p>
+  <strong>Payment link:</strong>
+  <%= @payment.payment_link %>
+</p>
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>

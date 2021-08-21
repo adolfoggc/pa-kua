@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :payments
   root 'dashboard#index'
 
   get '/planos_dos_alunos', to: 'student_plans#index', as: :student_plans

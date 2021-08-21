@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-4">
+
+      <!-- Profile Image -->
+      <div class="card card-primary card-outline">
+        <div class="card-body box-profile">
+          <h3 class="profile-username text-center">Pagamentos</h3>
+
+            <p class="text-muted text-center"><b><%= @person.role_br %></b></p>
+
+            <ul class="list-group list-group-unbordered mb-3">
+              <li class="list-group-item">
+                <b>Endereço</b> <a class="float-right"><%= @person.address %></a>
+              </li>
+              <li class="list-group-item">
+                <b>Nascimento</b><a class="float-right"><%= @person.birthdate.nil? ? 'Não informado' : date_format(@person.birthdate)%></a>
+              </li>
+              <li class="list-group-item">
+                <b>Celular</b> <a class="float-right"><%= @person.phone %></a>
+              </li>
+              <li class="list-group-item">
+                <b>CPF</b> <a class="float-right"><%= @person.cpf %></a>
+              </li>
+              <li class="list-group-item">
+                <b>Início na Escola</b> <a class="float-right"><%= date_format(@person.start_date) %></a>
+              </li>
+            </ul>
+
+            <%= link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>
+            <%= link_to 'Voltar', people_path, class: 'btn btn-secondary btn-block' %>
+        </div>
+      </div>
+    </div>
+  </div>
