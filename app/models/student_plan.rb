@@ -18,4 +18,8 @@ class StudentPlan < ApplicationRecord
   def current_discount
     Discount.where(kind_of_plan: kind_of_plan).order(starts_at: 'DESC').first
   end
+
+  def final_tuition_fee
+    ((100.0 - percentage)/100) * monthly_fee
+  end
 end
