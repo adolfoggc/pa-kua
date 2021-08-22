@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_rent_fee
-    @current_rental_fee = Rent.all.order(start_date: 'DESC').first
+    @current_rental_fee = Rent.all.order(starts_at: 'DESC').first
   end
 
   def current_discounts
