@@ -12,8 +12,8 @@
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th>Valor:</th>
-                  <th><%= @current_rental_fee.blank? ? 'Não definido' : to_money(@current_rental_fee.rental_amount)  %></th>
+                  <td><b>Valor:<b></td>
+                  <td><%= @current_rental_fee.blank? ? 'Não definido' : to_money(@current_rental_fee.rental_amount)  %></td>
                 </tr>
               </thead>
             </table>
