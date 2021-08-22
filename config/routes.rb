@@ -13,10 +13,10 @@ Rails.application.routes.draw do
     delete '/', to: 'student_plans#destroy'
   end
 
-  scope 'planos' do
+  scope 'mensalidades' do
     get '/', to: 'plans#index', as: :plans_index
     scope(path_names: { new: 'novo', edit: 'editar' }) do 
-      resources :tuition_fees, path: 'mensalidades'
+      resources :tuition_fees, path: 'valor_por_aula'
       resources :rents, path: 'alugueis'
       resources :discounts, path: 'descontos'
     end
