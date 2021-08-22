@@ -1,32 +1,57 @@
-<%= form_with(model: tuition_fee, local: true) do |form| %>
-  <% if tuition_fee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(tuition_fee.errors.count, "error") %> prohibited this tuition_fee from being saved:</h2>
+<section class="content">
+  <div class="container-fluid">
+    <%= form_with(model: tuition_fee, local: true) do |form| %>
+      <% if tuition_fee.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(tuition_fee.errors.count, "error") %> prohibited this tuition_fee from being saved:</h2>
 
-      <ul>
-        <% tuition_fee.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% tuition_fee.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Mensalidade</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class='form-group'>
+                <h4 class="mb-0"><%= form.label :weekly_classes, 'Aulas Semanais', class: "mb-0" %></h4>
+                <%= form.number_field :weekly_classes, class: "form-control form-control-border", min: 0 %>
+                * Para o plano livre, selecione a quantidade de 0 aulas
+              </div>
 
-  <div class="field">
-    <%= form.label :weekly_classes %>
-    <%= form.number_field :weekly_classes %>
+              <div class='form-group'>
+                <h4 class="mb-0"><%= form.label :fee, 'Valor da Mensalidade', class: "mb-0" %></h4>
+                <%= form.text_field :fee, class: "form-control form-control-border" %>
+              </div>
+
+              <div class='form-group'>
+                <h4 class="mb-0"><%= form.label :validity, 'Válido à partir de', class: "mb-0" %></h4>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="tuition_fee_validity" name="tuition_fee[validity]" value="<%= @tuition_fee.validity.nil? ? date_to_string(Date.today) : date_to_string(@tuition_fee.validity) %>">
+                </div>
+              </div>
+
+              <div class="actions">
+                <%= form.submit 'Salvar', class: 'btn btn-primary'  %>
+                <%= link_to 'Voltar para Mensalidades', plans_index_path, class: 'btn btn-secondary' %>
+                <%= link_to 'Voltar para Valores de Aulas', tuition_fees_path, class: 'btn btn-secondary' %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :fee %>
-    <%= form.text_field :fee %>
-  </div>
-
-  <div class="field">
-    <%= form.label :validity %>
-    <%= form.date_select :validity %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
