@@ -4,6 +4,7 @@ class RentsController < ApplicationController
   # GET /rents or /rents.json
   def index
     @rents = Rent.all
+    current_rent_fee
   end
 
   # GET /rents/1 or /rents/1.json
