@@ -1,27 +1,49 @@
-<%= form_with(model: rent, local: true) do |form| %>
-  <% if rent.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
+<section class="content">
+  <div class="container-fluid">
+    <%= form_with(model: rent, local: true) do |form| %>
+      <% if rent.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
 
-      <ul>
-        <% rent.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% rent.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Aluguel</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class='form-group'>
+                <h4 class="mb-0"><%= form.label :rental_amount, 'Valor do Aluguel', class: "mb-0" %></h4>
+                <%= form.text_field :rental_amount, class: "form-control form-control-border" %>
+              </div>
 
-  <div class="field">
-    <%= form.label :rental_amount %>
-    <%= form.text_field :rental_amount %>
+              <div class='form-group'>
+                <h4 class="mb-0"><%= form.label :starts_at, 'Válido à partir de', class: "mb-0" %></h4>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="rent_starts_at" name="rent[starts_at]" value="<%= @rent.starts_at.nil? ? date_to_string(Date.today) : date_to_string(@rent.starts_at) %>">
+                </div>
+              </div>
+              <div class="actions">
+                <%= form.submit 'Salvar', class: 'btn btn-primary'  %>
+                <%= link_to 'Voltar para Mensalidades', plans_index_path, class: 'btn btn-secondary' %>
+                <%= link_to 'Voltar para Aluguéis', rents_path, class: 'btn btn-secondary' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :starts_at %>
-    <%= form.date_select :starts_at %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</section>
