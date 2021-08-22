@@ -12,6 +12,18 @@
       <% end %>
     </li>
     <li class="nav-item">
+      <%= link_to plans_index_path, class: "nav-link" do %>
+        <i class="nav-icon fas fa-handshake" aria-hidden="true"></i>
+        <p>
+          Mensalidades
+          <span class="badge badge-info right"></span>
+        </p>
+      <% end %>
+    </li>
+    <!-- separator -->
+    <li style="border-bottom: 1px #4f5962 solid"></li>
+    <!-- /separator -->
+    <li class="nav-item">
       <%= link_to alunos_path, class: "nav-link" do %>
         <i class="nav-icon fas fa-user" aria-hidden="true"></i>
         <p>
@@ -29,15 +41,7 @@
         </p>
       <% end %>
     </li>
-    <li class="nav-item">
-      <%= link_to plans_index_path, class: "nav-link" do %>
-        <i class="nav-icon fas fa-handshake" aria-hidden="true"></i>
-        <p>
-          Mensalidades
-          <span class="badge badge-info right"></span>
-        </p>
-      <% end %>
-    </li>
+    
     <% if true == false %>
       <li class="nav-item menu-open">
         <a href="#" class="nav-link active">
