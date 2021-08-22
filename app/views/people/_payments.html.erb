@@ -28,6 +28,11 @@
                 <li class="list-group-item">
                   <b>Valor</b> <a class="float-right"><%= to_money(@student_payment.student_plan.final_tuition_fee) %></a>
                 </li>
+                <% if @student_payment.payment_fee < @student_payment.student_plan.final_tuition_fee %>
+                  <li class="list-group-item">
+                    <b>Valor Pago</b> <a class="float-right"><%= to_money(@student_payment.payment_fee) %></a>
+                  </li>
+                <% end %>
               </ul>
               <% if @student_payment.payment_fee.nil? %>
                 <%= button_to 'Receber Pagamento', recive_payment_path(@student_payment), class: 'btn btn-primary btn-block' %>
