@@ -1,76 +1,82 @@
-<%= form_with(model: person, local: true) do |form| %>
-  <% if person.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
+<section class="content">
+  <div class="container-fluid">
+    <%= form_with(model: person, local: true) do |form| %>
+      <% if person.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
 
-      <ul>
-        <% person.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="col-md-6">
-    <!-- general form elements -->
-    <div class="card card-primary">
-      <div class="card-header">
-        <h3 class="card-title"><%= @view_action %></h3>
-      </div>
-      <!-- /.card-header -->
-      <div class="card-body">
-        <div class="form-group">
-          <h4 class="mb-0"><%= form.label :name, 'Nome', class: "mb-0" %></h4>
-          <%= form.text_field :name, class: "form-control form-control-border" %>
+          <ul>
+            <% person.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
         </div>
-
-        <div class="form-group">
-          <h4 class="mb-0"><%= form.label :address, 'Endereço', class: "mb-0" %></h4>
-          <%= form.text_field :address, class: "form-control form-control-border" %>
-        </div>
-
-        <div class="form-group">
-          <h4 class="mb-0"><%= form.label :phone, 'Celular', class: "mb-0" %></h4>
-          <%= form.text_field :phone, class: "form-control form-control-border" %>
-        </div>
-
-        <div class="form-group">
-          <h4 class="mb-0"><%= form.label :cpf, 'CPF', class: "mb-0" %></h4>
-          <%= form.text_field :cpf, class: "form-control form-control-border" %>
-        </div>
-
-        <div class="form-group">
-          <h4><%= form.label :birthdate, 'Nascimento' %></h4>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+      <% end %>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title"><%= @view_action %></h3>
             </div>
-            <%= form.text_field :birthdate, class: "form-control", "data-inputmask-alias" => "datetime", "data-inputmask-inputformat" => "dd/mm/yyyy", "data-mask" => "", value: date_to_string(@person.birthdate) %>
-          </div>
-          <!-- /.input group -->
-        </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="form-group">
+                <h4 class="mb-0"><%= form.label :name, 'Nome', class: "mb-0" %></h4>
+                <%= form.text_field :name, class: "form-control form-control-border" %>
+              </div>
 
-        <div class="form-group">
-          <h4><%= form.label :role, 'Atuação na Escola' %></h4>
-          <%= form.select(:role, options_for_select(@roles.map { |k, v| [k.to_s.humanize, Person.roles.key(v)]}), {}, class: "form-control rounded-0" )  %>
-        </div>
+              <div class="form-group">
+                <h4 class="mb-0"><%= form.label :address, 'Endereço', class: "mb-0" %></h4>
+                <%= form.text_field :address, class: "form-control form-control-border" %>
+              </div>
 
-        <div class="form-group">
-          <h4><%= form.label :start_date, 'Entrada na Escola' %></h4>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+              <div class="form-group">
+                <h4 class="mb-0"><%= form.label :phone, 'Celular', class: "mb-0" %></h4>
+                <%= form.text_field :phone, class: "form-control form-control-border" %>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0"><%= form.label :cpf, 'CPF', class: "mb-0" %></h4>
+                <%= form.text_field :cpf, class: "form-control form-control-border" %>
+              </div>
+
+              <div class="form-group">
+                <h4><%= form.label :birthdate, 'Nascimento' %></h4>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <%= form.text_field :birthdate, class: "form-control", "data-inputmask-alias" => "datetime", "data-inputmask-inputformat" => "dd/mm/yyyy", "data-mask" => "", value: date_to_string(@person.birthdate) %>
+                </div>
+                <!-- /.input group -->
+              </div>
+
+              <div class="form-group">
+                <h4><%= form.label :role, 'Atuação na Escola' %></h4>
+                <%= form.select(:role, options_for_select(@roles.map { |k, v| [k.to_s.humanize, Person.roles.key(v)]}), {}, class: "form-control rounded-0" )  %>
+              </div>
+
+              <div class="form-group">
+                <h4><%= form.label :start_date, 'Entrada na Escola' %></h4>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_start_date" name="person[start_date]" value="<%= @person.start_date.nil? ? date_to_string(Date.today) : date_to_string(@person.start_date) %>">
+                </div>
+                <!-- /.input group -->
+              </div>
+
+              <div class="actions">
+                <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+              </div>
             </div>
-            <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_start_date" name="person[start_date]" value="<%= @person.start_date.nil? ? date_to_string(Date.today) : date_to_string(@person.start_date) %>">
+            <!-- /.card-body -->
           </div>
-          <!-- /.input group -->
-        </div>
-
-        <div class="actions">
-          <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+          <!-- /.card -->
         </div>
       </div>
-      <!-- /.card-body -->
-    </div>
-    <!-- /.card -->
+    <% end %>
   </div>
-<% end %>
+</div>
