@@ -27,7 +27,7 @@
           <li class="list-group-item">
             <b>Valor</b> <a class="float-right"><%= to_money(@student_payment.student_plan.final_tuition_fee) %></a>
           </li>
-          <% if !@student_payment.payment_fee.nil? && (@student_payment.payment_fee < @student_payment.student_plan.final_tuition_fee) %>
+          <% if !@student_payment.paid_fee.nil? && (@student_payment.paid_fee < @student_payment.payment_fee) %>
             <li class="list-group-item">
               <b>Valor Pago</b> <a class="float-right"><%= to_money(@student_payment.payment_fee) %></a>
             </li>

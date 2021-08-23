@@ -10,8 +10,16 @@
         <% if %w[jan abr jul out].include?(month.to_s)%>
           <div class="row">
         <% end %>
-        <div class="col-4 text-center month <%= status[:style] %>">
-          <%= month.to_s.upcase %>
+        <div class="col-4 month-slot text-center">
+          <% if status.has_key?(:id) %>
+            <%= link_to payment_path(status[:id]), class: "col-12 month #{status[:style]}", style: "display: block" do %>
+              <%= month.to_s.upcase %>
+            <% end %>
+          <% else %>
+            <div class="col-12 text-center month <%= status[:style] %>">
+              <%= month.to_s.upcase %>
+            </div>
+          <% end %>
         </div>
         <% if %w[mar jun set dez].include?(month.to_s)%>
           </div>
@@ -25,9 +33,7 @@
 
 <style>
   .month {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 5px 0;
+    margin: 10px 0;
   }
 </style>
