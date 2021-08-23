@@ -88,11 +88,11 @@ class PeopleController < ApplicationController
 
     @today = Date.today
     #REFACTOR
-    @payments = @person.payments.where(':start_date <= due_date and due_date <= :end_date', {start_date: Date.new(@today.year, 1, 1), end_date: Date.new(@today.year, 12, 31)})
+    payments = @person.payments.where(':start_date <= due_date and due_date <= :end_date', {start_date: Date.new(@today.year, 1, 1), end_date: Date.new(@today.year, 12, 31)})
     @months_and_status = {  jan: { style: '' }, fev: { style: '' }, mar: { style: '' }, abr: { style: '' }, mai: { style: '' }, jun: { style: '' },
                             jul: { style: '' }, ago: { style: '' }, set: { style: '' }, out: { style: '' }, nov: { style: '' }, dez: { style: '' } }
-    @payments.each do |p|
-      @student_payment = p if @today.month == p.due_date.month
+    payments.each do |p|
+      @payment = p if @today.month == p.due_date.month
       case p.due_date.month
       when 1
         @months_and_status[:jan] = { id: p.id, style: get_month_style(p) }
@@ -120,7 +120,6 @@ class PeopleController < ApplicationController
         @months_and_status[:dez] = { id: p.id, style: get_month_style(p) }
       end
     end
-    @student_payment = @payments.select { |p| (Date.new(@today.year, @today.month, 1) <= p.due_date && p.due_date <= (Date.new(@today.year, @today.month + 1, 1) - 1.day))  }.first
   end
 
   def get_month_style(payment)

@@ -7,7 +7,7 @@
 
       <p class="text-muted text-center"><b><%= br_month(@today.month) %></b></p>
 
-      <% if @student_payment.blank? %>
+      <% if @payment.blank? %>
         <ul class="list-group list-group-unbordered mb-3">
           <li class="list-group-item">
             <b>Nenhum pagamento para o mês atual foi gerado</b>
@@ -19,24 +19,24 @@
       <% else %>
         <ul class="list-group list-group-unbordered mb-3">
           <li class="list-group-item">
-            <b>Status</b><a class="float-right"><%= @student_payment.paid? ? 'Pago' : 'Em Aberto' %></a>
+            <b>Status</b><a class="float-right"><%= @payment.paid? ? 'Pago' : 'Em Aberto' %></a>
           </li>
           <li class="list-group-item">
-            <b>Vencimento</b> <a class="float-right"><%= date_format(@student_payment.due_date) %></a>
+            <b>Vencimento</b> <a class="float-right"><%= date_format(@payment.due_date) %></a>
           </li>
           <li class="list-group-item">
-            <b>Valor</b> <a class="float-right"><%= to_money(@student_payment.student_plan.final_tuition_fee) %></a>
+            <b>Valor</b> <a class="float-right"><%= to_money(@payment.student_plan.final_tuition_fee) %></a>
           </li>
-          <% if !@student_payment.paid_fee.nil? && (@student_payment.paid_fee < @student_payment.payment_fee) %>
+          <% if !@payment.paid_fee.nil? && (@payment.paid_fee < @payment.payment_fee) %>
             <li class="list-group-item">
-              <b>Valor Pago</b> <a class="float-right"><%= to_money(@student_payment.payment_fee) %></a>
+              <b>Valor Pago</b> <a class="float-right"><%= to_money(@payment.payment_fee) %></a>
             </li>
           <% end %>
         </ul>
-        <% if @student_payment.payment_fee.nil? %>
-          <%= button_to 'Receber Pagamento', recive_payment_path(@student_payment), class: 'btn btn-primary btn-block' %>
-        <% elsif @student_payment.payment_fee < @student_payment.student_plan.final_tuition_fee %>
-          <%= button_to 'Ajustar Pagamento', recive_payment_path(@student_payment), class: 'btn btn-primary btn-block' %>
+        <% if @payment.payment_fee.nil? %>
+          <%= button_to 'Receber Pagamento', recive_payment_path(@payment), class: 'btn btn-primary btn-block' %>
+        <% elsif @payment.payment_fee < @payment.student_plan.final_tuition_fee %>
+          <%= button_to 'Ajustar Pagamento', recive_payment_path(@payment), class: 'btn btn-primary btn-block' %>
         <% end %>
       <% end %>
     </div>

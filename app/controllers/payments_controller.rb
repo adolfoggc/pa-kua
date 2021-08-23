@@ -8,6 +8,7 @@ class PaymentsController < ApplicationController
 
   # GET /payments/1 or /payments/1.json
   def show
+    @today = Date.today
   end
 
   # GET /payments/new
