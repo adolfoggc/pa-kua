@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     @students = []
     @instructors = []
     @traveling_instructor = []
-    Person.all.each do |p|
+    Person.all.order(id: 'ASC').each do |p|
       @students << p if p.pakua_student?
       @instructors << p if p.pakua_instructor?
       @traveling_instructor << p if p.traveling_instructor?
