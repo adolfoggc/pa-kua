@@ -1,5 +1,6 @@
 class StudentPlan < ApplicationRecord
   belongs_to :person
+  has_many :payments
 
   validates :due_day, :weekly_classes, :rent_inclusion, :kind_of_plan, presence: true
 

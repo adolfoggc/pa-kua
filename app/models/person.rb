@@ -7,6 +7,7 @@ class Person < ApplicationRecord
   validates :start_date, presence: true, if: :pakua_student?
 
   has_one :student_plan
+  has_many :payments, through: :student_plan
 
   enum role: {
     student: 1,
