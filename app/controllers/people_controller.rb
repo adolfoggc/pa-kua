@@ -121,13 +121,12 @@ class PeopleController < ApplicationController
       end
     end
     @student_payment = @payments.select { |p| (Date.new(@today.year, @today.month, 1) <= p.due_date && p.due_date <= (Date.new(@today.year, @today.month + 1, 1) - 1.day))  }.first
-    @month = 1
   end
 
   def get_month_style(payment)
     if payment.due_date.month == @today.month
       'bg-primary'
-    elsif payment.paid_fee == payment.payment_fee
+    elsif payment.paid? && payment.paid_fee == payment.payment_fee
       'bg-success'
     else
       'bg-danger'
