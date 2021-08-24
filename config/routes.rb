@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :belts
   resources :payments
   root 'dashboard#index'
 
@@ -12,6 +11,17 @@ Rails.application.routes.draw do
     patch '/', to: 'student_plans#update'
     put '/', to: 'student_plans#update'
     delete '/', to: 'student_plans#destroy'
+  end
+
+  get '/faixas', to: 'belts#index', as: :belts
+  post '/faixas', to: 'belts#create'
+  scope 'aluno/:person_id/faixa' do
+    get '/nova', to: 'belts#new', as: :new_belt
+    get '/editar', to: 'belts#edit', as: :edit_belt
+    get '/', to: 'belts#show', as: :belt
+    patch '/', to: 'belts#update'
+    put '/', to: 'belts#update'
+    delete '/', to: 'belts#destroy'
   end
 
   scope 'mensalidades' do
