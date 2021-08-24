@@ -5,7 +5,7 @@
     <div class="card-body box-profile">
       <h3 class="profile-username text-center">Pagamentos</h3>
 
-      <p class="text-muted text-center"><b><%= br_month(@today.month) %></b></p>
+      <p class="text-muted text-center"><b><%= @payment.nil? ? br_month(Date.today.month) : br_month(@payment.due_date.month) %></b></p>
 
       <% if @payment.blank? %>
         <ul class="list-group list-group-unbordered mb-3">
