@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_21_022439) do
+ActiveRecord::Schema.define(version: 2021_08_24_103834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "belts", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.integer "modality"
+    t.integer "color"
+    t.date "start_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["person_id"], name: "index_belts_on_person_id"
+  end
 
   create_table "discounts", force: :cascade do |t|
     t.decimal "discount_percentage"
@@ -91,6 +101,7 @@ ActiveRecord::Schema.define(version: 2021_08_21_022439) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "belts", "people"
   add_foreign_key "payments", "student_plans"
   add_foreign_key "student_plans", "people"
 end

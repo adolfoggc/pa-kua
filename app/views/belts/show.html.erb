@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @belt.person_id %>
+</p>
+
+<p>
+  <strong>Modality:</strong>
+  <%= @belt.modality %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @belt.color %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @belt.start_date %>
+</p>
+
+<%= link_to 'Edit', edit_belt_path(@belt) %> |
+<%= link_to 'Back', belts_path %>
