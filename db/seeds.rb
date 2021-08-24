@@ -6,6 +6,60 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-{ '1': 0, '3': 8, '6': 10, '12': 12 }.each do |k, v|
-  Discount.create(discount_percentage: v, starts_at: Date.today, kind_of_plan: k.to_s.to_i)
+print 'Create Admin... '
+if Member.all.count.zero?
+  Member.create(email: 'fatima@pakua.com', password: 'pastel_na_quinta')
+  print 'Done!'
 end
+
+puts ''
+print 'Create Students... '
+unless Person.where(role: [1, 2, 3]).any?
+  5.times do
+    Person.create(  name: Faker::Name.name,
+                    address: Faker::Address.street_address,
+                    role: 1,
+                    birthdate: Date.new((1980..2010).to_a.sample, (1..12).to_a.sample, (1..28).to_a.sample),
+                    phone: Faker::PhoneNumber.cell_phone,
+                    cpf: Faker::IDNumber.brazilian_citizen_number,
+                    start_date: Date.new(2021, 1, 1))
+  end
+  print 'Done!'
+end
+
+puts ''
+print 'Tuition Fees... '
+unless TuitionFee.all.any?
+  { "0": 345, "1": 138, "2": 185, "3": 232, "4": 279, "5": 326 }.each do |k, v|
+    TuitionFee.create(weekly_classes: k.to_s.to_i, fee: v, validity: Date.new(2021, 1, 1))
+  end
+  print 'Done!'
+end
+
+puts ''
+print 'Rent... '
+unless Rent.all.any?
+  Rent.create(rental_amount: 35, starts_at: Date.new(2021, 1, 1))
+  print 'Done!'
+end
+
+puts ''
+print 'Create Discounts... '
+if Discount.all.count.zero?
+  { '1': 0, '3': 8, '6': 10, '12': 12 }.each do |k, v|
+    Discount.create(discount_percentage: v, starts_at: Date.today, kind_of_plan: k.to_s.to_i)
+  end
+  print 'Done!'
+end
+
+# puts ''
+# print 'Create Modality... '
+# if Modality.all.count.zero?
+#   ['Yoga Chinês', 'Acrobacia', 'Armas de Corte', 'Arte Marcial', 'Arqueria', 'Tai Chi Pa-Kua', 'Ritmo'].each do |modality|
+#     Modality.create(name: modality)
+#   end
+#   puts 'Done!'
+# end
+
+puts ''
+puts 'Seed Complete'
