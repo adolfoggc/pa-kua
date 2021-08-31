@@ -5,6 +5,7 @@ class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
   before_action :roles_data, only: %i[new edit update]
   before_action :payment_data, only: %i[show]
+  before_action :belts_data, only: %i[show]
 
   # GET /people or /people.json
   def index
@@ -119,6 +120,17 @@ class PeopleController < ApplicationController
       else
         @months_and_status[:dez] = { id: p.id, style: get_month_style(p) }
       end
+    end
+  end
+
+  def belts_data
+    @belts = {  acrobacia: nil, armas_de_corte: nil, arqueria: nil,
+                arte_marcial: nil, ritmo: nil, tai_chi_pa_kua: nil, yoga: nil}
+    belts = @person.belts.order(color: :desc, modality: :asc, start_date: :desc)
+    return unless belts.any?
+
+    belts.each do |belt|
+      @belts[belt.modality.to_sym] = belt if @belts[belt.modality.to_sym].nil?
     end
   end
 

@@ -1,0 +1,44 @@
+<div class="col-md-5">
+          <!-- plan -->
+          <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <h3 class="profile-username text-center">Faixas</h3>
+
+              <ul class="list-group list-group-unbordered mb-3">
+                <% if @belts.values.uniq.size == 1 && !@belts.values[0].nil? %>
+                  <li class="list-group-item text-center">
+                    <b>Nenhuma Faixa Cadastrada</b>
+                  </li>  
+                <% else %>
+                  <% @belts.each do |k, belt| %>
+                    <% unless belt.nil? %>
+                      <li class="list-group-item">
+                        <div class="row align-items-center">
+                          <div class="col-3">
+                            <b><%= modality_name(k.to_s) %></b>
+                          </div>
+                          <div class="col-3 text-center">
+                            <span class="badge bg-primary" style="<%= belt_color_style(belt.color) %>"><%= belt.color.humanize.upcase %></span>
+                          </div>
+                          <div class="col-3">
+                            <% unless belt.color == "preta_viii"%>
+                              <a class="float-right"><%= link_to 'Mudar', change_belt_path(@person, belt), class: 'btn btn-success btn-block' %></a>
+                            <% end %>
+                          </div>
+                          <div class="col-3">
+                            <a class="float-right"><%= link_to 'Editar', edit_belt_path(@person, belt), class: 'btn btn-primary btn-block' %></a>
+                          </div>
+                        </div>
+                      </li>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </ul>
+              <% unless !@belts.values.include?(nil) %>
+                <%= link_to 'Inserir Faixa ao Aluno', new_belt_path(@person), class: 'btn btn-primary btn-block' %>
+              <% end %>
+
+              <%# link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>
+            </div>
+          </div>
+        </div>
