@@ -1,0 +1,41 @@
+<section class="content">
+  <div class="container-fluid">
+    <%= form_with(model: @person, local: true) do |form| %>
+      <% if @person.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+          <ul>
+            <% @person.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title"><%= @view_action %></h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="form-group">
+                <h4 class="mb-0"><%= form.label :information, 'Informações', class: "mb-0" %></h4>
+                <%= form.text_area :information, class: "form-control", rows: "5", style:"resize: none;" %>
+              </div>
+
+              <div class="actions">
+                <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+                <%= link_to 'Voltar para Membros', people_path, class: 'btn btn-secondary' %>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

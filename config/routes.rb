@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   get 'alunos', to: 'students#create'
   get 'alunos/:id', to: 'students#update'
   get 'alunos/:id', to: 'students#destroy'
+  get 'membros/:id/informacao', to: 'people#edit_information', as: 'edit_information'
   devise_for :members, controllers: {
     sessions: 'member/sessions'
   }

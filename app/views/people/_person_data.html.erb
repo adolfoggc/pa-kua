@@ -30,8 +30,14 @@
           <b>Início na Escola</b> <a class="float-right"><%= date_format(@person.start_date) %></a>
         </li>
       </ul>
-
+      <% if !@person.information.blank? || !@person.information.nil? %>
+        <div class="mb-3">
+          <b>Informações</b> <a class="float-right"><%= @person.information %></a>
+          <br>
+        </div>
+      <% end %>
       <%= link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>
+      <%= link_to 'Editar Informações Extras', edit_information_path(@person), class: 'btn btn-success btn-block' %>
       <%= link_to 'Voltar', people_path, class: 'btn btn-secondary btn-block' %>
     </div>
     <!-- /.card-body -->

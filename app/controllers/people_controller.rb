@@ -2,7 +2,7 @@
 
 # Manipulation of people data
 class PeopleController < ApplicationController
-  before_action :set_person, only: %i[show edit update destroy]
+  before_action :set_person, only: %i[show edit update destroy edit_information]
   before_action :roles_data, only: %i[new edit update]
   before_action :payment_data, only: %i[show]
   before_action :belts_data, only: %i[show]
@@ -30,10 +30,14 @@ class PeopleController < ApplicationController
   # POST /people or /people.json
   def create
     @person = Person.new(person_params)
-
+    if params[:information].blank? || params[:information].nil?
+      return_path = people_path
+    else
+      return_path = person_path(@person)
+    end
     respond_to do |format|
       if @person.save
-        format.html { redirect_to people_path, notice: "Person was successfully created." }
+        format.html { redirect_to return_path, notice: "Person was successfully created." }
         format.json { render :show, status: :created, location: @person }
       else
         roles_data
@@ -48,7 +52,7 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to people_path, notice: "Person was successfully updated." }
+        format.html { redirect_to person_path(@person), notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
         roles_data
@@ -68,6 +72,9 @@ class PeopleController < ApplicationController
     end
   end
 
+  def edit_information
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -77,7 +84,7 @@ class PeopleController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def person_params
-    params.require(:person).permit(:name, :address, :birthdate, :phone, :cpf, :role, :start_date)
+    params.require(:person).permit(:name, :address, :birthdate, :phone, :cpf, :role, :start_date, :information)
   end
 
   def roles_data
