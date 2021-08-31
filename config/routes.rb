@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pakua_classes
   resources :payments
   root 'dashboard#index'
 

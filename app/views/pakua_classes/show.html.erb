@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Modality:</strong>
+  <%= @pakua_class.modality %>
+</p>
+
+<p>
+  <strong>Day of week:</strong>
+  <%= @pakua_class.day_of_week %>
+</p>
+
+<p>
+  <strong>Hour:</strong>
+  <%= @pakua_class.hour %>
+</p>
+
+<p>
+  <strong>Minutes:</strong>
+  <%= @pakua_class.minutes %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @pakua_class.duration %>
+</p>
+
+<%= link_to 'Edit', edit_pakua_class_path(@pakua_class) %> |
+<%= link_to 'Back', pakua_classes_path %>

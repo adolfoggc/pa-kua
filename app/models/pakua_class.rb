@@ -1,0 +1,2 @@
+class PakuaClass < ApplicationRecord
+end

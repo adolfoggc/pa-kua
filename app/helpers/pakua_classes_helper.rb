@@ -1,0 +1,2 @@
+module PakuaClassesHelper
+end

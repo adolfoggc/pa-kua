@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Pakua Classes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Modality</th>
+      <th>Day of week</th>
+      <th>Hour</th>
+      <th>Minutes</th>
+      <th>Duration</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pakua_classes.each do |pakua_class| %>
+      <tr>
+        <td><%= pakua_class.modality %></td>
+        <td><%= pakua_class.day_of_week %></td>
+        <td><%= pakua_class.hour %></td>
+        <td><%= pakua_class.minutes %></td>
+        <td><%= pakua_class.duration %></td>
+        <td><%= link_to 'Show', pakua_class %></td>
+        <td><%= link_to 'Edit', edit_pakua_class_path(pakua_class) %></td>
+        <td><%= link_to 'Destroy', pakua_class, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pakua Class', new_pakua_class_path %>
