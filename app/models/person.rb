@@ -8,6 +8,7 @@ class Person < ApplicationRecord
 
   has_one :student_plan
   has_many :payments, through: :student_plan
+  has_many :belts
 
   enum role: {
     student: 1,
@@ -37,5 +38,11 @@ class Person < ApplicationRecord
     else
       'Instrutor(a) Itineirante'
     end
+  end
+
+  def greatest_belt_color
+    return '' if belts.blank?
+
+    belts.select(:color).group(:color).order(:color).uniq.last.color
   end
 end
