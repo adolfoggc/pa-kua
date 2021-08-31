@@ -1,5 +1,7 @@
 class BeltsController < ApplicationController
-  before_action :set_belt, only: %i[ show edit update destroy ]
+  before_action :set_belt, only: %i[show edit update destroy change_belt]
+  before_action :form_data, only: %i[new edit]
+  before_action :check_member_belt, except: %i[new create update change_belt]
 
   # GET /belts or /belts.json
   def index
@@ -25,9 +27,10 @@ class BeltsController < ApplicationController
 
     respond_to do |format|
       if @belt.save
-        format.html { redirect_to @belt, notice: "Belt was successfully created." }
+        format.html { redirect_to person_path(@belt.person.id), notice: "Belt was successfully created." }
         format.json { render :show, status: :created, location: @belt }
       else
+        form_data
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @belt.errors, status: :unprocessable_entity }
       end
@@ -38,9 +41,10 @@ class BeltsController < ApplicationController
   def update
     respond_to do |format|
       if @belt.update(belt_params)
-        format.html { redirect_to @belt, notice: "Belt was successfully updated." }
+        format.html { redirect_to person_path(@belt.person.id), notice: "Belt was successfully updated." }
         format.json { render :show, status: :ok, location: @belt }
       else
+        form_data
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @belt.errors, status: :unprocessable_entity }
       end
@@ -56,14 +60,35 @@ class BeltsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_belt
-      @belt = Belt.find(params[:id])
+  def change_belt
+    @belt = @belt.dup
+    @belt.color = Belt.colors[@belt.color] + 1
+    if @belt.save
+      redirect_to edit_belt_path(@belt.person, @belt)
+    else
+      redirect_to person_path(@belt.person_id)
     end
+  end
 
-    # Only allow a list of trusted parameters through.
-    def belt_params
-      params.require(:belt).permit(:person_id, :modality, :color, :start_date)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_belt
+    @belt = Belt.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def belt_params
+    params.require(:belt).permit(:person_id, :modality, :color, :start_date)
+  end
+
+  def form_data
+    @person_id = !@belt.nil? && @belt.persisted? ? @belt.person.id : params[:person_id]
+    @modalities = Belt.modalities
+    @colors = Belt.colors
+  end
+
+  def check_member_belt
+    redirect_to person_path(params[:person_id]) if @belt.person_id != params[:person_id].to_i 
+  end
 end
