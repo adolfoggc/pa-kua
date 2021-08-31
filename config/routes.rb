@@ -17,8 +17,12 @@ Rails.application.routes.draw do
   post '/faixas', to: 'belts#create'
   scope 'aluno/:person_id/faixa' do
     get '/nova', to: 'belts#new', as: :new_belt
-    get '/editar', to: 'belts#edit', as: :edit_belt
+    get ':id/editar', to: 'belts#edit', as: :edit_belt
     get '/', to: 'belts#show', as: :belt
+    get '/:id/mudar_faixa', to: 'belts#change_belt', as: :change_belt
+  end
+
+  scope 'aluno/:id/faixa' do
     patch '/', to: 'belts#update'
     put '/', to: 'belts#update'
     delete '/', to: 'belts#destroy'
