@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_103834) do
+ActiveRecord::Schema.define(version: 2021_08_31_111857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_103834) do
     t.date "birthdate_bidx"
     t.date "start_date_bidx"
     t.text "start_date_ciphertext"
+    t.text "information"
     t.index ["birthdate_bidx"], name: "index_people_on_birthdate_bidx", unique: true
     t.index ["start_date_bidx"], name: "index_people_on_start_date_bidx", unique: true
   end
