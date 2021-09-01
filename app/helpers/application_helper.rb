@@ -86,4 +86,14 @@ module ApplicationHelper
     end
     modality_name
   end
+
+  def day_of_week_name(day)
+    return day.capitalize unless %w[terca sabado].include? day
+
+    if day == 'terca'
+      'Terça'
+    else
+      'Sábado'
+    end
+  end
 end
