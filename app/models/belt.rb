@@ -20,12 +20,12 @@ class Belt < ApplicationRecord
   }
 
   enum modality: {
-    yoga: 1,
-    acrobacia: 2,
-    arte_marcial: 3,
-    armas_de_corte: 4,
-    arqueria: 5,
+    acrobacia: 1,
+    armas_de_corte: 2,
+    arqueria: 3,
+    arte_marcial: 4,
+    ritmo: 5,
     tai_chi_pa_kua: 6,
-    ritmo: 7
+    yoga: 7,
   }
 end
