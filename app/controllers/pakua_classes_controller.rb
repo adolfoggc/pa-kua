@@ -1,5 +1,6 @@
 class PakuaClassesController < ApplicationController
   before_action :set_pakua_class, only: %i[ show edit update destroy ]
+  before_action :form_data, only: %i[new edit]
 
   # GET /pakua_classes or /pakua_classes.json
   def index
@@ -28,6 +29,7 @@ class PakuaClassesController < ApplicationController
         format.html { redirect_to @pakua_class, notice: "Pakua class was successfully created." }
         format.json { render :show, status: :created, location: @pakua_class }
       else
+        form_data
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @pakua_class.errors, status: :unprocessable_entity }
       end
@@ -41,6 +43,7 @@ class PakuaClassesController < ApplicationController
         format.html { redirect_to @pakua_class, notice: "Pakua class was successfully updated." }
         format.json { render :show, status: :ok, location: @pakua_class }
       else
+        form_data
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @pakua_class.errors, status: :unprocessable_entity }
       end
@@ -57,13 +60,19 @@ class PakuaClassesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pakua_class
-      @pakua_class = PakuaClass.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def pakua_class_params
-      params.require(:pakua_class).permit(:modality, :day_of_week, :hour, :minutes, :duration)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pakua_class
+    @pakua_class = PakuaClass.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def pakua_class_params
+    params.require(:pakua_class).permit(:modality, :day_of_week, :hour, :minutes, :duration)
+  end
+
+  def form_data
+    @days_of_week = PakuaClass.day_of_weeks
+    @modalities = PakuaClass.modalities
+  end
 end
