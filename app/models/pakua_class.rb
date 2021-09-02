@@ -1,4 +1,6 @@
 class PakuaClass < ApplicationRecord
+  validates :day_of_week, :modality, :hour, :minutes, :duration, presence: true
+
   enum day_of_week: {
     domingo: 0,
     segunda: 1,
