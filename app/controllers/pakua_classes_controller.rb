@@ -4,7 +4,17 @@ class PakuaClassesController < ApplicationController
 
   # GET /pakua_classes or /pakua_classes.json
   def index
-    @pakua_classes = PakuaClass.all
+    @class_schedule = {}
+    @classes = PakuaClass.all.order(hour: :asc, minutes: :asc, duration: :asc, modality: :asc) 
+    return unless @classes.size.positive?
+
+    @classes.each do |pkc|
+      starts_at = Time.new('2021', 'jan', '11', pkc.hour, pkc.minutes)
+      ends_at = starts_at + 60 * pkc.duration.to_i
+      schedule_time = starts_at.strftime('%H:%M') + ' - ' + ends_at.strftime('%H:%M')
+      @class_schedule[schedule_time] = set_blank_weekly_schedule unless @class_schedule.key?(schedule_time)
+      @class_schedule[schedule_time][pkc.day_of_week] << { modality: pkc.modality } # insert another informations here
+    end
   end
 
   # GET /pakua_classes/1 or /pakua_classes/1.json
@@ -26,7 +36,7 @@ class PakuaClassesController < ApplicationController
 
     respond_to do |format|
       if @pakua_class.save
-        format.html { redirect_to @pakua_class, notice: "Pakua class was successfully created." }
+        format.html { redirect_to pakua_classes_path, notice: "Pakua class was successfully created." }
         format.json { render :show, status: :created, location: @pakua_class }
       else
         form_data
@@ -40,7 +50,7 @@ class PakuaClassesController < ApplicationController
   def update
     respond_to do |format|
       if @pakua_class.update(pakua_class_params)
-        format.html { redirect_to @pakua_class, notice: "Pakua class was successfully updated." }
+        format.html { redirect_to  pakua_classes_path, notice: "Pakua class was successfully updated." }
         format.json { render :show, status: :ok, location: @pakua_class }
       else
         form_data
@@ -74,5 +84,13 @@ class PakuaClassesController < ApplicationController
   def form_data
     @days_of_week = PakuaClass.day_of_weeks
     @modalities = PakuaClass.modalities
+  end
+
+  def set_blank_weekly_schedule
+    weekly_schedule = {}
+    PakuaClass.day_of_weeks.keys.each do |day_of_week|
+      weekly_schedule[day_of_week] = []
+    end
+    weekly_schedule
   end
 end
