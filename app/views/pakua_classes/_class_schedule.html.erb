@@ -1,0 +1,49 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- /.card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Horário das Turmas</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th></th>
+                  <% PakuaClass.day_of_weeks.keys.each do |day_of_week| %>
+                    <th><%= day_of_week_name(day_of_week) %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @class_schedule.each do |duration, week| %>
+                  <tr>
+                    <td><%= duration %></td>
+                    <% week.each do |day_of_week, class_info| %>
+                      <td>
+                        <% class_info.each do |pkc| %>
+                          <div class="row">
+                            <div class="col-12">
+                              <%= modality_name(pkc[:modality]) unless pkc.blank? %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody> 
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <%= link_to 'Nova Turma', new_pakua_class_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
