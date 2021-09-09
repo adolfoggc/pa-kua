@@ -12,22 +12,26 @@
             <table class="table table-sm">
               <thead>
                 <tr>
-                  <th></th>
+                  <th class="text-center"></th>
                   <% PakuaClass.day_of_weeks.keys.each do |day_of_week| %>
-                    <th><%= day_of_week_name(day_of_week) %></th>
+                    <th class="text-center"><%= day_of_week_name(day_of_week) %></th>
                   <% end %>
                 </tr>
               </thead>
               <tbody>
                 <% @class_schedule.each do |duration, week| %>
                   <tr>
-                    <td><%= duration %></td>
+                    <td class="text-center"><%= duration %></td>
                     <% week.each do |day_of_week, class_info| %>
-                      <td>
+                      <td class="text-center">
                         <% class_info.each do |pkc| %>
-                          <div class="row">
+                          <div class="row py-2">
                             <div class="col-12">
-                              <%= modality_name(pkc[:modality]) unless pkc.blank? %>
+                              <div class="row">
+                                <div class="col-12">
+                                  <%= modality_name(pkc[:modality]) unless pkc.blank? %>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         <% end %>
@@ -41,9 +45,15 @@
           <!-- /.card-body -->
         </div>
         <!-- /.card -->
-        <%= link_to 'Nova Turma', new_pakua_class_path, class: 'btn btn-primary' %>
       </div>
     </div>
   </div>
 </section>
 <br>
+
+<style>
+  th, td {
+    border: 1px solid #999;
+    border-collapse: collapse;
+  }
+</style>

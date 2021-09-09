@@ -4,10 +4,13 @@
 
 <%= render 'layouts/dashboard_main_top' %>
 <% if @class_schedule.blank? %>
-  Nenhuma aula definida
+  Nenhuma turma definida
+  <br><br><br>
 <% else%>
   <%= render 'class_schedule' %>
 <% end %>
+<br>
+<%= link_to 'Nova Turma', new_pakua_class_path, class: 'btn btn-primary' %>
 <%= render 'layouts/dashboard_main_bottom' %>
 
 <p id="notice"><%= notice %></p>
