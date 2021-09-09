@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_31_190259) do
+ActiveRecord::Schema.define(version: 2021_09_09_104237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 2021_08_31_190259) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["person_id"], name: "index_belts_on_person_id"
+  end
+
+  create_table "class_instructors", force: :cascade do |t|
+    t.integer "instructor"
+    t.bigint "pakua_class_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["pakua_class_id"], name: "index_class_instructors_on_pakua_class_id"
   end
 
   create_table "discounts", force: :cascade do |t|
@@ -113,6 +121,7 @@ ActiveRecord::Schema.define(version: 2021_08_31_190259) do
   end
 
   add_foreign_key "belts", "people"
+  add_foreign_key "class_instructors", "pakua_classes"
   add_foreign_key "payments", "student_plans"
   add_foreign_key "student_plans", "people"
 end

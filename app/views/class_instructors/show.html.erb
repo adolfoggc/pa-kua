@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Instructor:</strong>
+  <%= @class_instructor.instructor %>
+</p>
+
+<p>
+  <strong>Pakua class:</strong>
+  <%= @class_instructor.pakua_class_id %>
+</p>
+
+<%= link_to 'Edit', edit_class_instructor_path(@class_instructor) %> |
+<%= link_to 'Back', class_instructors_path %>

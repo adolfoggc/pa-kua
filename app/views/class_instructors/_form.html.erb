@@ -1,0 +1,27 @@
+<%= form_with(model: class_instructor, local: true) do |form| %>
+  <% if class_instructor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(class_instructor.errors.count, "error") %> prohibited this class_instructor from being saved:</h2>
+
+      <ul>
+        <% class_instructor.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :instructor %>
+    <%= form.number_field :instructor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pakua_class_id %>
+    <%= form.text_field :pakua_class_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
