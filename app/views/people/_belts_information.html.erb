@@ -35,7 +35,7 @@
                 <% end %>
               </ul>
               <% unless !@belts.values.include?(nil) %>
-                <%= link_to 'Inserir Faixa ao Aluno', new_belt_path(@person), class: 'btn btn-primary btn-block' %>
+                <%= link_to "Adicionar Faixa ao #{pakua_title(@person).capitalize}", new_belt_path(@person), class: 'btn btn-primary btn-block' %>
               <% end %>
 
               <%# link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>

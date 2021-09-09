@@ -31,9 +31,9 @@
                 </li>
               </ul>
               <% if @person.student_plan.blank? %>
-                <%= link_to 'Criar Plano do Aluno', new_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
+                <%= link_to "Criar Plano do  #{pakua_title(@person).capitalize}", new_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
               <% else %>
-                <%= link_to 'Editar Plano do Aluno', edit_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
+                <%= link_to "Editar Plano do #{pakua_title(@person).capitalize}", edit_student_plan_path(@person), class: 'btn btn-primary btn-block' %>
               <% end %>
 
               <%# link_to 'Editar', edit_person_path(@person), class: 'btn btn-primary btn-block' %>

@@ -87,6 +87,12 @@ module ApplicationHelper
     modality_name
   end
 
+  def pakua_title(person)
+    return 'instrutor' if person.pakua_instructor?
+
+    'aluno'
+  end
+
   def day_of_week_name(day)
     return day.capitalize unless %w[terca sabado].include? day
 
