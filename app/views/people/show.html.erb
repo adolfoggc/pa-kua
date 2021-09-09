@@ -44,12 +44,12 @@
 
       <%= render 'belts_information' %>
     </div>
+    <% if @person.pakua_student? && !@person.student_plan.nil?%>
+      <div class="row">
+        <%= render 'payments' %>
+        <%= render 'months_payment' %>
+      </div>
+    <% end%>
   </div>
-  <% if @person.pakua_student? && !@person.student_plan.nil?%>
-    <div class="row">
-      <%= render 'payments' %>
-      <%= render 'months_payment' %>
-    </div>
-  <% end%>
 </section>
 
