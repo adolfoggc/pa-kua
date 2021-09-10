@@ -26,11 +26,12 @@ ActiveRecord::Schema.define(version: 2021_09_09_104237) do
   end
 
   create_table "class_instructors", force: :cascade do |t|
-    t.integer "instructor"
+    t.bigint "person_id", null: false
     t.bigint "pakua_class_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["pakua_class_id"], name: "index_class_instructors_on_pakua_class_id"
+    t.index ["person_id"], name: "index_class_instructors_on_person_id"
   end
 
   create_table "discounts", force: :cascade do |t|
@@ -122,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_104237) do
 
   add_foreign_key "belts", "people"
   add_foreign_key "class_instructors", "pakua_classes"
+  add_foreign_key "class_instructors", "people"
   add_foreign_key "payments", "student_plans"
   add_foreign_key "student_plans", "people"
 end
