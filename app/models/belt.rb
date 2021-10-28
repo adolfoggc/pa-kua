@@ -26,6 +26,6 @@ class Belt < ApplicationRecord
     arte_marcial: 4,
     ritmo: 5,
     tai_chi_pa_kua: 6,
-    yoga: 7,
+    yoga: 7
   }
 end
