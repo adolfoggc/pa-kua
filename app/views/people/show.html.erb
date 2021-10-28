@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%# notice %></p>
 <section class="content">
   <div class="container-fluid">
     <div class="row">
@@ -44,12 +44,16 @@
 
       <%= render 'belts_information' %>
     </div>
-    <% if @person.pakua_student? && !@person.student_plan.nil?%>
-      <div class="row">
+    <div class="row">
+      <% if @person.pakua_student? && !@person.student_plan.nil? %>
         <%= render 'payments' %>
         <%= render 'months_payment' %>
-      </div>
-    <% end%>
+      <% end%>
+      <% if @person.pakua_instructor? && !@any_pakua_class.blank? && @person.can_be_instructor? %>
+        <%# render 'instructor_classes' %>
+        <%# render 'months_payment' %>
+      <% end %>
+    </div>
   </div>
 </section>
 
