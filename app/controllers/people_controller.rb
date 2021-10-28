@@ -14,6 +14,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1 or /people/1.json
   def show
+    @any_pakua_class = PakuaClass.first
   end
 
   # GET /people/new
