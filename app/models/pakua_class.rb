@@ -20,4 +20,12 @@ class PakuaClass < ApplicationRecord
     tai_chi_pa_kua: 6,
     yoga: 7
   }
+
+  def end_of_class
+    #Time.new(hour: hour, minute
+  end
+
+  def class_description
+    modality_name + ' - ' + day_of_week_name + ' de ' + hour + ':' + minutes + ' até ' + (Time.new())
+  end
 end
