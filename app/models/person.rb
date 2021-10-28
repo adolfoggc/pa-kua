@@ -45,4 +45,13 @@ class Person < ApplicationRecord
 
     belts.select(:color).group(:color).order(:color).uniq.last.color
   end
+
+  # instructor methods
+  def can_be_instructor_of(modality)
+    belts.where('5 <= color').where(modality: modality)
+  end
+
+  def can_be_instructor?
+    belts.where('5 <= color').any?
+  end
 end
