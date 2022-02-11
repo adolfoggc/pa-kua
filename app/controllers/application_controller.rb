@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ApplicationController < ActionController::Base
-  layout 'adminlte3' unless %w[sessions].include?(controller_name) 
+  layout 'sb_admin2' unless %w[sessions].include?(controller_name) 
   before_action :authenticate_member!
 
   def get_people_data
