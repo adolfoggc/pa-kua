@@ -102,4 +102,34 @@ module ApplicationHelper
       'Sábado'
     end
   end
+
+  #page generators
+  def page_title_with_button(title, button)
+    
+    html = ['<div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">', 
+            title, '</h1>']
+
+    html << '<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>' if button
+    html << '</div>'
+    html.join()
+  end
+
+  def generate_card(title, icon_style, value, link, color_style)
+    html = ['<div class="col-xl-3 col-md-6 mb-4"><div class="card border-left-']
+    html << color_style 
+    html << ' shadow h-100 py-2"><div class="card-body"><div class="row no-gutters align-items-center">'
+    html << '<div class="col mr-2"><div class="text-xs font-weight-bold text-'
+    html << color_style
+    html << ' text-uppercase mb-1">'
+    html << title
+    html << '</div><div class="h5 mb-0 font-weight-bold text-gray-800">'
+    html << value
+    html << '</div></div><div class="col-auto"><i class="'
+    html << icon_style
+    html << ' text-gray-300"></i></div></div></div></div></div>'
+    html.join()
+  end
+
 end
