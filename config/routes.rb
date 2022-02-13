@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :payments
   root 'dashboard#index'
 
+  get '/example', to: 'dashboard#example', as: 'dashboard_example'
+
   get '/planos_dos_alunos', to: 'student_plans#index', as: :student_plans
   post '/planos_dos_alunos', to: 'student_plans#create'
   scope 'aluno/:person_id/plano' do

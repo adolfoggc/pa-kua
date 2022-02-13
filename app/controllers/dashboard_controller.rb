@@ -5,4 +5,7 @@ class DashboardController < ApplicationController
   def index
     get_people_data
   end
+
+  def example
+  end
 end
