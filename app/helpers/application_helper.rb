@@ -116,19 +116,41 @@ module ApplicationHelper
     html.join()
   end
 
-  def generate_card(title, icon_style, value, link, color_style)
-    html = ['<div class="col-xl-3 col-md-6 mb-4"><div class="card border-left-']
-    html << color_style 
-    html << ' shadow h-100 py-2"><div class="card-body"><div class="row no-gutters align-items-center">'
-    html << '<div class="col mr-2"><div class="text-xs font-weight-bold text-'
-    html << color_style
-    html << ' text-uppercase mb-1">'
-    html << title
-    html << '</div><div class="h5 mb-0 font-weight-bold text-gray-800">'
-    html << value
-    html << '</div></div><div class="col-auto"><i class="'
-    html << icon_style
-    html << ' text-gray-300"></i></div></div></div></div></div>'
+  def generate_value_card(title, icon_style, value, link, color_style)
+    html = ['<div class="col-xl-3 col-md-6 mb-4"><div class="card border-left-',
+      color_style, 
+      ' shadow h-100 py-2"><div class="card-body"><div class="row no-gutters align-items-center">',
+      '<div class="col mr-2"><div class="text-xs font-weight-bold text-',
+      color_style,
+      ' text-uppercase mb-1">',
+      title,
+      '</div><div class="h5 mb-0 font-weight-bold text-gray-800">',
+      value,
+      '</div></div><div class="col-auto"><i class="',
+      icon_style,
+      ' text-gray-300"></i></div></div></div></div></div>']
+    html.join()
+  end
+
+  def generate_bar_card(title, icon_style, value, link, color_style)
+    puts ['<div class="progress-bar bg-', color_style, '" role="progressbar" style="width: ', value, '%" aria-valuenow="', value, '" aria-valuemin="0" aria-valuemax="100"></div>'].join()
+    html = ['<div class="col-xl-3 col-md-6 mb-4">',
+      '<div class="card border-left-', color_style, ' shadow h-100 py-2">',
+      '<div class="card-body">',
+      '<div class="row no-gutters align-items-center">',
+      '<div class="col mr-2">',
+      '<div class="text-xs font-weight-bold text-', color_style, ' text-uppercase mb-1">', title, '</div>',
+      '<div class="row no-gutters align-items-center">',
+      '<div class="col-auto">',
+      '<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">', value,'%</div>',
+      '</div>',
+      '<div class="col">',
+      '<div class="progress progress-sm mr-2">',
+      '<div class="progress-bar bg-', color_style, '" role="progressbar" style="width: ', value, '%" aria-valuenow="', value, '" aria-valuemin="0" aria-valuemax="100"></div>',
+      '</div></div></div></div>',
+      '<div class="col-auto">',
+      '<i class="', icon_style,' text-gray-300"></i>',
+      '</div></div></div></div></div>']
     html.join()
   end
 
