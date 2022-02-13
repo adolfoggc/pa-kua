@@ -9,6 +9,7 @@ class DashboardController < ApplicationController
   end
 
   def example
+    @charts = 1
   end
 
   private

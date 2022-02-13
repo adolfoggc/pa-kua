@@ -8,9 +8,11 @@
 <!-- Custom scripts for all pages-->
 <%= javascript_include_tag 'sb_admin2/sb-admin-2.min' %>
 
-<!-- Page level plugins -->
-<%= javascript_include_tag 'sb_admin2/Chart.min.js' %>
+<% unless @charts.nil? %>
+  <!-- Page level plugins -->
+  <%= javascript_include_tag 'sb_admin2/Chart.min.js' %>
 
-<!-- Page level custom scripts -->
-<%= javascript_include_tag 'sb_admin2/chart-area-demo' %>
-<%= javascript_include_tag 'sb_admin2/chart-pie-demo' %>
+  <!-- Page level custom scripts -->
+  <%= javascript_include_tag 'sb_admin2/chart-area-demo' %>
+  <%= javascript_include_tag 'sb_admin2/chart-pie-demo' %>
+<% end %>
