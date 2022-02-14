@@ -133,7 +133,6 @@ module ApplicationHelper
   end
 
   def generate_bar_card(title, icon_style, value, link, color_style)
-    puts ['<div class="progress-bar bg-', color_style, '" role="progressbar" style="width: ', value, '%" aria-valuenow="', value, '" aria-valuemin="0" aria-valuemax="100"></div>'].join()
     html = ['<div class="col-xl-3 col-md-6 mb-4">',
       '<div class="card border-left-', color_style, ' shadow h-100 py-2">',
       '<div class="card-body">',
@@ -151,6 +150,23 @@ module ApplicationHelper
       '<div class="col-auto">',
       '<i class="', icon_style,' text-gray-300"></i>',
       '</div></div></div></div></div>']
+    html.join()
+  end
+
+  def nav_section_for_sidebar(title, subsection, icon, links)
+    html = ['<li class="nav-item">',
+            '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse', title, '" aria-expanded="true" aria-controls="collapse', title, '">',
+            '<i class="', icon, '"></i>',
+            '<span>', title, '</span>',
+            '</a>',
+            '<div id="collapse', title, '" class="collapse" aria-labelledby="heading', title, '" data-parent="#accordionSidebar">',
+            '<div class="bg-white py-2 collapse-inner rounded">',
+            '<h6 class="collapse-header">', subsection, ':</h6>']
+    links.each do |l|
+      html << [link_to(l[0], l[1], class: 'collapse-item')]
+      puts [link_to(l[0], l[1], class: 'collapse-item')]
+    end
+    html << '</div></div></li>'
     html.join()
   end
 end
