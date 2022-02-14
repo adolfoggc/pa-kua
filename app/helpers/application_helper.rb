@@ -153,5 +153,4 @@ module ApplicationHelper
       '</div></div></div></div></div>']
     html.join()
   end
-
 end
