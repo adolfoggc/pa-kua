@@ -71,6 +71,12 @@
               <div class="actions">
                 <%= form.submit 'Salvar', class: 'btn btn-primary' %>
                 <%= link_to 'Voltar para Membros', people_path, class: 'btn btn-secondary' %>
+                <% if @person.pakua_student? %>
+                  <%= link_to 'Voltar para Alunos', alunos_path, class: 'btn btn-secondary' %>
+                <% end %>
+                <% if @person.pakua_instructor? %>
+                  <%= link_to 'Voltar para Intrutores', instrutores_path, class: 'btn btn-secondary' %>
+                <% end %>
               </div>
             </div>
             <!-- /.card-body -->
