@@ -12,7 +12,6 @@ module ApplicationHelper
 
   def to_br(value)
     str_value = value.to_s
-    puts ((value % 1) * 10) % 1
     str_value += '0' if (((value % 1) * 10) % 1).zero?
     str_value.gsub!('.', ',')
   end
@@ -164,9 +163,54 @@ module ApplicationHelper
             '<h6 class="collapse-header">', subsection, ':</h6>']
     links.each do |l|
       html << [link_to(l[0], l[1], class: 'collapse-item')]
-      puts [link_to(l[0], l[1], class: 'collapse-item')]
     end
     html << '</div></div></li>'
     html.join()
+  end
+
+  def generate_index_table(model, objects, show = nil, hide = nil, translated_names, new_label)
+    model_name = model.name.pluralize.downcase
+    if show.blank?
+      show = []
+      model.new.attributes.each do |k, |
+        show << k unless ['id', 'created_at', 'updated_at'].include? k
+      end
+      show -= hide unless hide.blank?
+    end
+    html = ['<div class="card shadow mb-4">',
+      '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">',
+      '<thead>',
+      '<tr>']
+    if translated_names.blank?
+      show.each do |att|
+        html << "<th>#{att}</th>"
+      end
+    else
+      translated_names.each do |att|
+        html << "<th>#{att}</th>"
+      end
+    end
+    html << '<th colspan="3"></th>'
+    html << ['</tr>',
+      '</thead>',
+      '<tbody>'
+    ]
+    objects.each do |obj|
+      html << '<tr>'
+      show.each do |att|
+        value = obj.send(att)
+        if ['ActiveSupport::TimeWithZone', 'Date'].include?(value.class.to_s)
+          html << "<td>#{value.strftime("%d/%m/%Y")}</td>"
+        else
+          html << "<td>#{value}</td>"
+        end
+      end
+      html << "<td>#{link_to 'Ver', obj, class: 'btn btn-info'}</td>"
+      html << "<td>#{link_to 'Editar', {controller: model_name, action: :edit, id: obj.id}, class: 'btn btn-warning'}</td>"
+      html << "<td>#{link_to 'Excluir', obj, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'}</td>"
+    end
+    html << '</tbody></table></div>'
+    html << "<br>#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}"
+    html.join
   end
 end
