@@ -147,7 +147,7 @@ module ApplicationHelper
       '<div class="progress-bar bg-', color_style, '" role="progressbar" style="width: ', value, '%" aria-valuenow="', value, '" aria-valuemin="0" aria-valuemax="100"></div>',
       '</div></div></div></div>',
       '<div class="col-auto">',
-      '<i class="', icon_style,' text-gray-300"></i>',
+      '<i class="', icon_style,' fa-2x text-gray-300"></i>',
       '</div></div></div></div></div>']
     html.join()
   end
