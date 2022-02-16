@@ -1,15 +1,3 @@
-<%= render 'layouts/dashboard_content_top' %>
-<div class="col-sm-6">
-  <h1 class="m-0">Instrutores</h1>
-</div><!-- /.col -->
-<%= render 'layouts/dashboard_content_bottom' %>
+<%= page_title_with_button('Instrutores', false).html_safe %>
+<%= render '/people/instructors' %>
 
-<%= render 'layouts/dashboard_main_top' %>
-
-<%= render 'layouts/dashboard_main_bottom' %>
-
-  <p id="notice"><%= notice %></p>
-
-<section class="content">
-  <%= render '/people/instructors' %>
-</section>
