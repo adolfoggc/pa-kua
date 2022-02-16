@@ -127,7 +127,7 @@ module ApplicationHelper
       value,
       '</div></div><div class="col-auto"><i class="',
       icon_style,
-      ' text-gray-300"></i></div></div></div></div></div>']
+      ' fa-2x text-gray-300"></i></div></div></div></div></div>']
     html.join()
   end
 
