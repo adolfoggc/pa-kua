@@ -168,7 +168,7 @@ module ApplicationHelper
     html.join()
   end
 
-  def generate_index_table(model, objects, show = nil, hide = nil, translated_names, new_label)
+  def generate_index_table(table_name, model, objects, show = nil, hide = nil, translated_names, new_label)
     model_name = model.name.pluralize.downcase
     if show.blank?
       show = []
@@ -178,9 +178,14 @@ module ApplicationHelper
       show -= hide unless hide.blank?
     end
     html = ['<div class="card shadow mb-4">',
+      '<div class="card-header py-3">',
+      '<h6 class="m-0 font-weight-bold text-primary">', table_name, '</h6>',
+      '</div>',
+      '<div class="card-body">',
       '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">',
       '<thead>',
       '<tr>']
+    
     if translated_names.blank?
       show.each do |att|
         html << "<th>#{att}</th>"
@@ -209,7 +214,7 @@ module ApplicationHelper
       html << "<td class='text-center'>#{link_to 'Editar', {controller: model_name, action: :edit, id: obj.id}, class: 'btn btn-warning'}</td>"
       html << "<td class='text-center'>#{link_to 'Excluir', obj, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'}</td>"
     end
-    html << '</tbody></table></div>'
+    html << '</tbody></table></div></div>'
     html << "#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}"
     html.join
   end
