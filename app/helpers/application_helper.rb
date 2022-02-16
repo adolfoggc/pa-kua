@@ -200,17 +200,17 @@ module ApplicationHelper
       show.each do |att|
         value = obj.send(att)
         if ['ActiveSupport::TimeWithZone', 'Date'].include?(value.class.to_s)
-          html << "<td>#{value.strftime("%d/%m/%Y")}</td>"
+          html << "<td class='align-middle'>#{value.strftime("%d/%m/%Y")}</td>"
         else
-          html << "<td>#{value}</td>"
+          html << "<td class='align-middle'>#{value}</td>"
         end
       end
-      html << "<td>#{link_to 'Ver', obj, class: 'btn btn-info'}</td>"
-      html << "<td>#{link_to 'Editar', {controller: model_name, action: :edit, id: obj.id}, class: 'btn btn-warning'}</td>"
-      html << "<td>#{link_to 'Excluir', obj, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'}</td>"
+      html << "<td class='text-center'>#{link_to 'Ver', obj, class: 'btn btn-info'}</td>"
+      html << "<td class='text-center'>#{link_to 'Editar', {controller: model_name, action: :edit, id: obj.id}, class: 'btn btn-warning'}</td>"
+      html << "<td class='text-center'>#{link_to 'Excluir', obj, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'}</td>"
     end
     html << '</tbody></table></div>'
-    html << "<br>#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}"
+    html << "#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}"
     html.join
   end
 end
