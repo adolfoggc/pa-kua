@@ -168,14 +168,14 @@ module ApplicationHelper
     html.join()
   end
 
-  def generate_index_table(table_name, model, objects, show = nil, hide = nil, translated_names, new_label)
+  def generate_index_table(table_name, model, objects, show_attributes = nil, hide_attributes = nil, translated_names, new_label, crud_paths, translate_data)
     model_name = model.name.pluralize.downcase
-    if show.blank?
-      show = []
+    if show_attributes.blank?
+      show_attributes = []
       model.new.attributes.each do |k, |
-        show << k unless ['id', 'created_at', 'updated_at'].include? k
+        show_attributes << k unless ['id', 'created_at', 'updated_at'].include? k
       end
-      show -= hide unless hide.blank?
+      show_attributes -= hide_attributes unless hide_attributes.blank?
     end
     html = ['<div class="card shadow mb-4">',
       '<div class="card-header py-3">',
@@ -187,7 +187,7 @@ module ApplicationHelper
       '<tr>']
     
     if translated_names.blank?
-      show.each do |att|
+      show_attributes.each do |att|
         html << "<th>#{att}</th>"
       end
     else
@@ -195,27 +195,34 @@ module ApplicationHelper
         html << "<th>#{att}</th>"
       end
     end
-    html << '<th colspan="3"></th>'
+    html << '<th colspan="3"></th>' if crud_paths
     html << ['</tr>',
       '</thead>',
       '<tbody>'
     ]
     objects.each do |obj|
       html << '<tr>'
-      show.each do |att|
+      show_attributes.each do |att|
         value = obj.send(att)
-        if ['ActiveSupport::TimeWithZone', 'Date'].include?(value.class.to_s)
+        if !translate_data.blank? && translate_data[att].present? && translate_data[att][value.to_s].present?
+          html << "<td class='align-middle'>#{ translate_data[att][value.to_s] }</td>"
+        elsif ['Float', 'BigDecimal'].include?(value.class.to_s)
+          html << "<td class='align-middle'>#{to_money(value)}</td>"
+        elsif ['ActiveSupport::TimeWithZone', 'Date'].include?(value.class.to_s)
           html << "<td class='align-middle'>#{value.strftime("%d/%m/%Y")}</td>"
         else
           html << "<td class='align-middle'>#{value}</td>"
         end
       end
-      html << "<td class='text-center'>#{link_to 'Ver', obj, class: 'btn btn-info'}</td>"
-      html << "<td class='text-center'>#{link_to 'Editar', {controller: model_name, action: :edit, id: obj.id}, class: 'btn btn-warning'}</td>"
-      html << "<td class='text-center'>#{link_to 'Excluir', obj, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'}</td>"
+
+      if crud_paths
+        html << "<td class='text-center'>#{link_to 'Ver', obj, class: 'btn btn-info'}</td>"
+        html << "<td class='text-center'>#{link_to 'Editar', {controller: model_name, action: :edit, id: obj.id}, class: 'btn btn-warning'}</td>"
+        html << "<td class='text-center'>#{link_to 'Excluir', obj, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'}</td>"
+      end
     end
     html << '</tbody></table></div></div>'
-    html << "#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}"
+    html << "#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}" unless new_label.blank? 
     html.join
   end
 end
