@@ -168,7 +168,7 @@ module ApplicationHelper
     html.join()
   end
 
-  def generate_index_table(table_name, model, objects, show_attributes = nil, hide_attributes = nil, translated_names, new_label, crud_paths, translate_data)
+  def generate_index_table(table_name, model, objects, show_attributes = nil, hide_attributes = nil, translated_names, new_label, crud_paths, translate_data, prefix_and_suffix)
     model_name = model.name.pluralize.downcase
     if show_attributes.blank?
       show_attributes = []
@@ -205,14 +205,15 @@ module ApplicationHelper
       show_attributes.each do |att|
         value = obj.send(att)
         if !translate_data.blank? && translate_data[att].present? && translate_data[att][value.to_s].present?
-          html << "<td class='align-middle'>#{ translate_data[att][value.to_s] }</td>"
+          value = translate_data[att][value.to_s]
+        elsif !prefix_and_suffix.blank? && prefix_and_suffix.has_key?(att)
+          value = add_prefix_and_suffix(value, prefix_and_suffix[att])
         elsif ['Float', 'BigDecimal'].include?(value.class.to_s)
-          html << "<td class='align-middle'>#{to_money(value)}</td>"
+          value = to_money(value)
         elsif ['ActiveSupport::TimeWithZone', 'Date'].include?(value.class.to_s)
-          html << "<td class='align-middle'>#{value.strftime("%d/%m/%Y")}</td>"
-        else
-          html << "<td class='align-middle'>#{value}</td>"
+          value = value.strftime("%d/%m/%Y")
         end
+        html << "<td class='align-middle'>#{value}</td>"
       end
 
       if crud_paths
@@ -224,5 +225,10 @@ module ApplicationHelper
     html << '</tbody></table></div></div>'
     html << "#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}" unless new_label.blank? 
     html.join
+  end
+
+
+  def add_prefix_and_suffix(value, hash)
+    return hash[:pref] + value.to_s + hash[:suff]
   end
 end
