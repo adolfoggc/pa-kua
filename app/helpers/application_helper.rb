@@ -168,39 +168,46 @@ module ApplicationHelper
     html.join()
   end
 
-  def generate_index_table(table_name, model, objects, show_attributes = nil, hide_attributes = nil, translated_names, new_label, crud_paths, translate_data, prefix_and_suffix)
-    model_name = model.name.pluralize.downcase
+  def generate_index_table(args)
+    #CURRENT ATTRIBUTES
+    # {table_name: 'Name', model: ModelName, objects: Data, show_attributes: nil, hide_attributes: nil, translated_names: nil, new_label: 'Name', crud_paths: false, translate_data: nil, prefix_and_suffix: nil}
+
+    model_name = args[:model].name.underscore.pluralize
+    translate_data = args[:translate_data]
+    show_attributes = args[:show_attributes]
+    prefix_and_suffix = args[:prefix_and_suffix]
+
     if show_attributes.blank?
       show_attributes = []
-      model.new.attributes.each do |k, |
+      args[:model].new.attributes.each do |k, |
         show_attributes << k unless ['id', 'created_at', 'updated_at'].include? k
       end
-      show_attributes -= hide_attributes unless hide_attributes.blank?
+      show_attributes -= args[:hide_attributes] unless args[:hide_attributes].blank?
     end
     html = ['<div class="card shadow mb-4">',
       '<div class="card-header py-3">',
-      '<h6 class="m-0 font-weight-bold text-primary">', table_name, '</h6>',
+      '<h6 class="m-0 font-weight-bold text-primary">', args[:table_name], '</h6>',
       '</div>',
       '<div class="card-body">',
       '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">',
       '<thead>',
       '<tr>']
     
-    if translated_names.blank?
+    if args[:translated_names].blank?
       show_attributes.each do |att|
         html << "<th>#{att}</th>"
       end
     else
-      translated_names.each do |att|
+      args[:translated_names].each do |att|
         html << "<th>#{att}</th>"
       end
     end
-    html << '<th colspan="3"></th>' if crud_paths
+    html << '<th colspan="3"></th>' if args[:crud_paths]
     html << ['</tr>',
       '</thead>',
       '<tbody>'
     ]
-    objects.each do |obj|
+    args[:objects].each do |obj|
       html << '<tr>'
       show_attributes.each do |att|
         value = obj.send(att)
@@ -216,14 +223,14 @@ module ApplicationHelper
         html << "<td class='align-middle'>#{value}</td>"
       end
 
-      if crud_paths
+      if args[:crud_paths]
         html << "<td class='text-center'>#{link_to 'Ver', obj, class: 'btn btn-info'}</td>"
         html << "<td class='text-center'>#{link_to 'Editar', {controller: model_name, action: :edit, id: obj.id}, class: 'btn btn-warning'}</td>"
         html << "<td class='text-center'>#{link_to 'Excluir', obj, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'}</td>"
       end
     end
     html << '</tbody></table></div></div>'
-    html << "#{link_to new_label, {controller: model_name, action: :new}, class: 'btn btn-primary'}" unless new_label.blank? 
+    html << "#{link_to args[:new_label], {controller: model_name, action: :new}, class: 'btn btn-primary'}" unless args[:new_label].blank? 
     html.join
   end
 
