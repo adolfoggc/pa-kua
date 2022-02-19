@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get '/example', to: 'dashboard#example', as: 'dashboard_example'
 
+  get '/administrativo', to: 'dashboard#administrative_index', as: 'administrative_index'
+
   get '/planos_dos_alunos', to: 'student_plans#index', as: :student_plans
   post '/planos_dos_alunos', to: 'student_plans#create'
   scope 'aluno/:person_id/plano' do
@@ -32,10 +34,10 @@ Rails.application.routes.draw do
     delete '/', to: 'belts#destroy'
   end
 
-  scope 'mensalidades' do
+  scope 'administrativo' do
     get '/', to: 'plans#index', as: :plans_index
     scope(path_names: { new: 'novo', edit: 'editar' }) do 
-      resources :tuition_fees, path: 'valor_por_aula'
+      resources :tuition_fees, path: 'mensalidades'
       resources :rents, path: 'alugueis'
       resources :discounts, path: 'descontos'
     end

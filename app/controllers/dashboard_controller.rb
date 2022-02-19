@@ -12,6 +12,12 @@ class DashboardController < ApplicationController
     @charts = 1
   end
 
+  def administrative_index
+    current_tuition_fee_table
+    current_discounts
+    current_rent_fee
+  end
+
   private
   def set_view_layout
     return 'example_sb_admin2' if action_name == 'example'

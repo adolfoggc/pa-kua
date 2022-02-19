@@ -1,0 +1,13 @@
+<%= sanitize page_title_with_button('Administrativo', false) %>
+
+<% if TuitionFee.any? %>
+  <%= generate_index_table("Mensalidade Vigente (Desde #{date_format(@starting_date_for_current_fees)})", TuitionFee, @current_tuition_fee, show = nil, hide = nil, ['Aulas semanais', 'Valor', 'Vigência'], nil, false, {'weekly_classes' => {'0' => 'Plano Livre'}}, nil).html_safe %>
+<% end %>
+
+<% if Rent.any? %>
+  <%= generate_index_table("Aluguel de Equipamento Vigente", Rent, [@current_rental_fee], nil, nil, ['Valor', 'Vigência'], nil, false, false, nil).html_safe %>
+<% end %>
+
+<% if Discount.any? %>
+  <%= generate_index_table("Descontos Vigentes", Discount, @current_discounts, nil, ['starts_at'], ['Desconto', 'Plano'], nil, false, false, {'discount_percentage' => {pref: '', suff: '%'}}).html_safe %>
+<% end %>
