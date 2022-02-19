@@ -3,8 +3,8 @@ class TuitionFeesController < ApplicationController
 
   # GET /tuition_fees or /tuition_fees.json
   def index
-    @tuition_fees = TuitionFee.all
     current_tuition_fee_table
+    @tuition_fees = TuitionFee.all - @current_tuition_fee
   end
 
   # GET /tuition_fees/1 or /tuition_fees/1.json
