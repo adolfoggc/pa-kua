@@ -2,7 +2,9 @@
 <p id="notice"><%= notice %></p>
 
 <section class="content">
-  <%= generate_index_table({table_name: "Pagamentos Atuais", model: Payment, objects: @payments, new_label: 'Novo Pagamento', crud_paths: true}).html_safe %>
+  <%= generate_index_table({table_name: "Pagamentos do Mês Atual", model: Payment, objects: @current_payments, crud_paths: true, show_attributes: ['student_name', 'payment_fee', 'payment_status'], translated_names: ['Nome', 'Valor', 'Status']}).html_safe %>
   <br><br>
-  <%= generate_index_table({table_name: "Pagamentos Anteriores", model: Payment, objects: @payments, new_label: 'Novo Pagamento', crud_paths: true}).html_safe %>
+  <%= generate_index_table({table_name: "Pagamentos de Meses Anteriores", model: Payment, objects: @non_current_payments, crud_paths: true, show_attributes: ['student_name', 'payment_fee', 'payment_status'], translated_names: ['Nome', 'Valor', 'Status']}).html_safe %>
+  <br><br>
+  <%= generate_index_table({table_name: "Pagamentos Em Aberto", model: Payment, objects: @not_paid, crud_paths: true, show_attributes: ['student_name', 'payment_fee', 'payment_status'], translated_names: ['Nome', 'Valor', 'Status']}).html_safe %>
 </section>

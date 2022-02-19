@@ -3,7 +3,9 @@ class PaymentsController < ApplicationController
 
   # GET /payments or /payments.json
   def index
-    @payments = Payment.all
+    @current_payments = Payment.current
+    @non_current_payments = Payment.not_current
+    @not_paid = Payment.not_paid
   end
 
   # GET /payments/1 or /payments/1.json
