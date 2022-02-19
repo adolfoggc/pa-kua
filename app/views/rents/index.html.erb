@@ -1,46 +1,8 @@
-<%= render 'layouts/dashboard_content_top' %>
-<div class="col-sm-6">
-  <h1 class="m-0">Aluguéis</h1>
-</div><!-- /.col -->
-<%= render 'layouts/dashboard_content_bottom' %>
-
-<%= render 'layouts/dashboard_main_top' %>
-
-<%= render 'layouts/dashboard_main_bottom' %>
-
-  <p id="notice"><%= notice %></p>
+<%= sanitize page_title_with_button('Aluguéis', false) %>
+<p id="notice"><%= notice %></p>
 
 <section class="content">
-  <%= render '/shared/current_rent_fee' %>
-  <div class="col-6">
-    <%= link_to 'Novo Aluguel', new_rent_path, class: 'btn btn-primary' %>
-  </div>
+  <%= generate_index_table({table_name: "Aluguel de Equipamento Vigente", model: Rent, objects: [@current_rental_fee], translated_names: ['Valor', 'Vigência'], crud_paths: true, new_label: 'Novo Aluguel' }).html_safe %>
+  <br><br>
+  <%= generate_index_table({table_name: "Aluguéis Anteriores", model: Rent, objects: @rents, translated_names: ['Valor', 'Vigência'], crud_paths: true, new_label: 'Novo Aluguel' }).html_safe %>
 </section>
-
-<h1>Rents</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Rental amount</th>
-      <th>Starts at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @rents.each do |rent| %>
-      <tr>
-        <td><%= rent.rental_amount %></td>
-        <td><%= rent.starts_at %></td>
-        <td><%= link_to 'Show', rent %></td>
-        <td><%= link_to 'Edit', edit_rent_path(rent) %></td>
-        <td><%= link_to 'Destroy', rent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Rent', new_rent_path %>

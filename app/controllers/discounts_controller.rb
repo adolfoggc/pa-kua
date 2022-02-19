@@ -3,7 +3,8 @@ class DiscountsController < ApplicationController
 
   # GET /discounts or /discounts.json
   def index
-    @discounts = Discount.all
+    current_discounts
+    @discounts = Discount.all - @current_discounts
   end
 
   # GET /discounts/1 or /discounts/1.json
