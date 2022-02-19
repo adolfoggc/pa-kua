@@ -1,1 +1,1 @@
-<%= generate_index_table('Alunos', Person, @students, ['name', 'start_date'], nil, ['Nome', 'Início de Atividades'], 'Novo Aluno', true, nil, nil).html_safe %>
+<%= generate_index_table({table_name: 'Alunos', model: Person, objects: @students, show_attributes: ['name', 'start_date'],  translated_names: ['Nome', 'Início de Atividades'], new_label: 'Novo Aluno', crud_paths: true}).html_safe %>

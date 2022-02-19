@@ -1,19 +1,11 @@
-<%= render 'layouts/dashboard_content_top' %>
-<div class="col-sm-6">
-  <h1 class="m-0">Valores das Aulas</h1>
-</div><!-- /.col -->
-<%= render 'layouts/dashboard_content_bottom' %>
-
-<%= render 'layouts/dashboard_main_top' %>
-
-<%= render 'layouts/dashboard_main_bottom' %>
-
-  <p id="notice"><%= notice %></p>
+<%= sanitize page_title_with_button('Mensalidades', false) %>
+<p id="notice"><%= notice %></p>
 
 <section class="content">
-  <%= render '/shared/current_tuition_fees' %>
-  <div class="col-6">
-    <%= link_to 'Novo Plano', new_tuition_fee_path, class: 'btn btn-primary' %>
-  </div>
+  <% if TuitionFee.any? %>
+    <%= generate_index_table({table_name: "Mensalidade Vigente (Desde #{date_format(@starting_date_for_current_fees)})", model: TuitionFee, objects: @current_tuition_fee, translated_names: ['Aulas semanais', 'Valor', 'Vigência'], new_label: 'Nova Mensalidade', crud_paths: true, translate_data: {'weekly_classes' => {'0' => 'Plano Livre'}} }).html_safe %>
+  <% end %>
+  <br><br>
+  <%= generate_index_table({table_name: "Mensalidades Anteriores", model: TuitionFee, objects: @tuition_fees, translated_names: ['Aulas semanais', 'Valor', 'Vigência'], new_label: 'Nova Mensalidade', crud_paths: true, translate_data: {'weekly_classes' => {'0' => 'Plano Livre'}} }).html_safe %>
 </section>
 
