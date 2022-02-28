@@ -1,8 +1,8 @@
-<%= sanitize page_title_with_button('Descontos', false) %>
+<%= sanitize page_title_with_button('Pacotes', false) %>
 <p id="notice"><%= notice %></p>
 
 <section class="content">
-  <%= generate_index_table({table_name: "Descontos Vigentes", model: Discount, objects: @current_discounts, hide_attributes: ['starts_at'], translated_names: ['Desconto', 'Plano'], prefix_and_suffix: {'discount_percentage' => {pref: '', suff: '%'}}, new_label: 'Novo Desconto', crud_paths: true}).html_safe %>
+  <%= generate_index_table({table_name: "Pacotes Vigentes", model: Discount, objects: @current_discounts, show_attributes: ['kind_of_plan', 'discount_percentage'], translated_names: ['Desconto', 'Pacote'], prefix_and_suffix: {'discount_percentage' => {pref: '', suff: '%'}}, new_label: 'Novo Desconto', crud_paths: true}).html_safe %>
   <br><br>
-  <%= generate_index_table({table_name: "Descontos Anteriores", model: Discount, objects: @discounts, hide_attributes: ['starts_at'], translated_names: ['Desconto', 'Plano'], prefix_and_suffix: {'discount_percentage' => {pref: '', suff: '%'}}, new_label: 'Novo Desconto', crud_paths: true}).html_safe %>
+  <%= generate_index_table({table_name: "Pacotes Anteriores", model: Discount, objects: @discounts, show_attributes: ['kind_of_plan', 'discount_percentage'], translated_names: ['Desconto', 'Pacote'], prefix_and_suffix: {'discount_percentage' => {pref: '', suff: '%'}}, new_label: 'Novo Desconto', crud_paths: true}).html_safe %>
 </section>

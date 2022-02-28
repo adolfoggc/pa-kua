@@ -9,5 +9,5 @@
 <% end %>
 
 <% if Discount.any? %>
-  <%= generate_index_table({table_name: "Descontos Vigentes", model: Discount, objects: @current_discounts, hide_attributes: ['starts_at'], translated_names: ['Desconto', 'Plano'], prefix_and_suffix: {'discount_percentage' => {pref: '', suff: '%'}}}).html_safe %>
+  <%= generate_index_table({table_name: "Pacotes Vigentes", model: Discount, objects: @current_discounts, show_attributes: ['kind_of_plan', 'discount_percentage'], translated_names: ['Plano', 'Desconto'], prefix_and_suffix: {'discount_percentage' => {pref: '', suff: '%'}}}).html_safe %>
 <% end %>

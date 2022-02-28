@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     scope(path_names: { new: 'novo', edit: 'editar' }) do 
       resources :tuition_fees, path: 'mensalidades'
       resources :rents, path: 'alugueis'
-      resources :discounts, path: 'descontos'
+      resources :discounts, path: 'pacotes'
     end
   end
 
