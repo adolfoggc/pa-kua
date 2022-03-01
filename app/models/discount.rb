@@ -2,9 +2,9 @@ class Discount < ApplicationRecord
   validates :discount_percentage, :starts_at, :kind_of_plan, presence: true
 
   enum kind_of_plan: {
-    mensal: 1,
-    trimestral: 3,
-    semestral: 6,
-    anual: 12
+    Mensal: 1,
+    Trimestral: 3,
+    Semestral: 6,
+    Anual: 12
   }
 end
