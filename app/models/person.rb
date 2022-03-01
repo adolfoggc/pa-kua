@@ -6,7 +6,7 @@ class Person < ApplicationRecord
   validates :name_ciphertext, :address_ciphertext, :phone_ciphertext, :cpf_ciphertext, :role, presence: true
   validates :start_date, presence: true, if: :pakua_student?
 
-  has_one :student_plan
+  has_many :student_plans
   has_many :payments, through: :student_plan
   has_many :belts
 
@@ -44,6 +44,11 @@ class Person < ApplicationRecord
     return '' if belts.blank?
 
     belts.select(:color).group(:color).order(:color).uniq.last.color
+  end
+
+  # student methods
+  def latest_student_plan
+    student_plans.order(:created_at).last
   end
 
   # instructor methods
