@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def logic_to_br(value)
-    value == 'true' ? 'Sim' : 'Não'
+    ['true', true].include?(value) ? 'Sim' : 'Não'
   end
 
   def br_month(month)
