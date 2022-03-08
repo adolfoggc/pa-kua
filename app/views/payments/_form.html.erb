@@ -1,42 +1,108 @@
-<%= form_with(model: payment, local: true) do |form| %>
-  <% if payment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+<section class="content">
+  <div class="container-fluid">
+    <%= form_with(model: payment, local: true) do |form| %>
+      <% if payment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
 
-      <ul>
-        <% payment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% payment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Desconto</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class=form-group>
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class=form-group>
+                      <h4 class="mb-0">Aluno(a)</h4>
+                      <%= @student_plan.person.name %>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class=form-group>
+                      <h4 class="mb-0">Plano:</h4>
+                      <%= @student_plan.weekly_classes_description %>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  <div class="field">
-    <%= form.label :student_plan_id %>
-    <%= form.text_field :student_plan_id %>
+              <div class=form-group>
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class=form-group>
+                      <h4 class="mb-0">Pacote:</h4>
+                      <%= Discount.kind_of_plans.index(@student_plan.kind_of_plan)%>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class=form-group>
+                      <h4 class="mb-0">Aluga Material?</h4>
+                      <%= logic_to_br(@student_plan.rent_inclusion) %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class=form-group>
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class=form-group>
+                      <h4 class="mb-0">Total da Mensalidade:</h4>
+                      <%= to_money(@student_plan.final_tuition_fee) %>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class=form-group>
+                      <h4 class="mb-0">Pago?</h4>
+                      <h5>
+                        <% if @payment.paid? %>
+                          <span class="badge badge-success"><%= logic_to_br(@payment.paid?) %></span>
+                        <% else %>
+                          <span class="badge badge-secondary"><%= logic_to_br(@payment.paid?) %></span>
+                          <% if @payment.payment_is_late? %>
+                            <span class="badge badge-danger">Atrasado</span>
+                          <% end %>
+                        <% end %>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class=form-group>
+                <h4 class="mb-0">Valor Pago</h4>
+                <%= form.text_field :paid_fee %>
+              </div>
+
+              <div class=form-group>
+                <h4 class="mb-0"><%= form.label :due_date %></h4>
+                <%= form.date_select :due_date %>
+              </div>
+
+              <div class=form-group>
+                <h4 class="mb-0"><%= form.label :payment_link %></h4>
+                <%= form.text_field :payment_link %>
+              </div>
+
+              <div class="actions">
+                <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :paid %>
-    <%= form.check_box :paid %>
-  </div>
-
-  <div class="field">
-    <%= form.label :payment_fee %>
-    <%= form.text_field :payment_fee %>
-  </div>
-
-  <div class="field">
-    <%= form.label :due_date %>
-    <%= form.date_select :due_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :payment_link %>
-    <%= form.text_field :payment_link %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</section>
