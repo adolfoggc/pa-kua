@@ -35,7 +35,7 @@
         </ul>
         <% if @payment.paid_fee.nil? %>
           <%= button_to 'Receber Pagamento', recive_payment_path(@payment), class: 'btn btn-primary btn-block' %>
-        <% elsif @payment.paid_fee < @payment.payment_fee %>
+        <% elsif @payment.paid_fee.to_f < @payment.payment_fee.to_f %>
           <%= button_to 'Ajustar Pagamento', recive_payment_path(@payment), class: 'btn btn-primary btn-block' %>
         <% end %>
       <% end %>
