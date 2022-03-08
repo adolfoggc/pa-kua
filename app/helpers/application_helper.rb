@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def to_br(value)
     str_value = value.to_s
-    str_value += '0' if (((value % 1) * 10) % 1).zero?
+    str_value += '0' if (((value.to_f % 1) * 10) % 1).zero?
     str_value.gsub!('.', ',')
   end
 
