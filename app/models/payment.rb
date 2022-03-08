@@ -4,6 +4,8 @@ class Payment < ApplicationRecord
 
   attribute :paid_fee, default: 0
 
+  before_save :update_payment_status
+
   scope :current, -> { where(:due_date => Payment.new.beginning_of_month..Payment.new.end_of_month)}
   scope :not_current, -> { where.not(:due_date => Payment.new.beginning_of_month..Payment.new.end_of_month)}
   scope :not_paid, -> { not_current.where('paid_fee < payment_fee')}
@@ -40,5 +42,17 @@ class Payment < ApplicationRecord
 
   def to_money(cash)
     "R$ #{to_br(cash)}"
+  end
+
+  def payment_is_late?
+    this_day = today
+    return true if !self.paid? && this_day > Date.new(this_day.year, this_day.month, student_plan.due_day) 
+
+    false
+  end
+
+  private
+  def update_payment_status
+    self.paid = true if paid_fee.to_f == student_plan.final_tuition_fee.to_f || self.paid?
   end
 end

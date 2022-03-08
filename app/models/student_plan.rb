@@ -23,4 +23,13 @@ class StudentPlan < ApplicationRecord
   def final_tuition_fee
     ((100.0 - percentage)/100) * monthly_fee
   end
+
+  def weekly_classes_description
+    weekly_classes.zero? ? 'Plano Livre' : "Plano de #{weekly_classes} aulas semanais"
+  end
+
+  def due_day_description
+    "Dia #{due_day} ou final do mês" if due_day >= 28
+    "Dia #{due_day}" if due_day < 28
+  end
 end
