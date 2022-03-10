@@ -145,7 +145,7 @@ class PeopleController < ApplicationController
   def get_month_style(payment)
     if payment.due_date.month == @today.month
       'bg-primary'
-    elsif payment.paid? && payment.paid_fee == payment.payment_fee
+    elsif payment.paid?
       'bg-success'
     else
       'bg-danger'
