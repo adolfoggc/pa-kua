@@ -86,6 +86,7 @@ class PaymentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def payment_params
+    params[:payment][:paid] = true if params[:commit] == 'Salvar e considerar Pago'
     params.require(:payment).permit(:student_plan_id, :paid, :payment_fee, :due_date, :payment_link, :paid_fee)
   end
 end
