@@ -17,7 +17,20 @@
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Desconto</h3>
+              <div class="row">
+              <h3 class="card-title">Mensalidade</h3>
+              <h4 class="ml-3" >
+                <% if @payment.paid? %>
+                  <span class="badge badge-success">Pago</span>
+                <% else %>
+                  <% if @payment.payment_is_late? %>
+                    <span class="badge badge-danger">Atrasada</span>
+                  <% else %>
+                    <span class="badge badge-secondary">Em aberto</span>
+                  <% end %>
+                <% end %>
+              </h4>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -65,17 +78,8 @@
                   </div>
                   <div class="col-md-6 col-12">
                     <div class=form-group>
-                      <h4 class="mb-0">Pago?</h4>
-                      <h5>
-                        <% if @payment.paid? %>
-                          <span class="badge badge-success"><%= logic_to_br(@payment.paid?) %></span>
-                        <% else %>
-                          <span class="badge badge-secondary"><%= logic_to_br(@payment.paid?) %></span>
-                          <% if @payment.payment_is_late? %>
-                            <span class="badge badge-danger">Atrasado</span>
-                          <% end %>
-                        <% end %>
-                      </h5>
+                      <h4 class="mb-0">Vencimento</h4>
+                      <%= date_format(@payment.due_date) %>
                     </div>
                   </div>
                 </div>
@@ -84,11 +88,6 @@
               <div class=form-group>
                 <h4 class="mb-0">Valor Pago</h4>
                 <%= form.text_field :paid_fee %>
-              </div>
-
-              <div class=form-group>
-                <h4 class="mb-0"><%= form.label :due_date %></h4>
-                <%= form.date_select :due_date %>
               </div>
 
               <div class=form-group>
