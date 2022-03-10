@@ -144,11 +144,11 @@ class PeopleController < ApplicationController
 
   def get_month_style(payment)
     if payment.due_date.month == @today.month
-      'bg-primary'
+      'bg-primary text-white'
     elsif payment.paid?
-      'bg-success'
+      'bg-success text-white'
     else
-      'bg-danger'
+      'bg-danger text-white'
     end
   end
 end
