@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_104237) do
+ActiveRecord::Schema.define(version: 2022_03_21_185829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,19 @@ ActiveRecord::Schema.define(version: 2021_09_09_104237) do
     t.date "start_date_bidx"
     t.text "start_date_ciphertext"
     t.text "information"
+    t.text "school_level_ciphertext"
+    t.text "occupation_ciphertext"
+    t.text "civil_status_ciphertext"
+    t.text "marketing_ciphertext"
+    t.text "other_option_ciphertext"
+    t.text "cep_ciphertext"
+    t.integer "school_level_bidx"
+    t.integer "marketing_bidx"
+    t.integer "civil_status_bidx"
     t.index ["birthdate_bidx"], name: "index_people_on_birthdate_bidx", unique: true
+    t.index ["civil_status_bidx"], name: "index_people_on_civil_status_bidx", unique: true
+    t.index ["marketing_bidx"], name: "index_people_on_marketing_bidx", unique: true
+    t.index ["school_level_bidx"], name: "index_people_on_school_level_bidx", unique: true
     t.index ["start_date_bidx"], name: "index_people_on_start_date_bidx", unique: true
   end
 

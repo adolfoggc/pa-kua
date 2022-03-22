@@ -18,6 +18,19 @@ class Person < ApplicationRecord
     traveling_instructor: 5
   }
 
+  enum school_level: {
+    ensino_fundamental: 1,
+    ensino_medio: 2,
+    ensino_superior: 3
+  }
+
+  enum civil_status: {
+    solteiro: 1,
+    casado: 2,
+    viuvo: 3,
+    divorciado: 4
+  }
+
   def pakua_student?
     student? || student_and_instructor?
   end
@@ -59,4 +72,16 @@ class Person < ApplicationRecord
   def can_be_instructor?
     belts.where('5 <= color').any?
   end
+
+  def student_level_translation
+    if self.ensino_fundamental
+      'Ensino Fundamental'
+    elsif self.ensino_medio
+      'Ensino Médio'
+    else
+      'Ensino Superior'
+    end
+  end
+
+
 end
