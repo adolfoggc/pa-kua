@@ -2,10 +2,10 @@ class Person < ApplicationRecord
   encrypts :name, :address, :cpf, :phone, :occupation, :other_option, :cep, :email
   encrypts :birthdate, :start_date, type: :date
   encrypts :school_level, :status, :civil_status, :marketing, type: :integer
-  blind_index :birthdate, :start_date, :school_level, :status, :civil_status, :marketing, :email
+  blind_index :birthdate, :start_date, :school_level, :status, :civil_status, :marketing, :email, :cpf
 
-  validates :name_ciphertext, :address_ciphertext, :phone_ciphertext, :cpf_ciphertext, :role, presence: true
-  validates :email, uniqueness: true
+  validates :name_ciphertext, :address_ciphertext, :phone_ciphertext, :role, presence: true
+  validates :cpf, uniqueness: true
 
   has_many :student_plans
   has_many :payments, through: :student_plans

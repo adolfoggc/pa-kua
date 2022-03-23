@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_100732) do
+ActiveRecord::Schema.define(version: 2022_03_23_160352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,13 +104,15 @@ ActiveRecord::Schema.define(version: 2022_03_23_100732) do
     t.text "status_ciphertext"
     t.integer "status_bidx"
     t.string "email_bidx"
-    t.index ["birthdate_bidx"], name: "index_people_on_birthdate_bidx", unique: true
-    t.index ["civil_status_bidx"], name: "index_people_on_civil_status_bidx", unique: true
-    t.index ["email_bidx"], name: "index_people_on_email_bidx", unique: true
-    t.index ["marketing_bidx"], name: "index_people_on_marketing_bidx", unique: true
-    t.index ["school_level_bidx"], name: "index_people_on_school_level_bidx", unique: true
-    t.index ["start_date_bidx"], name: "index_people_on_start_date_bidx", unique: true
-    t.index ["status_bidx"], name: "index_people_on_status_bidx", unique: true
+    t.string "cpf_bidx"
+    t.index ["birthdate_bidx"], name: "index_people_on_birthdate_bidx"
+    t.index ["civil_status_bidx"], name: "index_people_on_civil_status_bidx"
+    t.index ["cpf_bidx"], name: "index_people_on_cpf_bidx", unique: true
+    t.index ["email_bidx"], name: "index_people_on_email_bidx"
+    t.index ["marketing_bidx"], name: "index_people_on_marketing_bidx"
+    t.index ["school_level_bidx"], name: "index_people_on_school_level_bidx"
+    t.index ["start_date_bidx"], name: "index_people_on_start_date_bidx"
+    t.index ["status_bidx"], name: "index_people_on_status_bidx"
   end
 
   create_table "rents", force: :cascade do |t|
