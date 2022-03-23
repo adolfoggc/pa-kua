@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     devise_for :members, controllers: {
       sessions: 'member/sessions'
     }
+
     resources :class_instructors
     resources :pakua_classes
     resources :payments
@@ -74,6 +75,8 @@ Rails.application.routes.draw do
   end
 
   unauthenticated :member do
-    get '/formulario_de_inscricao', to: 'people#new_student_form', as: 'new_student_form'
+    get '/inscricao', to: 'people#new_student_form', as: 'new_student_form'
+    post '/membros', to: 'people#create', as: 'create_new_student'
+    get '/boas_vindas', to: 'dashboard#welcome', as: 'welcome'
   end
 end

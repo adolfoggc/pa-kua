@@ -1,4 +1,10 @@
 <section class="content">
+  <div class="text-center">
+    <span class="text-white h1">Pa-kua Fátima - Fortaleza/CE</span>
+  </div>
+  <div class="text-center">
+    <%= image_tag("tigre_deitado.png") %>
+  </div>
   <div class="container-fluid">
     <%= form_with(model: person, local: true) do |form| %>
       <% if person.errors.any? %>
@@ -13,69 +19,240 @@
         </div>
       <% end %>
       <div class="row">
+        <% if action_name == 'new_student_form' %>
+          <div class="col-md-3">
+          </div>
+        <% end %>
         <div class="col-md-6">
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title"><%= @view_action %></h3>
+              <h3 class="card-title">
+                <% if action_name == 'new_student_form' %>
+                  Ficha Cadastral de Alunos
+                <% else %>
+                  <%= @view_action %>
+                <% end %>
+              </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <div class="form-group">
-                <h4 class="mb-0"><%= form.label :name, 'Nome', class: "mb-0" %></h4>
+                <h4 class="mb-0">
+                  <%= form.label :name, action_name == 'new_student_form' ? 'Nome Completo' : 'Nome', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
                 <%= form.text_field :name, class: "form-control form-control-border" %>
               </div>
 
               <div class="form-group">
-                <h4 class="mb-0"><%= form.label :address, 'Endereço', class: "mb-0" %></h4>
-                <%= form.text_field :address, class: "form-control form-control-border" %>
+                <h4 class="mb-0">
+                  <%= form.label :birthdate, 'Nascimento' %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <div class="input-group">
+                  <% if action_name != 'new_student_form' %>
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                  <% end %>
+                  <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_birthdate" name="person[birthdate]" value="<%= date_to_string(@person.birthdate) %>">
+                </div>
+                <!-- /.input group -->
               </div>
 
               <div class="form-group">
-                <h4 class="mb-0"><%= form.label :phone, 'Celular', class: "mb-0" %></h4>
-                <%= form.text_field :phone, class: "form-control form-control-border" %>
-              </div>
-
-              <div class="form-group">
-                <h4 class="mb-0"><%= form.label :cpf, 'CPF', class: "mb-0" %></h4>
+                <h4 class="mb-0">
+                  <%= form.label :cpf, 'CPF', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
                 <%= form.text_field :cpf, class: "form-control form-control-border" %>
               </div>
 
               <div class="form-group">
-                <h4><%= form.label :birthdate, 'Nascimento' %></h4>
+                <h4 class="mb-0">
+                  <%= form.label :school_level, 'Nível escolar', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <input type="radio" name="person[school_level]" value="ensino_fundamental" id="person_school_level_1">
+                <label for="person_school_level_1">Ensino Fundamental</label>
+                <br>
+                <input type="radio" name="person[school_level]" value="ensino_medio" id="person_school_level_2">
+                <label for="person_school_level_2">Ensino Médio</label>
+                <br>
+                <input type="radio" name="person[school_level]" value="ensino_superior" id="person_school_level_3">
+                <label for="person_school_level_3">Ensino Superior</label>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0">
+                  <%= form.label :occupation, 'Profissão', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <%= form.text_field :occupation, class: "form-control form-control-border" %>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0">
+                  <%= form.label :civil_status, 'Estado Civil', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <input type="radio" name="person[civil_status]" value="solteiro" id="person_civil_status_1">
+                <label for="person_civil_status_1">Solteiro(a)</label>
+                <br>
+                <input type="radio" name="person[civil_status]" value="casado" id="person_civil_status_2">
+                <label for="person_civil_status_2">Casado(a)</label>
+                <br>
+                <input type="radio" name="person[civil_status]" value="viuvo" id="person_civil_status_3">
+                <label for="person_civil_status_3">Viúvo(a)</label>
+                <br>
+                <input type="radio" name="person[civil_status]" value="divorciado" id="person_civil_status_4">
+                <label for="person_civil_status_4">Divorciado(a)</label>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0">
+                  <%= form.label :email, 'E-mail', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <%= form.text_field :email, class: "form-control form-control-border" %>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0">
+                  <%= form.label :cep, 'CEP', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <%= form.text_field :address, class: "form-control form-control-border" %>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0">
+                  <%= form.label :address, 'Endereço', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <%= form.text_field :address, class: "form-control form-control-border" %>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0">
+                  <%= form.label :phone, 'Número de Telefone (WhatsApp)', class: "mb-0" %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
+                <%= form.text_field :phone, class: "form-control form-control-border" %>
+              </div>
+
+              <%if action_name != 'new_student_form' %>
+                <div class="form-group">
+                  <h4><%= form.label :role, 'Atuação na Escola' %></h4>
+                  <%= form.select(:role, options_for_select(@roles.map { |k, v| [k.to_s.humanize, Person.roles.key(v)]}), {}, class: "form-control rounded-0" )  %>
+                </div>
+              <% end %>
+
+              <% if action_name == 'new_student_form' %>
+                <div class="form-group">
+                  <h4 class="mb-0">
+                    <%= form.label :marketing, 'Como conheceu a escola?', class: "mb-0" %>
+                    <span class="text-danger">*</span>
+                  </h4>
+                  <input type="radio" name="person[marketing]" value="recommendation" id="person_marketing_0">
+                  <label for="person_marketing_0">Indicação</label>
+                  <br>
+                  <input type="radio" name="person[marketing]" value="google" id="person_marketing_1">
+                  <label for="person_marketing_1">Google</label>
+                  <br>
+                  <input type="radio" name="person[marketing]" value="facebook" id="person_marketing_2">
+                  <label for="person_marketing_2">Facebook</label>
+                  <br>
+                  <input type="radio" name="person[marketing]" value="instagram id="person_marketing_3">
+                  <label for="person_marketing_3">Instagram</label>
+                  <br>
+                  <input type="radio" name="person[marketing]" value="flyer" id="person_marketing_4">
+                  <label for="person_marketing_4">Panfleto</label>
+                  <br>
+                  <%= form.label :other_option, 'Outro:', class: "mb-0" %>
+                  <%= form.text_field :other_option, class: "form-control form-control-border" %>
+                </div>
+              <% end %>
+
+              <div class="form-group">
+                <h4>
+                  <%= form.label :start_date, 'Data de início em Pa-kua' %>
+                  <% if action_name == 'new_student_form' %>
+                    <span class="text-danger">*</span>
+                  <% end %>
+                </h4>
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                  </div>
-                  <%= form.text_field :birthdate, class: "form-control", "data-inputmask-alias" => "datetime", "data-inputmask-inputformat" => "dd/mm/yyyy", "data-mask" => "", value: date_to_string(@person.birthdate) %>
+                  <% if action_name != 'new_student_form' %>
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                  <% end %>
+                  <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_start_date" name="person[start_date]" value="<%= @person.start_date.nil? ? date_to_string(Date.today) : date_to_string(@person.start_date) %>">
                 </div>
                 <!-- /.input group -->
               </div>
 
-              <div class="form-group">
-                <h4><%= form.label :role, 'Atuação na Escola' %></h4>
-                <%= form.select(:role, options_for_select(@roles.map { |k, v| [k.to_s.humanize, Person.roles.key(v)]}), {}, class: "form-control rounded-0" )  %>
-              </div>
+              <% if action_name == 'new_student_form' %>
+                <div class="form-group">
+                  <h4>
+                    <%= label :modalities, 'Modalidades de prática' %>
+                    <span class="text-danger">*</span>
+                  </h4>
 
-              <div class="form-group">
-                <h4><%= form.label :start_date, 'Entrada na Escola' %></h4>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                  </div>
-                  <input type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_start_date" name="person[start_date]" value="<%= @person.start_date.nil? ? date_to_string(Date.today) : date_to_string(@person.start_date) %>">
+                  <input type="checkbox" name="modalities[acrobacia]" value="true" id="modalities_acrobacia">
+                  <label for="modalities_acrobacia">Acrobacia</label>
+                  <br>
+                  <input type="checkbox" name="modalities[armas_de_corte]" value="true" id="modalities_armas_de_corte">
+                  <label for="modalities_armas_de_corte">Armas de Corte</label>
+                  <br>
+                  <input type="checkbox" name="modalities[arqueria]" value="true" id="modalities_arqueria">
+                  <label for="modalities_arqueria">Arqueria</label>
+                  <br>
+                  <input type="checkbox" name="modalities[arte_marcial]" value="true" id="modalities_arte_marcial">
+                  <label for="modalities_arte_marcial">Arte Marcial</label>
+                  <br>
+                  <input type="checkbox" name="modalities[tai_chi]" value="true" id="modalities_tai_chi">
+                  <label for="modalities_tai_chi">Cosmodinâmica/Tai Chi</label>
+                  <br>
+                  <input type="checkbox" name="modalities[ritmos]" value="true" id="modalities_ritmos">
+                  <label for="modalities_ritmos">Ritmos</label>
+                  <br>
+                  <input type="checkbox" name="modalities[yoga]" value="true" id="modalities_yoga">
+                  <label for="modalities_yoga">Sintonia/Yoga</label>
                 </div>
-                <!-- /.input group -->
-              </div>
+              <% end %>
 
               <div class="actions">
-                <%= form.submit 'Salvar', class: 'btn btn-primary' %>
-                <%= link_to 'Voltar para Membros', people_path, class: 'btn btn-secondary' %>
-                <% if @person.pakua_student? %>
-                  <%= link_to 'Voltar para Alunos', alunos_path, class: 'btn btn-secondary' %>
-                <% end %>
-                <% if @person.pakua_instructor? %>
-                  <%= link_to 'Voltar para Intrutores', instrutores_path, class: 'btn btn-secondary' %>
+                <%= form.submit action_name == 'new_student_form' ? 'Cadastrar' : 'Salvar', class: 'btn btn-primary' %>
+                <%if action_name != 'new_student_form' %>
+                  <%= link_to 'Voltar para Membros', people_path, class: 'btn btn-secondary' %>
+                  <% if @person.pakua_student? %>
+                    <%= link_to 'Voltar para Alunos', alunos_path, class: 'btn btn-secondary' %>
+                  <% end %>
+                  <% if @person.pakua_instructor? %>
+                    <%= link_to 'Voltar para Intrutores', instrutores_path, class: 'btn btn-secondary' %>
+                  <% end %>
                 <% end %>
               </div>
             </div>
@@ -86,4 +263,46 @@
       </div>
     <% end %>
   </div>
+  <div class="text-center">
+    <%= image_tag("tigre_sentado.png") %>
+  </div>
+  <div class="text-center">
+    <span class="text-white h1">2022 - Ano do Tigre</span>
+  </div>
 </div>
+
+<% if action_name == 'new_student_form' %>
+  <style>
+    form, img {
+      margin-top: 5px !important;
+    }
+
+    .form-group {
+      margin-bottom: 15px !important;
+    }
+
+    label.mb0 {
+      margin-bottom: 5px !important;
+    }
+
+    html, section{
+      background-color: black;
+    }
+
+    input.btn.btn-primary {
+      background-color: #fdcf09 !important;
+      color: #8f5825 !important;
+      font-weight: bold;
+      border-color: #8f5825 !important;
+    }
+
+    label, .card-title {
+      color: #8f5825 !important;
+    }
+
+    .card.card-primary {
+      border: #8f5825 solid 2px !important;
+      background-color: #ffe884 !important;
+    }
+  </style>
+<% end %>

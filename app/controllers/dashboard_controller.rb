@@ -18,10 +18,13 @@ class DashboardController < ApplicationController
     current_rent_fee
   end
 
+  def welcome
+  end
+
   private
   def set_view_layout
     return 'example_sb_admin2' if action_name == 'example'
 
-    'sb_admin2'
+    action_name == 'welcome' ?  'application' : 'sb_admin2'
   end
 end

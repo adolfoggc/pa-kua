@@ -7,6 +7,8 @@ class PeopleController < ApplicationController
   before_action :payment_data, only: %i[show]
   before_action :belts_data, only: %i[show]
 
+  layout :set_view_layout
+
   # GET /people or /people.json
   def index
     get_people_data
@@ -31,10 +33,15 @@ class PeopleController < ApplicationController
   # POST /people or /people.json
   def create
     @person = Person.new(person_params)
-    if params[:information].blank? || params[:information].nil?
+    if params["commit"] == 'Cadastrar'
+      return_path = welcome_path
+      error_path = :new_student_form
+    elsif params[:information].blank? || params[:information].nil?
       return_path = people_path
+      error_path = :new
     else
       return_path = person_path(@person)
+      error_path = :new
     end
     respond_to do |format|
       if @person.save
@@ -43,7 +50,7 @@ class PeopleController < ApplicationController
       else
         roles_data
         @view_action = 'Novo Membro'
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render error_path, status: :unprocessable_entity }
         format.json { render json: @person.errors, status: :unprocessable_entity }
       end
     end
@@ -76,6 +83,11 @@ class PeopleController < ApplicationController
   def edit_information
   end
 
+  def new_student_form
+    @person = Person.new
+    @view_action = 'Novo Membro'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -85,7 +97,9 @@ class PeopleController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def person_params
-    params.require(:person).permit(:name, :address, :birthdate, :phone, :cpf, :role, :start_date, :information)
+    params.require(:person).permit(:name, :address, :birthdate, :phone, :cpf, :role, :start_date,
+      :information, :civil_status, :status, :email, :school_level, :occupation, :cep, :other_option,
+      :marketing)
   end
 
   def roles_data
@@ -150,5 +164,11 @@ class PeopleController < ApplicationController
     else
       'bg-danger text-white'
     end
+  end
+
+  def set_view_layout
+    return 'application' if action_name == 'new_student_form'
+
+    'sb_admin2'
   end
 end
