@@ -1,14 +1,17 @@
 class Person < ApplicationRecord
-  encrypts :name, :address, :cpf, :phone
+  encrypts :name, :address, :cpf, :phone, :occupation, :other_option, :cep, :email
   encrypts :birthdate, :start_date, type: :date
-  blind_index :birthdate, :start_date
+  encrypts :school_level, :status, :civil_status, :marketing, type: :integer
+  blind_index :birthdate, :start_date, :school_level, :status, :civil_status, :marketing
 
   validates :name_ciphertext, :address_ciphertext, :phone_ciphertext, :cpf_ciphertext, :role, presence: true
-  validates :start_date, presence: true, if: :pakua_student?
 
   has_many :student_plans
   has_many :payments, through: :student_plans
   has_many :belts
+
+  attribute :role, :integer, default: :student
+  attribute :status, :integer, default: :not_checked
 
   enum role: {
     student: 1,
@@ -29,6 +32,22 @@ class Person < ApplicationRecord
     casado: 2,
     viuvo: 3,
     divorciado: 4
+  }
+
+  enum status: {
+    not_checked: 0,
+    open_class: 1,
+    active: 2,
+    inactive: 3
+  }
+
+  enum marketing: {
+    recommendation: 0,
+    google: 1,
+    facebook: 2,
+    instagram: 3,
+    flyer: 4,
+    other: 5
   }
 
   def pakua_student?
