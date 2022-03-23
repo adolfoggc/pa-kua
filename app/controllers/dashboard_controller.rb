@@ -21,10 +21,13 @@ class DashboardController < ApplicationController
   def welcome
   end
 
+  def welcome_back
+  end
+
   private
   def set_view_layout
     return 'example_sb_admin2' if action_name == 'example'
 
-    action_name == 'welcome' ?  'application' : 'sb_admin2'
+    %w[welcome welcome_back].include?(action_name) ?  'application' : 'sb_admin2'
   end
 end

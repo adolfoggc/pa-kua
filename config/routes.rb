@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     get '/inscricao', to: 'people#new_student_form', as: 'new_student_form'
     post '/membros', to: 'people#create', as: 'create_new_student'
     get '/boas_vindas', to: 'dashboard#welcome', as: 'welcome'
+    get '/cadastro_existente', to: 'dashboard#welcome_back', as: 'welcome_back'
   end
 
   authenticate :member do
