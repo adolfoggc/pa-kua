@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :members, controllers: {
+    sessions: 'member/sessions'
+  }
   
   authenticated :member do
-    devise_for :members, controllers: {
-      sessions: 'member/sessions'
-    }
 
     resources :class_instructors
     resources :pakua_classes
@@ -78,5 +78,9 @@ Rails.application.routes.draw do
     get '/inscricao', to: 'people#new_student_form', as: 'new_student_form'
     post '/membros', to: 'people#create', as: 'create_new_student'
     get '/boas_vindas', to: 'dashboard#welcome', as: 'welcome'
+  end
+
+  authenticate :member do
+    get '/', to: 'dashboard#index', as: 'not_logged_root'
   end
 end
