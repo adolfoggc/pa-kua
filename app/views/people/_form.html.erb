@@ -8,18 +8,27 @@
   <div class="container-fluid">
     <%= form_with(model: person, local: true) do |form| %>
       <% if person.errors.any? %>
+        <br>
+        <h2 class="text-white text-center">
+          Atenção! Há campos em branco!
+        </h2>
+        <h3 class="text-white text-center">
+          Por favor, preencha todos os campos!
+        </h3>
         <div id="error_explanation">
-          <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
+          <% if true == false %>
+            <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
 
-          <ul>
-            <% person.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
+            <ul>
+              <% person.errors.full_messages.each do |message| %>
+                <li><%# message %></li>
+              <% end %>
+            </ul>
+          <% end %>
         </div>
       <% end %>
       <div class="row">
-        <% if action_name == 'new_student_form' %>
+        <% if %[new_student_form create].include?(action_name) %>
           <div class="col-md-3">
           </div>
         <% end %>
@@ -28,7 +37,7 @@
           <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">
-                <% if action_name == 'new_student_form' %>
+                <% if %[new_student_form create].include?(action_name) %>
                   Ficha Cadastral de Alunos
                 <% else %>
                   <%= @view_action %>
@@ -39,8 +48,8 @@
             <div class="card-body">
               <div class="form-group">
                 <h4 class="mb-0">
-                  <%= form.label :name, action_name == 'new_student_form' ? 'Nome Completo' : 'Nome', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <%= form.label :name, %[new_student_form create].include?(action_name) ? 'Nome Completo' : 'Nome', class: "mb-0" %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -50,12 +59,12 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :birthdate, 'Nascimento' %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
                 <div class="input-group">
-                  <% if action_name != 'new_student_form' %>
+                  <% if !%[new_student_form create].include?(action_name) %>
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
@@ -68,7 +77,7 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :cpf, 'CPF', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -78,7 +87,7 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :school_level, 'Nível escolar', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -95,7 +104,7 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :occupation, 'Profissão', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -105,7 +114,7 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :civil_status, 'Estado Civil', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -125,7 +134,7 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :email, 'E-mail', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -135,7 +144,7 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :cep, 'CEP', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -145,7 +154,7 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :address, 'Endereço', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
@@ -155,21 +164,21 @@
               <div class="form-group">
                 <h4 class="mb-0">
                   <%= form.label :phone, 'Número de Telefone (WhatsApp)', class: "mb-0" %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
                 <%= form.text_field :phone, class: "form-control form-control-border" %>
               </div>
 
-              <%if action_name != 'new_student_form' %>
+              <%if !%[new_student_form create].include?(action_name) %>
                 <div class="form-group">
                   <h4><%= form.label :role, 'Atuação na Escola' %></h4>
                   <%= form.select(:role, options_for_select(@roles.map { |k, v| [k.to_s.humanize, Person.roles.key(v)]}), {}, class: "form-control rounded-0" )  %>
                 </div>
               <% end %>
 
-              <% if action_name == 'new_student_form' %>
+              <% if %[new_student_form create].include?(action_name) %>
                 <div class="form-group">
                   <h4 class="mb-0">
                     <%= form.label :marketing, 'Como conheceu a escola?', class: "mb-0" %>
@@ -198,12 +207,12 @@
               <div class="form-group">
                 <h4>
                   <%= form.label :start_date, 'Data de início em Pa-kua' %>
-                  <% if action_name == 'new_student_form' %>
+                  <% if %[new_student_form create].include?(action_name) %>
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
                 <div class="input-group">
-                  <% if action_name != 'new_student_form' %>
+                  <% if !%[new_student_form create].include?(action_name) %>
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
@@ -213,7 +222,7 @@
                 <!-- /.input group -->
               </div>
 
-              <% if action_name == 'new_student_form' %>
+              <% if %[new_student_form create].include?(action_name) %>
                 <div class="form-group">
                   <h4>
                     <%= label :modalities, 'Modalidades de prática' %>
@@ -244,8 +253,8 @@
               <% end %>
 
               <div class="actions">
-                <%= form.submit action_name == 'new_student_form' ? 'Cadastrar' : 'Salvar', class: 'btn btn-primary' %>
-                <%if action_name != 'new_student_form' %>
+                <%= form.submit %[new_student_form create].include?(action_name) ? 'Cadastrar' : 'Salvar', class: 'btn btn-primary' %>
+                <%if !%[new_student_form create].include?(action_name) %>
                   <%= link_to 'Voltar para Membros', people_path, class: 'btn btn-secondary' %>
                   <% if @person.pakua_student? %>
                     <%= link_to 'Voltar para Alunos', alunos_path, class: 'btn btn-secondary' %>
@@ -271,7 +280,7 @@
   </div>
 </div>
 
-<% if action_name == 'new_student_form' %>
+<% if %[new_student_form create].include?(action_name) %>
   <style>
     form, img {
       margin-top: 5px !important;

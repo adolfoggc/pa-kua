@@ -169,7 +169,7 @@ class PeopleController < ApplicationController
   end
 
   def set_view_layout
-    return 'application' if action_name == 'new_student_form'
+    return 'application' if %w[new_student_form, create].include?(action_name)
 
     'sb_admin2'
   end
