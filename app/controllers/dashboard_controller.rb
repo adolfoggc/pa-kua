@@ -13,6 +13,9 @@ class DashboardController < ApplicationController
   end
 
   def administrative_index
+  end
+
+  def finalcial_index
     current_tuition_fee_table
     current_discounts
     current_rent_fee

@@ -1,0 +1,13 @@
+<%= sanitize page_title_with_button('Financeiro', false) %>
+
+<% if TuitionFee.any? %>
+  <%= generate_index_table({table_name: "Mensalidade Vigente (Desde #{date_format(@starting_date_for_current_fees)})", model: TuitionFee, objects: @current_tuition_fee, translated_names: ['Aulas semanais', 'Valor', 'Vigência'], translate_data: {'weekly_classes' => {'0' => 'Plano Livre'}} }).html_safe %>
+<% end %>
+
+<% if Rent.any? %>
+  <%= generate_index_table({table_name: "Aluguel de Equipamento Vigente", model: Rent, objects: [@current_rental_fee], translated_names: ['Valor', 'Vigência'], crud_paths: false }).html_safe %>
+<% end %>
+
+<% if Discount.any? %>
+  <%= generate_index_table({table_name: "Pacotes Vigentes", model: Discount, objects: @current_discounts, show_attributes: ['kind_of_plan', 'discount_percentage'], translated_names: ['Plano', 'Desconto'], prefix_and_suffix: {'discount_percentage' => {pref: '', suff: '%'}}}).html_safe %>
+<% end %>

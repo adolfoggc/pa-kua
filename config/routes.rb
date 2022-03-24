@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   authenticated :member do
 
     resources :class_instructors
-    resources :pakua_classes
-    resources :payments
     root 'dashboard#index'
 
     get '/example', to: 'dashboard#example', as: 'dashboard_example'
@@ -38,22 +36,28 @@ Rails.application.routes.draw do
       delete '/', to: 'belts#destroy'
     end
 
-    scope 'administrativo' do
-      get '/', to: 'dashboard#administrative_index', as: :administrative_index
+    scope 'financeiro' do
+      get '/', to: 'dashboard#financial_index', as: :financial_index
+      post '/novo_pagamento/:id/', to: 'payments#new_student_payment', as: 'new_student_payment'
+      post '/receber_pagamento/:id/', to: 'payments#recive_payment', as: 'recive_payment'
       scope(path_names: { new: 'novo', edit: 'editar' }) do 
         resources :tuition_fees, path: 'mensalidades'
         resources :rents, path: 'alugueis'
         resources :discounts, path: 'pacotes'
+        resources :payments, path: 'pagamentos'
+      end
+    end
+
+    scope 'administrativo' do
+      get '/', to: 'dashboard#administrative_index', as: :administrative_index
+      scope(path_names: { new: 'novo', edit: 'editar' }) do 
+        resources :pakua_classes, path: 'aulas'
       end
     end
 
     scope(path_names: { new: 'novo', edit: 'editar' }) do
       resources :people, path: 'membros'
     end
-
-    #payments
-    post '/novo_pagamento/:id/', to: 'payments#new_student_payment', as: 'new_student_payment'
-    post '/receber_pagamento/:id/', to: 'payments#recive_payment', as: 'recive_payment'
 
     get 'instrutores', to: 'instructors#index'
     get 'instrutores/novo', to: 'instructors#new'
