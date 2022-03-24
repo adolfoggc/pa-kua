@@ -1,5 +1,7 @@
 class PakuaClass < ApplicationRecord
   validates :day_of_week, :modality, :hour, :minutes, :duration, presence: true
+  belongs_to :person, optional: true
+  attribute :active, default: true
 
   enum day_of_week: {
     domingo: 0,

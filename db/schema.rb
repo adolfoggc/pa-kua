@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_23_160352) do
+ActiveRecord::Schema.define(version: 2022_03_24_020545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,9 @@ ActiveRecord::Schema.define(version: 2022_03_23_160352) do
     t.integer "duration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "active"
+    t.bigint "person_id", null: false
+    t.index ["person_id"], name: "index_pakua_classes_on_person_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -144,6 +147,7 @@ ActiveRecord::Schema.define(version: 2022_03_23_160352) do
   add_foreign_key "belts", "people"
   add_foreign_key "class_instructors", "pakua_classes"
   add_foreign_key "class_instructors", "people"
+  add_foreign_key "pakua_classes", "people"
   add_foreign_key "payments", "student_plans"
   add_foreign_key "student_plans", "people"
 end
