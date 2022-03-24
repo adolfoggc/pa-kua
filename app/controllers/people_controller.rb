@@ -47,6 +47,11 @@ class PeopleController < ApplicationController
     end
     respond_to do |format|
       if @person.save
+        if params["modalities"].present?
+          params["modalities"].keys.each do |m|
+            Belt.create(person: @person, color: :branca, modality: m.to_sym, start_date: @person.start_date)
+          end
+        end
         format.html { redirect_to return_path, notice: "Person was successfully created." }
         format.json { render :show, status: :created, location: @person }
       else

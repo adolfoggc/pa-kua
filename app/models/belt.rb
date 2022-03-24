@@ -24,8 +24,8 @@ class Belt < ApplicationRecord
     armas_de_corte: 2,
     arqueria: 3,
     arte_marcial: 4,
-    ritmo: 5,
-    tai_chi_pa_kua: 6,
+    ritmos: 5,
+    tai_chi: 6,
     yoga: 7
   }
 end
