@@ -3,14 +3,16 @@ class PakuaClass < ApplicationRecord
   belongs_to :person, optional: true
   attribute :active, default: true
 
+  scope :active_classes , -> { where(active: true) }
+
   enum day_of_week: {
-    domingo: 0,
     segunda: 1,
     terca: 2,
     quarta: 3,
     quinta: 4,
     sexta: 5,
-    sabado: 6
+    sabado: 6,
+    domingo: 7
   }
 
   enum modality: {
