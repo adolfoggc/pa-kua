@@ -184,29 +184,18 @@ module ApplicationHelper
       end
       show_attributes -= args[:hide_attributes] unless args[:hide_attributes].blank?
     end
-    html = ['<div class="card shadow mb-4">',
-      '<div class="card-header py-3">',
-      '<h6 class="m-0 font-weight-bold text-primary">', args[:table_name], '</h6>',
-      '</div>',
-      '<div class="card-body">',
-      '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">',
-      '<thead>',
-      '<tr>']
+    html = table_name(args[:table_name])
+    args[:translated_names] = show_attributes if args[:translated_names].blank?
+    html << table_head(args[:translated_names], args[:crud_paths])
+    html << table_body(objects, show_attributes)
     
-    if args[:translated_names].blank?
-      show_attributes.each do |att|
-        html << "<th>#{att}</th>"
-      end
-    else
-      args[:translated_names].each do |att|
-        html << "<th>#{att}</th>"
-      end
-    end
-    html << '<th colspan="3"></th>' if args[:crud_paths]
-    html << ['</tr>',
-      '</thead>',
+    
+    html << [
       '<tbody>'
     ]
+
+    #end head and start of data
+
     args[:objects].each do |obj|
       html << '<tr>'
       show_attributes.each do |att|
@@ -237,5 +226,26 @@ module ApplicationHelper
 
   def add_prefix_and_suffix(value, hash)
     return hash[:pref] + value.to_s + hash[:suff]
+  end
+
+  def table_name(name)
+    ['<div class="card shadow mb-4">',
+      '<div class="card-header py-3">',
+      '<h6 class="m-0 font-weight-bold text-primary">', name, '</h6>',
+      '</div>']
+  end
+
+  def table_head(names, crud)
+    html = [ '<div class="card-body">',
+      '<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">',
+      '<thead>',
+      '<tr>']
+    names.each do |att|
+      html << "<th>#{att}</th>"
+    end
+    html << '<th colspan="3"></th>' if crud
+    html << ['</tr>',
+      '</thead>']
+    html
   end
 end
