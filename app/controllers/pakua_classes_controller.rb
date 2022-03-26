@@ -5,9 +5,11 @@ class PakuaClassesController < ApplicationController
   # GET /pakua_classes or /pakua_classes.json
   def index
     @class_schedule = {}
-    @classes = PakuaClass.all.order(hour: :asc, minutes: :asc, duration: :asc, modality: :asc) 
+    @classes = PakuaClass.active_classes.order(hour: :asc, minutes: :asc, duration: :asc, modality: :asc) 
     return unless @classes.size.positive?
-
+    valid_days_of_week = @classes.select(:day_of_week).collect { |d| d.day_of_week }.uniq
+    @days_of_week = [] 
+    PakuaClass.day_of_weeks.keys.select { |dow| @days_of_week << dow if valid_days_of_week.include?(dow) }
     @classes.each do |pkc|
       starts_at = Time.new('2021', 'jan', '11', pkc.hour, pkc.minutes)
       ends_at = starts_at + 60 * pkc.duration.to_i
@@ -88,7 +90,7 @@ class PakuaClassesController < ApplicationController
 
   def set_blank_weekly_schedule
     weekly_schedule = {}
-    PakuaClass.day_of_weeks.keys.each do |day_of_week|
+    @days_of_week.each do |day_of_week|
       weekly_schedule[day_of_week] = []
     end
     weekly_schedule
