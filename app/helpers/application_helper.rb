@@ -187,7 +187,6 @@ module ApplicationHelper
     html = table_name(args[:table_name])
     args[:translated_names] = show_attributes if args[:translated_names].blank?
     html << table_head(args[:translated_names], args[:crud_paths])
-    html << table_body(objects, show_attributes)
     
     
     html << [
