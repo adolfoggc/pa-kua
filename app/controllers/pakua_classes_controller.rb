@@ -80,7 +80,7 @@ class PakuaClassesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def pakua_class_params
-    params.require(:pakua_class).permit(:modality, :day_of_week, :hour, :minutes, :duration)
+    params.require(:pakua_class).permit(:modality, :day_of_week, :hour, :minutes, :duration, :person_id, :active)
   end
 
   def form_data
