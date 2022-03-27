@@ -14,12 +14,16 @@ class Person < ApplicationRecord
   attribute :role, :integer, default: :student
   attribute :status, :integer, default: :not_checked
 
+  scope :instructors, -> { where('role >= 3')}
+  scope :instructors_of, -> (modality) { 
+    where(role: ['instructor', 'student_and_instructor']).left_joins(:belts).where('belts.color > 4').where('belts.modality' => modality).uniq
+  }
+
   enum role: {
     student: 1,
     open_class_student: 2,
     student_and_instructor: 3,
-    instructor: 4,
-    traveling_instructor: 5
+    instructor: 4
   }
 
   enum school_level: {
@@ -52,11 +56,11 @@ class Person < ApplicationRecord
   }
 
   def pakua_student?
-    student? || student_and_instructor?
+    %w[student open_class_student].include?(self.role)
   end
 
   def pakua_instructor?
-    instructor? || student_and_instructor? || traveling_instructor?
+    %w[student_and_instructor instructor].include?(self.role)
   end
 
   def role_br
@@ -66,10 +70,8 @@ class Person < ApplicationRecord
       'Aluno(a) de aula Inaugural'
     elsif student_and_instructor?
       'Aluno(a) e Instrutor(a)'
-    elsif instructor?
-      'Instrutor(a)'
     else
-      'Instrutor(a) Itineirante'
+      'Instrutor(a)'
     end
   end
 
