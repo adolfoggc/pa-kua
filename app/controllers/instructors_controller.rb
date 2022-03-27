@@ -4,7 +4,7 @@ class InstructorsController < ApplicationController
 
   # GET /people or /people.json
   def index
-    @instructors = Person.instructor.or(Person.traveling_instructor.or(Person.student_and_instructor))
+    @instructors = Person.instructor.or(Person.student_and_instructor)
   end
 
   # GET /people/1 or /people/1.json
