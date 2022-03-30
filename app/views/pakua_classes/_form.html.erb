@@ -25,18 +25,28 @@
             <div class="card-body">
               <div class="form-group">
                 <h4 class="mb-0"><%= form.label :modality, 'Modalidade' %></h4>
-                <%= form.select(:modality, options_for_select(@modalities.map { |k, _| [modality_name(k.to_s), k]}), {}, class: "form-control rounded-0" )  %>
+                <%= form.select(:modality, options_for_select(@modalities.map { |k, _| [modality_name(k.to_s), k]}, @pakua_class.modality), {}, class: "form-control rounded-0" )  %>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0"><%= form.label :person_id, 'Instrutor(a)' %></h4>
+                <% if @pakua_class.persisted? && @pakua_class.modality.present?
+                    query = Person.instructors_of(@pakua_class.modality)
+                  else
+                    query = Person.instructors
+                  end %>
+                <%= form.select(:person_id, (query.collect {|u| [u.name, u.id]}), { prompt: 'Sem Instrutor(a)' }, class: "form-control rounded-0" )  %>
               </div>
 
               <div class="form-group">
                 <h4 class="mb-0"><%= form.label :day_of_week, 'Dia da Semana' %></h4>
-                <%= form.select(:day_of_week, options_for_select(@days_of_week.map { |k, _| [day_of_week_name(k.to_s), k]}), {}, class: "form-control rounded-0" )  %>
+                <%= form.select(:day_of_week, options_for_select(@days_of_week.map { |k, _| [day_of_week_name(k.to_s), k]}), {}, class: "form-control rounded-0", include_blank: true )  %>
               </div>
 
               <div class='form-group'>
                 <h4 class="mb-0"><%= form.label :hour, 'Horário' %></h4>
                 <div class="input-group">
-                  <%= form.number_field :hour, class: "form-control", value: @pakua_class.persisted? ? @pakua_class.minutes : '19', min: 1, max: 24 %>
+                  <%= form.number_field :hour, class: "form-control", value: @pakua_class.persisted? ? @pakua_class.hour : '19', min: 1, max: 24 %>
                   <div class="input-group-append">
                     <span class="input-group-text">
                       h
@@ -54,6 +64,11 @@
               <div class="form-group">
                 <h4 class="mb-0"><%= form.label :duration, 'Duração (em minutos)' %></h4>
                 <%= form.number_field :duration, class: "form-control", value: @pakua_class.persisted? ? @pakua_class.duration : '60', min: 1 %>
+              </div>
+
+              <div class="form-group">
+                <h4 class="mb-0"><%= form.label :active, 'Status' %></h4>
+                <%= form.select(:active, [["Ativa", true], ["Inativa", false]], {selected: @pakua_class.active? ? "Ativa" : "Inativa"}, class: "form-control rounded-0" )  %>
               </div>
 
               <div class="actions">
