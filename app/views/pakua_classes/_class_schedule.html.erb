@@ -1,55 +1,45 @@
+
 <section class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <!-- /.card -->
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Horário das Turmas</h3>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body p-0">
-            <table class="table table-sm">
-              <thead>
-                <tr>
-                  <th class="text-center"></th>
-                  <% PakuaClass.day_of_weeks.keys.each do |day_of_week| %>
-                    <th class="text-center"><%= day_of_week_name(day_of_week) %></th>
-                  <% end %>
-                </tr>
-              </thead>
-              <tbody>
-                <% @class_schedule.each do |duration, week| %>
-                  <tr>
-                    <td class="text-center"><%= duration %></td>
-                    <% week.each do |day_of_week, class_info| %>
-                      <td class="text-center">
-                        <% class_info.each do |pkc| %>
-                          <div class="row py-2">
-                            <div class="col-12">
-                              <div class="row">
-                                <div class="col-12">
-                                  <%= modality_name(pkc[:modality]) unless pkc.blank? %>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        <% end %>
-                      </td>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Horário das Turmas</h6>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th class="text-center"></th>
+            <% @days_of_week.each do |day_of_week| %>
+              <th class="text-center"><%= day_of_week_name(day_of_week) %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @class_schedule.each do |duration, week| %>
+            <tr>
+              <td class="text-center"><%= duration %></td>
+                <% week.each do |day_of_week, class_info| %>
+                  <td class="text-center">
+                    <% i = class_info.count %>
+                    <% class_info.each do |pkc| %>
+                      <%= modality_name(pkc[:modality]) %>
+                      <% if pkc[:instructor].present? %>
+                        <%= "- #{pkc[:instructor]}" %>
+                      <% end %>
+                      <% if (i-=1) > 0 %>
+                        <br>
+                      <% end %>
                     <% end %>
-                  </tr>
+                  </td>
                 <% end %>
-              </tbody> 
-            </table>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
-      </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
-<br>
 
 <style>
   th, td {

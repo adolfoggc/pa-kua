@@ -15,7 +15,7 @@ class PakuaClassesController < ApplicationController
       ends_at = starts_at + 60 * pkc.duration.to_i
       schedule_time = starts_at.strftime('%H:%M') + ' - ' + ends_at.strftime('%H:%M')
       @class_schedule[schedule_time] = set_blank_weekly_schedule unless @class_schedule.key?(schedule_time)
-      @class_schedule[schedule_time][pkc.day_of_week] << { modality: pkc.modality } # insert another informations here
+      @class_schedule[schedule_time][pkc.day_of_week] << { modality: pkc.modality, instructor: pkc&.person&.name } # insert another informations here
     end
   end
 
