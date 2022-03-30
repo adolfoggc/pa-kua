@@ -4,7 +4,9 @@ class Person < ApplicationRecord
   encrypts :school_level, :status, :civil_status, :marketing, type: :integer
   blind_index :birthdate, :start_date, :school_level, :status, :civil_status, :marketing, :email, :cpf
 
-  validates :name_ciphertext, :address_ciphertext, :phone_ciphertext, :role, presence: true
+  validates :name_ciphertext, :birthdate_ciphertext, :cpf_ciphertext, :school_level_ciphertext,
+  :occupation_ciphertext, :civil_status_ciphertext, :email_ciphertext, 
+  :cep_ciphertext, :address_ciphertext, :phone_ciphertext, :start_date_bidx, presence: true
   validates :cpf, uniqueness: true
 
   has_many :student_plans
