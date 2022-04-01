@@ -8,7 +8,7 @@ class Payment < ApplicationRecord
 
   scope :current, -> { where(:due_date => Payment.new.beginning_of_month..Payment.new.end_of_month)}
   scope :not_current, -> { where.not(:due_date => Payment.new.beginning_of_month..Payment.new.end_of_month)}
-  scope :not_paid, -> { not_current.where('paid_fee < payment_fee')}
+  scope :not_paid, -> { not_current.where('paid_fee < payment_fee') }
 
   def student_name
     person.name
