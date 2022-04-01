@@ -5,7 +5,7 @@ class StudentPlan < ApplicationRecord
   validates :due_day, :weekly_classes, :rent_inclusion, :kind_of_plan, presence: true
 
   def monthly_fee
-    current_tuition_fee.fee
+    current_tuition_fee.fee + rent_cost
   end
 
   def percentage
@@ -31,5 +31,9 @@ class StudentPlan < ApplicationRecord
   def due_day_description
     "Dia #{due_day} ou final do mês" if due_day >= 28
     "Dia #{due_day}" if due_day < 28
+  end
+
+  def rent_cost
+    self.rent_inclusion == 'true' ? Rent.last.rental_amount : 0 
   end
 end
