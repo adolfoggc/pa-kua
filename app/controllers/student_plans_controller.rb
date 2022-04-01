@@ -69,7 +69,7 @@ class StudentPlansController < ApplicationController
   end
 
   def set_student_plan
-    @student_plan = @person.student_plan
+    @student_plan = @person.student_plans.order(id: 'DESC').first
   end
 
   def block_if_plan_is_nil
