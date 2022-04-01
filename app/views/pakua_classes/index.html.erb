@@ -1,20 +1,12 @@
-<%= render 'layouts/dashboard_content_top' %>
-
-<%= render 'layouts/dashboard_content_bottom' %>
-
-<%= render 'layouts/dashboard_main_top' %>
-<% if @class_schedule.blank? %>
-  Nenhuma turma definida
-  <br><br><br>
-<% else%>
-  <%= render 'class_schedule' %>
-<% end %>
+<%= sanitize page_title_with_button('Membros', false) %>
+  <% if @class_schedule.blank? %>
+    Nenhuma turma definida
+    <br><br><br>
+  <% else%>
+    <%= render 'class_schedule' %>
+  <% end %>
 <br>
-<%= link_to 'Nova Turma', new_pakua_class_path, class: 'btn btn-primary' %>
-<%= render 'layouts/dashboard_main_bottom' %>
-
-<p id="notice"><%= notice %></p>
 
 <section class="content">
-
+  <%= generate_index_table({table_name: 'Horários', show_attributes: %w[modality	day_of_week	hour	minutes	duration], translated_names: ['Modalidade',	'Dia da Semana',	'hour',	'minutes',	'duration'],model: PakuaClass, objects: PakuaClass.where(active: true), new_label: 'Novo Horário', crud_paths: true}).html_safe %>
 </section>
