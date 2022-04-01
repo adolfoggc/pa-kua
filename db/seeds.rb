@@ -14,15 +14,33 @@ end
 
 puts ''
 print 'Create Students... '
+valid_cpfs = []
+used_cpfs = Person.all.any? ? Person.all.map { |p| p.cpf } : [] 
+while valid_cpfs.count < 8 do
+  cpf = Faker::IDNumber.brazilian_citizen_number
+  valid_cpfs << cpf unless ( valid_cpfs.include?(cpf)) || used_cpfs.include?(cpf)
+end
+
+
 unless Person.where(role: [1, 2, 3]).any?
   5.times do
-    Person.create(  name: Faker::Name.name,
-                    address: Faker::Address.street_address,
-                    role: 1,
-                    birthdate: Date.new((1980..2010).to_a.sample, (1..12).to_a.sample, (1..28).to_a.sample),
-                    phone: Faker::PhoneNumber.cell_phone,
-                    cpf: Faker::IDNumber.brazilian_citizen_number,
-                    start_date: Date.new(2021, 1, 1))
+    name = Faker::Name.name
+    person = Person.new(  name: name,
+                          birthdate: Date.new((1980..2010).to_a.sample, (1..12).to_a.sample, (1..28).to_a.sample),
+                          cpf: valid_cpfs.sample,
+                          school_level: Person.school_levels.keys.sample,
+                          occupation: Faker::Job.title,
+                          civil_status: Person.civil_statuses.keys.sample,
+                          email: Faker::Internet.email(name: name),
+                          cep: Faker::Address.zip_code,
+                          address: Faker::Address.street_address,
+                          phone: Faker::PhoneNumber.cell_phone,
+                          start_date: Date.new(2021, 1, 1),
+                          role: 1,
+                          status: 'active',
+                          marketing: Person.marketings.keys.sample
+                        )
+    valid_cpfs -= [person.cpf] if person.save
   end
   print 'Done!'
 end
@@ -51,6 +69,11 @@ if Discount.all.count.zero?
   end
   print 'Done!'
 end
+
+puts ''
+print 'Create Students... '
+
+
 
 # puts ''
 # print 'Create Modality... '
