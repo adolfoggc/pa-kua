@@ -70,9 +70,6 @@ if Discount.all.count.zero?
   print 'Done!'
 end
 
-puts ''
-print 'Create Students... '
-
 
 
 # puts ''
