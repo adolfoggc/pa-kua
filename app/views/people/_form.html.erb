@@ -69,7 +69,7 @@
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
                   <% end %>
-                  <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_birthdate" name="person[birthdate]" value="<%= date_to_string(@person.birthdate) %>">
+                  <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_birthdate" name="person[birthdate]" value="<%= @person.birthdate %>">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -91,13 +91,13 @@
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
-                <input type="radio" name="person[school_level]" value="ensino_fundamental" id="person_school_level_1">
+                <input type="radio" name="person[school_level]" value="ensino_fundamental" id="person_school_level_1" <%= enum_comparation(@person.school_level, Person.school_levels, 1) ? "checked" : '' %>>
                 <label for="person_school_level_1">Ensino Fundamental</label>
                 <br>
-                <input type="radio" name="person[school_level]" value="ensino_medio" id="person_school_level_2">
+                <input type="radio" name="person[school_level]" value="ensino_medio" id="person_school_level_2" <%= enum_comparation(@person.school_level, Person.school_levels, 1) ? "checked" : '' %>>
                 <label for="person_school_level_2">Ensino Médio</label>
                 <br>
-                <input type="radio" name="person[school_level]" value="ensino_superior" id="person_school_level_3">
+                <input type="radio" name="person[school_level]" value="ensino_superior" id="person_school_level_3" <%= enum_comparation(@person.school_level, Person.school_levels, 1) ? "checked" : '' %>>
                 <label for="person_school_level_3">Ensino Superior</label>
               </div>
 
@@ -118,16 +118,16 @@
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
-                <input type="radio" name="person[civil_status]" value="solteiro" id="person_civil_status_1">
+                <input type="radio" name="person[civil_status]" value="solteiro" id="person_civil_status_1" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 1) ? "checked" : '' %>>
                 <label for="person_civil_status_1">Solteiro(a)</label>
                 <br>
-                <input type="radio" name="person[civil_status]" value="casado" id="person_civil_status_2">
+                <input type="radio" name="person[civil_status]" value="casado" id="person_civil_status_2" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 2) ? "checked" : '' %>>
                 <label for="person_civil_status_2">Casado(a)</label>
                 <br>
-                <input type="radio" name="person[civil_status]" value="viuvo" id="person_civil_status_3">
+                <input type="radio" name="person[civil_status]" value="viuvo" id="person_civil_status_3" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 3) ? "checked" : '' %>>
                 <label for="person_civil_status_3">Viúvo(a)</label>
                 <br>
-                <input type="radio" name="person[civil_status]" value="divorciado" id="person_civil_status_4">
+                <input type="radio" name="person[civil_status]" value="divorciado" id="person_civil_status_4" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 4) ? "checked" : '' %>>
                 <label for="person_civil_status_4">Divorciado(a)</label>
               </div>
 
@@ -184,23 +184,24 @@
                     <%= form.label :marketing, 'Como conheceu a escola?', class: "mb-0" %>
                     <span class="text-danger">*</span>
                   </h4>
-                  <input type="radio" name="person[marketing]" value="recommendation" id="person_marketing_0">
+                  <input type="radio" name="person[marketing]" value="recommendation" id="person_marketing_0" onclick="clear_other_field('person_marketing_0');"<%= enum_comparation(@person.marketing, Person.marketings, 0) ? "checked" : '' %>>
                   <label for="person_marketing_0">Indicação</label>
                   <br>
-                  <input type="radio" name="person[marketing]" value="google" id="person_marketing_1">
+                  <input type="radio" name="person[marketing]" value="google" id="person_marketing_1" onclick="clear_other_field('person_marketing_1');"<%= enum_comparation(@person.marketing, Person.marketings, 1) ? "checked" : '' %> >
                   <label for="person_marketing_1">Google</label>
                   <br>
-                  <input type="radio" name="person[marketing]" value="facebook" id="person_marketing_2">
+                  <input type="radio" name="person[marketing]" value="facebook" id="person_marketing_2" onclick="clear_other_field('person_marketing_2');"<%= enum_comparation(@person.marketing, Person.marketings, 2) ? "checked" : '' %>>
                   <label for="person_marketing_2">Facebook</label>
                   <br>
-                  <input type="radio" name="person[marketing]" value="instagram id="person_marketing_3">
+                  <input type="radio" name="person[marketing]" value="instagram" id="person_marketing_3" onclick="clear_other_field('person_marketing_3');"<%= enum_comparation(@person.marketing, Person.marketings, 3) ? "checked" : '' %>>
                   <label for="person_marketing_3">Instagram</label>
                   <br>
-                  <input type="radio" name="person[marketing]" value="flyer" id="person_marketing_4">
+                  <input type="radio" name="person[marketing]" value="flyer" id="person_marketing_4" onclick="clear_other_field('person_marketing_4');"<%= enum_comparation(@person.marketing, Person.marketings, 4) ? "checked" : '' %>>
                   <label for="person_marketing_4">Panfleto</label>
                   <br>
                   <%= form.label :other_option, 'Outro:', class: "mb-0" %>
-                  <%= form.text_field :other_option, class: "form-control form-control-border" %>
+                  <input type="hidden" id="person_marketing_5" name="person[marketing]" value="other">
+                  <%= form.text_field :other_option, class: "form-control form-control-border", onclick: "clear_marketing_fields()" %>
                 </div>
               <% end %>
 
@@ -217,7 +218,7 @@
                       <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
                   <% end %>
-                  <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_start_date" name="person[start_date]" value="<%= @person.start_date.nil? ? date_to_string(Date.today) : date_to_string(@person.start_date) %>">
+                  <input type="date" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" id="person_start_date" name="person[start_date]" value="<%= @person.start_date.nil? ? Date.today : @person.start_date %>">
                 </div>
                 <!-- /.input group -->
               </div>
@@ -315,3 +316,21 @@
     }
   </style>
 <% end %>
+
+<script>
+  function clear_other_field(id) {
+    if(document.getElementById(id).checked == true){
+      document.getElementById('person_other_option').value = '';
+      document.getElementById('person_marketing_5').value = '';
+    }
+  }
+
+  function clear_marketing_fields(){
+    i = 0;
+    while(i < 5){
+      document.getElementById('person_marketing_'+ i.toString()).checked = false;
+      i++;
+    }
+    document.getElementById('person_marketing_5').value = 'other';
+  }
+</script>

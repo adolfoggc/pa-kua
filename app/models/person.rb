@@ -57,6 +57,8 @@ class Person < ApplicationRecord
     other: 5
   }
 
+  attr_accessor :modalities_acrobacia, :modalities_armas_de_corte
+
   def pakua_student?
     %w[student open_class_student].include?(self.role)
   end

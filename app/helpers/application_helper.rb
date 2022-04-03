@@ -222,6 +222,10 @@ module ApplicationHelper
     html.join
   end
 
+  def enum_comparation(value, enum, position)
+    enum.keys.index(value) == position
+  end
+
 
   def add_prefix_and_suffix(value, hash)
     return hash[:pref] + value.to_s + hash[:suff]
