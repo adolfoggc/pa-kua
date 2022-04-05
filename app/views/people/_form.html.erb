@@ -91,13 +91,13 @@
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
-                <input type="radio" name="person[school_level]" value="ensino_fundamental" id="person_school_level_1" <%= enum_comparation(@person.school_level, Person.school_levels, 1) ? "checked" : '' %>>
+                <input type="radio" name="person[school_level]" value="ensino_fundamental" id="person_school_level_1" <%= enum_comparation(@person.school_level, Person.school_levels, 0) ? "checked" : '' %>>
                 <label for="person_school_level_1">Ensino Fundamental</label>
                 <br>
                 <input type="radio" name="person[school_level]" value="ensino_medio" id="person_school_level_2" <%= enum_comparation(@person.school_level, Person.school_levels, 1) ? "checked" : '' %>>
                 <label for="person_school_level_2">Ensino Médio</label>
                 <br>
-                <input type="radio" name="person[school_level]" value="ensino_superior" id="person_school_level_3" <%= enum_comparation(@person.school_level, Person.school_levels, 1) ? "checked" : '' %>>
+                <input type="radio" name="person[school_level]" value="ensino_superior" id="person_school_level_3" <%= enum_comparation(@person.school_level, Person.school_levels, 2) ? "checked" : '' %>>
                 <label for="person_school_level_3">Ensino Superior</label>
               </div>
 
@@ -118,16 +118,16 @@
                     <span class="text-danger">*</span>
                   <% end %>
                 </h4>
-                <input type="radio" name="person[civil_status]" value="solteiro" id="person_civil_status_1" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 1) ? "checked" : '' %>>
+                <input type="radio" name="person[civil_status]" value="solteiro" id="person_civil_status_1" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 0) ? "checked" : '' %>>
                 <label for="person_civil_status_1">Solteiro(a)</label>
                 <br>
-                <input type="radio" name="person[civil_status]" value="casado" id="person_civil_status_2" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 2) ? "checked" : '' %>>
+                <input type="radio" name="person[civil_status]" value="casado" id="person_civil_status_2" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 1) ? "checked" : '' %>>
                 <label for="person_civil_status_2">Casado(a)</label>
                 <br>
-                <input type="radio" name="person[civil_status]" value="viuvo" id="person_civil_status_3" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 3) ? "checked" : '' %>>
+                <input type="radio" name="person[civil_status]" value="viuvo" id="person_civil_status_3" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 2) ? "checked" : '' %>>
                 <label for="person_civil_status_3">Viúvo(a)</label>
                 <br>
-                <input type="radio" name="person[civil_status]" value="divorciado" id="person_civil_status_4" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 4) ? "checked" : '' %>>
+                <input type="radio" name="person[civil_status]" value="divorciado" id="person_civil_status_4" <%= enum_comparation(@person.civil_status, Person.civil_statuses, 3) ? "checked" : '' %>>
                 <label for="person_civil_status_4">Divorciado(a)</label>
               </div>
 
@@ -184,6 +184,7 @@
                     <%= form.label :marketing, 'Como conheceu a escola?', class: "mb-0" %>
                     <span class="text-danger">*</span>
                   </h4>
+                  <%= @person.marketing %>
                   <input type="radio" name="person[marketing]" value="recommendation" id="person_marketing_0" onclick="clear_other_field('person_marketing_0');"<%= enum_comparation(@person.marketing, Person.marketings, 0) ? "checked" : '' %>>
                   <label for="person_marketing_0">Indicação</label>
                   <br>
@@ -200,7 +201,7 @@
                   <label for="person_marketing_4">Panfleto</label>
                   <br>
                   <%= form.label :other_option, 'Outro:', class: "mb-0" %>
-                  <input type="hidden" id="person_marketing_5" name="person[marketing]" value="other">
+                  <input type="hidden" id="person_marketing_5" name="person[marketing]" value="other" disabled>
                   <%= form.text_field :other_option, class: "form-control form-control-border", onclick: "clear_marketing_fields()" %>
                 </div>
               <% end %>
@@ -230,25 +231,25 @@
                     <span class="text-danger">*</span>
                   </h4>
 
-                  <input type="checkbox" name="modalities[acrobacia]" value="true" id="modalities_acrobacia">
+                  <input type="checkbox" name="modalities[acrobacia]" value="true" id="modalities_acrobacia" <%= @modalities.include?('acrobacia') ? 'checked' : '' %>>
                   <label for="modalities_acrobacia">Acrobacia</label>
                   <br>
-                  <input type="checkbox" name="modalities[armas_de_corte]" value="true" id="modalities_armas_de_corte">
+                  <input type="checkbox" name="modalities[armas_de_corte]" value="true" id="modalities_armas_de_corte" <%= @modalities.include?('armas_de_corte') ? 'checked' : '' %>>
                   <label for="modalities_armas_de_corte">Armas de Corte</label>
                   <br>
-                  <input type="checkbox" name="modalities[arqueria]" value="true" id="modalities_arqueria">
+                  <input type="checkbox" name="modalities[arqueria]" value="true" id="modalities_arqueria" <%= @modalities.include?('arqueria') ? 'checked' : '' %>>
                   <label for="modalities_arqueria">Arqueria</label>
                   <br>
-                  <input type="checkbox" name="modalities[arte_marcial]" value="true" id="modalities_arte_marcial">
+                  <input type="checkbox" name="modalities[arte_marcial]" value="true" id="modalities_arte_marcial" <%= @modalities.include?('arte_marcial') ? 'checked' : '' %>>
                   <label for="modalities_arte_marcial">Arte Marcial</label>
                   <br>
-                  <input type="checkbox" name="modalities[tai_chi]" value="true" id="modalities_tai_chi">
+                  <input type="checkbox" name="modalities[tai_chi]" value="true" id="modalities_tai_chi" <%= @modalities.include?('tai_chi') ? 'checked' : '' %>>
                   <label for="modalities_tai_chi">Cosmodinâmica/Tai Chi</label>
                   <br>
-                  <input type="checkbox" name="modalities[ritmos]" value="true" id="modalities_ritmos">
+                  <input type="checkbox" name="modalities[ritmos]" value="true" id="modalities_ritmos" <%= @modalities.include?('ritmos') ? 'checked' : '' %>>
                   <label for="modalities_ritmos">Ritmos</label>
                   <br>
-                  <input type="checkbox" name="modalities[yoga]" value="true" id="modalities_yoga">
+                  <input type="checkbox" name="modalities[yoga]" value="true" id="modalities_yoga" <%= @modalities.include?('yoga') ? 'checked' : '' %>>
                   <label for="modalities_yoga">Sintonia/Yoga</label>
                 </div>
               <% end %>
@@ -321,7 +322,8 @@
   function clear_other_field(id) {
     if(document.getElementById(id).checked == true){
       document.getElementById('person_other_option').value = '';
-      document.getElementById('person_marketing_5').value = '';
+      document.getElementById('person_marketing_5').disabled = true;
+      console.log('clear other')
     }
   }
 
@@ -331,6 +333,7 @@
       document.getElementById('person_marketing_'+ i.toString()).checked = false;
       i++;
     }
-    document.getElementById('person_marketing_5').value = 'other';
+    document.getElementById('person_marketing_5').disabled = false;
+    console.log('clear all')
   }
 </script>

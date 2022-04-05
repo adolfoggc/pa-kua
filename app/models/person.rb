@@ -9,6 +9,8 @@ class Person < ApplicationRecord
   :cep_ciphertext, :address_ciphertext, :phone_ciphertext, :start_date_ciphertext, presence: true
   validates :cpf, uniqueness: true
 
+  before_save :check_marketing
+
   has_many :student_plans
   has_many :payments, through: :student_plans
   has_many :belts
@@ -57,7 +59,14 @@ class Person < ApplicationRecord
     other: 5
   }
 
-  attr_accessor :modalities_acrobacia, :modalities_armas_de_corte
+  def check_marketing
+    byebug
+    if self.other_option.present?
+      self.marketing = 'other'
+    elsif self.other_option.blank? && self.marketing = 'other'
+      self.marketing = nil
+    end
+  end
 
   def pakua_student?
     %w[student open_class_student].include?(self.role)

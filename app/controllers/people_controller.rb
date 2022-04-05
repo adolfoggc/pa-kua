@@ -34,6 +34,7 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     redirect_to welcome_back_path and return if Person.find_by(cpf: @person.cpf).present?
+    #byebug
     
     if params["commit"] == 'Cadastrar'
       return_path = welcome_path
@@ -56,6 +57,7 @@ class PeopleController < ApplicationController
         format.json { render :show, status: :created, location: @person }
       else
         roles_data
+        @modalities = params["modalities"].nil? ? [] : params["modalities"] 
         @view_action = 'Novo Membro'
         format.html { render error_path, status: :unprocessable_entity }
         format.json { render json: @person.errors, status: :unprocessable_entity }
@@ -93,6 +95,7 @@ class PeopleController < ApplicationController
   def new_student_form
     @person = Person.new
     @view_action = 'Novo Membro'
+    @modalities = []
   end
 
   private
