@@ -184,7 +184,6 @@
                     <%= form.label :marketing, 'Como conheceu a escola?', class: "mb-0" %>
                     <span class="text-danger">*</span>
                   </h4>
-                  <%= @person.marketing %>
                   <input type="radio" name="person[marketing]" value="recommendation" id="person_marketing_0" onclick="clear_other_field('person_marketing_0');"<%= enum_comparation(@person.marketing, Person.marketings, 0) ? "checked" : '' %>>
                   <label for="person_marketing_0">Indicação</label>
                   <br>

@@ -222,7 +222,7 @@ module ApplicationHelper
     html.join
   end
 
-  def enum_comparation(value, enum, position)
+  def enum_comparation(value, enum, position) 
     enum.keys.index(value) == position
   end
 
