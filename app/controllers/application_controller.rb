@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     @people = []
     @students = []
     @instructors = []
-    Person.all.order(id: 'ASC').each do |p|
+    Person.all.order(name: 'ASC').each do |p|
       @students << p if p.pakua_student?
       @instructors << p if p.pakua_instructor?
       @people << p
