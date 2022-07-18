@@ -7,7 +7,6 @@ class Person < ApplicationRecord
   validates :name_ciphertext, :birthdate_ciphertext, :cpf_ciphertext, :school_level_ciphertext,
   :occupation_ciphertext, :civil_status_ciphertext, :email_ciphertext, 
   :cep_ciphertext, :address_ciphertext, :phone_ciphertext, :start_date_ciphertext, presence: true
-  validates :cpf, uniqueness: true
 
   before_save :check_marketing
 
