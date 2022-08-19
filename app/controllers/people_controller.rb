@@ -34,7 +34,6 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     redirect_to welcome_back_path and return if Person.find_by(cpf: @person.cpf).present?
-    #byebug
     
     if params["commit"] == 'Cadastrar'
       return_path = welcome_path

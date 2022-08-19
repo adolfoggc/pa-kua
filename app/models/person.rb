@@ -59,7 +59,6 @@ class Person < ApplicationRecord
   }
 
   def check_marketing
-    byebug
     if self.other_option.present?
       self.marketing = 'other'
     elsif self.other_option.blank? && self.marketing = 'other'
